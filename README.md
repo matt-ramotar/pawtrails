@@ -1,3 +1,1 @@
 # Paw Trails
-
-![](pawtrails.png)
