@@ -1,3 +1,14 @@
+pm:
+  ☐ Create README
+  ☐ Create Wiki
+  ☐ Get signoff from Geoffrey
+
 frontend:
+  ☐ Set up material-ui
 
 backend:
+  ☐ Map schema
+  ☐ Chart API
+
+  db:
+    ☐ Seed
