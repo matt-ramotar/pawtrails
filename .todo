@@ -7,7 +7,7 @@ frontend:
   ☐ Set up material-ui
 
 backend:
-  ☐ Map schema
+  ✔ Map schema @done(20-09-26 16:45)
   ☐ Chart API
 
   db:
