@@ -1,7 +1,8 @@
-const fs = require('fs').promises;
-
 const puppeteer = require('puppeteer-extra');
 const RecaptchaPlugin = require('puppeteer-extra-plugin-recaptcha');
+
+const { trails } = require('../data/trails');
+const selectors = require('./selectors/trail');
 
 puppeteer.use(
   RecaptchaPlugin({
@@ -12,136 +13,78 @@ puppeteer.use(
     },
   })
 );
-const baseUrl = 'https://www.alltrails.com/us';
-const cities = [
-  '/oregon/portland',
-  '/massachusetts/boston',
-  '/new-york',
-  '/new-york/new-york-city',
-  '/texas/austin',
-  '/maryland/baltimore',
-  '/pennsylvania/philadelphia',
-  '/washington/seattle',
-  '/utah/salt-lake-city',
-  '/colorado/denver',
-  '/colorado/boulder',
-  '/california',
-  '/oregon',
-  '/massachusetts/boston',
-  '/california/los-angeles',
-  '/california/san-francisco',
-  '/illinois/chicago',
-  '/georgia/atlanta',
-  '/maine',
-];
 
-const url = `${baseUrl}${cities[cities.length - 1]}`;
+let trail = trails[300];
+let base = 'https://alltrails.com';
+const url = base + trail.uri;
+console.log(url);
 
 const getTrail = async () => {
   const browser = await puppeteer.launch({ headless: true });
 
   const page = await browser.newPage();
 
-  //const url = 'https://www.alltrails.com/us/massachussetts/boston';
   await page.goto(url);
 
-  // const SEL_SEARCH_BAR_INPUT =
-  //   '#marketing-features > section.visual > div.search-form-block > div > div.search-form-holder > div > div > div.inputs-holder > div > form > input.styles-module__input___28bDf';
-  // // click on sign in
+  await page.waitForSelector(selectors.TAG_CLOUD);
 
-  // const SEL_SEARCH_BAR_BUTTON =
-  //   '#marketing-features > section.visual > div.search-form-block > div > div.search-form-holder > div > div > div.inputs-holder > div > form > input.styles-module__btn___I-OkD';
+  // GET STATS
+  // =================================
 
-  // const SEARCH_INPUT = 'portland, or';
+  const stats = await page.evaluate(selectors => {
+    const overview = document
+      .querySelector(selectors.OVERVIEW)
+      .innerText.trim();
 
-  const SEL_RESULTS =
-    '#stick-bar-parent > div.styles-module__section___20Yip > div.styles-module__container___3h0Z6 > div.styles-module__results___24LBd';
+    const length = document.querySelector(selectors.LENGTH).innerText.trim();
 
-  const SEL_RESULT = `#stick-bar-parent > div.styles-module__section___20Yip > div.styles-module__container___3h0Z6 > div.styles-module__results___24LBd > div:nth-child${1}`;
+    const elevationGain = document
+      .querySelector(selectors.ELEVATION_GAIN)
+      .innerText.trim();
 
-  await page.waitForSelector(SEL_RESULTS);
+    let routeType;
 
-  await page.click('#sticky-bar > div > div > div:nth-child(6) > button');
-
-  await page.click(
-    '#spring-popper > div > div > div:nth-child(5) > div.styles-module__body___WqqYd > span > div > div > div:nth-child(1)'
-  );
-
-  let numOfTrails = await page.evaluate(
-    () =>
-      document
-        .querySelector(
-          '#stick-bar-parent > div.styles-module__section___20Yip > div.styles-module__showMore___2Bhtr > div > div'
-        )
-        .innerText.match(/\d+$/)[0]
-  );
-
-  numOfTrails = numOfTrails > 100 ? 100 : numOfTrails;
-
-  const SEL_MORE_TRAILS_BUTTON =
-    '#stick-bar-parent > div.styles-module__section___20Yip > div.styles-module__showMore___2Bhtr > div > button';
-
-  let moreTrailsCounter = Math.ceil(numOfTrails / 10);
-
-  console.log(moreTrailsCounter);
-  console.log(numOfTrails);
-
-  for (let i = 0; i < moreTrailsCounter; i++) {
-    await page.click(SEL_MORE_TRAILS_BUTTON);
-    console.log(i);
-  }
-
-  for (let i = 1; i <= numOfTrails; i++) {
-    let res = [];
     try {
-      const details = await page.evaluate(i => {
-        const href = document
-          .querySelector(
-            `#stick-bar-parent > div.styles-module__section___20Yip > div.styles-module__container___3h0Z6 > div.styles-module__results___24LBd > div:nth-child(${i}) > a`
-          )
-          .getAttribute('href');
+      routeType = document.querySelector(selectors.LOOP)
+        ? document.querySelector(selectors.LOOP).innerText
+        : document.querySelector(selectors.OUT_AND_BACK)
+        ? document.querySelector(selectors.OUT_AND_BACK).innerText
+        : document.querySelector(selectors.POINT_TO_POINT).innerText;
+    } catch (e) {
+      console.log(e);
+    }
 
-        const name = document
-          .querySelector(
-            `#stick-bar-parent > div.styles-module__section___20Yip > div.styles-module__container___3h0Z6 > div.styles-module__results___24LBd > div:nth-child(${i}) > div.styles-module__content___1eARw.styles-module__content___3dWXB.styles-module__descriptive___3ATWV > div.xlate-none.styles-module__name___3T41O.undefined`
-          )
-          .innerText.match(/[a-zA-Z]+/g)
-          .join(' ');
+    return {
+      overview,
+      length,
+      elevationGain,
+      routeType,
+    };
+  }, selectors);
 
-        return { name, href };
-      }, i);
-      res.push(details);
-    } catch (e) {}
-    console.log(res);
+  // GET TAGS
+  // =================================
+  const tags = [];
+
+  const numOfTags = await page.evaluate(sel => {
+    return document.querySelector(sel).children.length;
+  }, selectors.TAG_CLOUD);
+
+  for (let i = 1; i <= numOfTags; i++) {
+    const tag = await page.evaluate(
+      (i, sel) => {
+        return document.querySelector(sel.replace(/INDEX/, i)).innerText.trim();
+      },
+      i,
+      selectors.TAG
+    );
+    tags.push(tag);
   }
+  console.log({
+    stats,
+    tags,
+  });
 
-  // await page.click(SEL_LINK_SIGN_IN);
-  // await page.waitForSelector(SEL_USERNAME);
-
-  // await page.click(SEL_USERNAME);
-  // await page.keyboard.type(username);
-  // await page.click(SEL_PASSWORD);
-  // await page.keyboard.type(pw);
-  // await page.click(SEL_BTN_SIGN_IN);
-  // await page.solveRecaptchas();
-
-  // await page.waitForSelector(SEL_OL);
-
-  // const instructions = await page.evaluate(
-  //   (sel, exerciseId) => {
-  //     const res = [];
-  //     const items = document.querySelector(sel).children;
-  //     for (item of items) {
-  //       res.push({
-  //         instruction: item.innerText,
-  //         exerciseId: exerciseId,
-  //       });
-  //     }
-  //     return res;
-  //   },
-  //   SEL_OL,
-  //   exerciseId
-  // );
   browser.close();
 };
 

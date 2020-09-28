@@ -21,12 +21,13 @@ function App() {
     () =>
       createMuiTheme({
         palette: {
-          type: prefersDarkMode ? 'dark' : 'light',
+          type: prefersDarkMode ? 'light' : 'light',
         },
       }),
     [prefersDarkMode]
   );
 
+  console.log(theme);
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -38,7 +39,7 @@ function App() {
             <h1>Paw Trails</h1>
             <Button
               variant='contained'
-              color='primary'
+              color='secondary'
               className={classes.button}>
               Material-Ui
             </Button>
