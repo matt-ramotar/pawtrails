@@ -1,13 +1,10 @@
 module.exports = {
   RESULTS:
     '#stick-bar-parent > div.styles-module__section___20Yip > div.styles-module__container___3h0Z6 > div.styles-module__results___24LBd',
-
   RESULT:
     '#stick-bar-parent > div.styles-module__section___20Yip > div.styles-module__container___3h0Z6 > div.styles-module__results___24LBd > div:nth-child(INDEX)',
-
   NUM_OF_TRAILS:
     '#stick-bar-parent > div.styles-module__section___20Yip > div.styles-module__showMore___2Bhtr > div > div',
-
   MORE_TRAILS_BUTTON:
     '#stick-bar-parent > div.styles-module__section___20Yip > div.styles-module__showMore___2Bhtr > div > button',
   HREF:

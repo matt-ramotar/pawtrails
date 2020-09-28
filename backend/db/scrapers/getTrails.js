@@ -2,11 +2,10 @@ const fs = require('fs').promises;
 const puppeteer = require('puppeteer-extra');
 
 const { cities } = require('../data/cities');
-console.log(cities);
 const selectors = require('./selectors/trails');
 
 const getTrails = async city => {
-  const url = `https://www.alltrails.com/us${city}`;
+  const url = `https://www.alltrails.com/us/${city.state}/${city.city}`;
   const browser = await puppeteer.launch({ headless: true });
 
   const page = await browser.newPage();
@@ -20,8 +19,6 @@ const getTrails = async city => {
   }, selectors.NUM_OF_TRAILS);
 
   const trailsToGet = numOfTrails > 100 ? 100 : numOfTrails;
-
-  const clicksNeeded = Math.ceil(numOfTrails / 10);
 
   await page.waitForSelector(selectors.MORE_TRAILS_BUTTON);
 
@@ -53,7 +50,7 @@ const getTrails = async city => {
     } catch (e) {
       fs.appendFile(
         '../errors/getTrails.json',
-        JSON.stringify(`Trail ${i}, ${city}`),
+        JSON.stringify(`Trail ${i}, ${city.city}`),
         'utf-8',
         err => console.error(err)
       );
@@ -69,9 +66,6 @@ const getTrails = async city => {
 
 (async () => {
   for (let city of cities) {
-    const trails = await getTrails(city);
-    console.log(`${city},
-
-    ${trails}`);
+    await getTrails(city);
   }
 })();
