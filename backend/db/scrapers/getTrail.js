@@ -6,11 +6,9 @@ const https = require('https');
 const { trails } = require('../data/trails');
 const selectors = require('./selectors/trail');
 
-console.log(trails);
-let trail = trails[300];
+let trail = trails[150];
 let base = 'https://alltrails.com';
 const url = base + trail.uri;
-console.log(url);
 
 const download = (url, destination) =>
   new Promise((resolve, reject) => {
@@ -48,6 +46,10 @@ const getTrail = async () => {
       .querySelector(selectors.OVERVIEW)
       .innerText.trim();
 
+    const difficulty = document
+      .querySelector(selectors.DIFFICULTY)
+      .innerText.trim();
+
     const length = document.querySelector(selectors.LENGTH).innerText.trim();
 
     const elevationGain = document
@@ -68,6 +70,7 @@ const getTrail = async () => {
 
     return {
       overview,
+      difficulty,
       length,
       elevationGain,
       routeType,
@@ -96,32 +99,37 @@ const getTrail = async () => {
   // GET PHOTOS
   // =================================
 
-  const photos = [];
-
   await page.goto(`${url}/photos`);
+
+  console.log(`${url}/photos`);
 
   await page.waitForSelector(selectors.PHOTO_FEED);
 
   const images = await page.evaluate(() =>
-    Array.from(document.images, img => img.src)
+    Array.from(document.querySelectorAll('img.trail-photo'))
+      .map(img => img.src)
+      .filter(src => src)
   );
 
-  let result;
+  console.log(await images);
 
-  for (let i = 0; i < images.length; i++) {
-    result = await download(images[i], `trail-${trail.id}_img-${i}.jpg`);
+  // let result;
 
-    if (result === true) {
-      console.log(`Success: Image ${i} downloaded.`);
-    } else {
-      console.log(`Error: Image ${i} was not downloaded.`);
-      console.error(result);
-    }
-  }
+  // for (let i = 0; i < images.length; i++) {
+  //   result = await download(images[i], `trail-${trail.id}_img-${i}.jpg`);
+
+  //   if (result === true) {
+  //     console.log(`Success: Image ${i} downloaded.`);
+  //   } else {
+  //     console.log(`Error: Image ${i} was not downloaded.`);
+  //     console.error(result);
+  //   }
+  // }
 
   console.log({
     stats,
     tags,
+    images,
   });
 
   browser.close();

@@ -1,6 +1,6 @@
 module.exports = {
   DIFFICULTY:
-    '#title-and-menu-box > div:nth-child(1) > div > div > div > span.styles-module__diff___22Qtv.styles-module__easy___bPX-K.styles-module__selected___3fawg',
+    '#title-and-menu-box > div:nth-child(1) > div > div > div > span.styles-module__diff___22Qtv.styles-module__selected___3fawg',
   OVERVIEW: '#auto-overview',
   LENGTH:
     '#trail-stats > div > span.distance-icon > span.detail-data.xlate-none',
