@@ -1,13 +1,35 @@
 const puppeteer = require('puppeteer-extra');
+const fs = require('fs');
 const RecaptchaPlugin = require('puppeteer-extra-plugin-recaptcha');
+const https = require('https');
 
 const { trails } = require('../data/trails');
 const selectors = require('./selectors/trail');
 
+console.log(trails);
 let trail = trails[300];
 let base = 'https://alltrails.com';
 const url = base + trail.uri;
 console.log(url);
+
+const download = (url, destination) =>
+  new Promise((resolve, reject) => {
+    const file = fs.createWriteStream(destination);
+
+    https
+      .get(url, response => {
+        response.pipe(file);
+
+        file.on('finish', () => {
+          file.close(resolve(true));
+        });
+      })
+      .on('error', error => {
+        fs.unlink(destination);
+
+        reject(error.message);
+      });
+  });
 
 const getTrail = async () => {
   const browser = await puppeteer.launch({ headless: true });
@@ -70,6 +92,33 @@ const getTrail = async () => {
     );
     tags.push(tag);
   }
+
+  // GET PHOTOS
+  // =================================
+
+  const photos = [];
+
+  await page.goto(`${url}/photos`);
+
+  await page.waitForSelector(selectors.PHOTO_FEED);
+
+  const images = await page.evaluate(() =>
+    Array.from(document.images, img => img.src)
+  );
+
+  let result;
+
+  for (let i = 0; i < images.length; i++) {
+    result = await download(images[i], `trail-${trail.id}_img-${i}.jpg`);
+
+    if (result === true) {
+      console.log(`Success: Image ${i} downloaded.`);
+    } else {
+      console.log(`Error: Image ${i} was not downloaded.`);
+      console.error(result);
+    }
+  }
+
   console.log({
     stats,
     tags,

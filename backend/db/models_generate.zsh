@@ -14,3 +14,5 @@ npx sequelize model:generate --name List --attributes name:string
 
 
 npx sequelize model:generate --name UserTrail --attributes userId:integer,trailId:integer,listId:integer,isFavorite:boolean
+
+npx sequelize model:generate --name TrailTag --attributes trailId:integer,tag:string
