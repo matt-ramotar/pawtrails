@@ -4,16 +4,6 @@ const RecaptchaPlugin = require('puppeteer-extra-plugin-recaptcha');
 const { trails } = require('../data/trails');
 const selectors = require('./selectors/trail');
 
-puppeteer.use(
-  RecaptchaPlugin({
-    provider: {
-      id: '2captcha',
-      token: '463c02eedcbb6ed46d6aae3f3c89815f',
-      visualFeedback: true,
-    },
-  })
-);
-
 let trail = trails[300];
 let base = 'https://alltrails.com';
 const url = base + trail.uri;
