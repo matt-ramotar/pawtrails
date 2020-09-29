@@ -9,7 +9,6 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Trail.belongsTo(models.City, { foreignKey: 'cityId' });
-      Trail.belongsTo(models.RouteType, { foreignKey: 'routeType' });
 
       Trail.belongsToMany(models.Tag, {
         through: models.TrailTag,
@@ -18,13 +17,13 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       Trail.belongsToMany(models.User, {
-        through: models.User,
+        through: models.UserTrail,
         foreignKey: 'trailId',
         otherKey: 'userId',
       });
 
       Trail.belongsToMany(models.List, {
-        through: models.User,
+        through: models.UserTrail,
         foreignKey: 'trailId',
         otherKey: 'listId',
       });
@@ -35,13 +34,13 @@ module.exports = (sequelize, DataTypes) => {
   Trail.init(
     {
       name: DataTypes.STRING,
-      uri: DataTypes.STRING,
+      allTrailsURI: DataTypes.STRING,
       overview: DataTypes.TEXT,
-      length: DataTypes.INTEGER,
-      elevationGain: DataTypes.INTEGER,
-      routeType: DataTypes.STRING,
-      difficulty: DataTypes.ENUM('Easy', 'Moderate', 'Hard'),
-      cityId: DataTypes.STRING,
+      length: DataTypes.STRING,
+      elevationGain: DataTypes.STRING,
+      routeType: DataTypes.ENUM('Loop', 'Point to Point', 'Out & Back'),
+      difficulty: DataTypes.ENUM('easy', 'moderate', 'hard'),
+      cityId: DataTypes.INTEGER,
     },
     {
       sequelize,

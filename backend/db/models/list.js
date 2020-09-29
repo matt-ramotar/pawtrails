@@ -9,13 +9,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       List.belongsToMany(models.Trail, {
-        through: models.User,
+        through: models.UserTrail,
         foreignKey: 'listId',
         otherKey: 'trailId',
       });
 
       List.belongsToMany(models.User, {
-        through: models.User,
+        through: models.UserTrail,
         foreignKey: 'listId',
         otherKey: 'userId',
       });

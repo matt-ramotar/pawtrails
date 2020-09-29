@@ -11,13 +11,13 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Photo, { foreignKey: 'userId' });
 
       User.belongsToMany(models.Trail, {
-        through: models.User,
+        through: models.UserTrail,
         foreignKey: 'userId',
         otherKey: 'trailId',
       });
 
       User.belongsToMany(models.List, {
-        through: models.User,
+        through: models.UserTrail,
         foreignKey: 'userId',
         otherKey: 'listId',
       });

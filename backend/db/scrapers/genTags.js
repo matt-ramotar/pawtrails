@@ -15,7 +15,7 @@ const { Tag } = db;
 
   for (let tag of tags) {
     await fs.appendFile(
-      '../data/json/tags.json',
+      '../data/json/Tag.json',
       JSON.stringify({ tag, createdAt: 'new Date()', updatedAt: 'new Date()' })
     );
   }

@@ -61,7 +61,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        name: 'new-york-name',
+        name: 'new-york-city',
         state: 'new-york',
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -79,7 +79,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        name: 'salt-lake-name',
+        name: 'salt-lake-city',
         state: 'utah',
         createdAt: new Date(),
         updatedAt: new Date(),

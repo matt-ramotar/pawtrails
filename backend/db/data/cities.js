@@ -55,7 +55,7 @@ module.exports = {
       updatedAt: new Date(),
     },
     {
-      name: 'new-york-name',
+      name: 'new-york-city',
       state: 'new-york',
       createdAt: new Date(),
       updatedAt: new Date(),
