@@ -1,5 +1,10 @@
 'use strict';
+
+const { Op } = require('sequelize');
+const bcrypt = require('bcryptjs');
+
 const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -27,9 +32,78 @@ module.exports = (sequelize, DataTypes) => {
     {
       firstName: DataTypes.STRING,
       lastName: DataTypes.STRING,
-      email: DataTypes.STRING,
-      hashedPassword: DataTypes.STRING,
+      username: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          len: [5, 40],
+        },
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          isEmail: true,
+          len: [3, 255],
+        },
+      },
+      hashedPassword: {
+        type: DataTypes.STRING(60).BINARY,
+        allowNull: false,
+        validates: {
+          len: [60, 60],
+        },
+      },
     },
+    {
+      defaultScope: {
+        attributes: {
+          exclude: ['hashedPassword', 'email', 'updatedAt'],
+        },
+      },
+      scopes: {
+        currentUser: {
+          attributes: { exclude: ['hashedPassword'] },
+        },
+        loginUser: {
+          attributes: {},
+        },
+        profile: {
+          attributes: {
+            exclude: ['hashedPassword', 'email', 'updatedAt'],
+          },
+        },
+      },
+    },
+    (User.prototype.toSafeObject = function () {
+      const { id, username } = this;
+      return { id, username };
+    }),
+    (User.prototype.validatePassword = function (password) {
+      return bcrypt.compareSync(password, this.hashedPassword.toString());
+    }),
+    (User.getCurrentUserById = async function (id) {
+      return await User.scope('currentUser').findByPk(id);
+    }),
+    (User.login = async function ({ username, password }) {
+      const user = await User.scope('loginUser').findOne({
+        where: {
+          [Op.or]: [{ username }, { email: username }],
+        },
+      });
+      if (user && user.validatePassword(password)) {
+        return await User.getCurrentUserById(user.id);
+      }
+    }),
+    (User.signup = async function ({ username, email, password }) {
+      const hashedPassword = bcrypt.hashSync(password);
+      const user = await User.create({
+        username,
+        email,
+        hashedPassword,
+      });
+      return await User.getCurrentUserById(user.id);
+    }),
     {
       sequelize,
       modelName: 'User',
