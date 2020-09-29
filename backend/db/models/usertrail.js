@@ -1,26 +1,13 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class UserTrail extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
-  };
-  UserTrail.init({
+  const UserTrail = sequelize.define('UserTrail', {
     userId: DataTypes.INTEGER,
     trailId: DataTypes.INTEGER,
     listId: DataTypes.INTEGER,
     isFavorite: DataTypes.BOOLEAN
-  }, {
-    sequelize,
-    modelName: 'UserTrail',
-  });
+  }, {});
+  UserTrail.associate = function(models) {
+    // associations can be defined here
+  };
   return UserTrail;
 };
