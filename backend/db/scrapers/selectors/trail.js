@@ -1,6 +1,6 @@
 module.exports = {
   DIFFICULTY:
-    '#title-and-menu-box > div:nth-child(1) > div > div > div > span.styles-module__diff___22Qtv.styles-module__easy___bPX-K.styles-module__selected___3fawg',
+    '#title-and-menu-box > div:nth-child(1) > div > div > div > span.styles-module__diff___22Qtv.styles-module__selected___3fawg',
   OVERVIEW: '#auto-overview',
   LENGTH:
     '#trail-stats > div > span.distance-icon > span.detail-data.xlate-none',
@@ -15,4 +15,6 @@ module.exports = {
     '#main > div.row.trail-info > div.col-md-8.col-sm-12 > article > section.tag-cloud',
   TAG:
     '#main > div.row.trail-info > div.col-md-8.col-sm-12 > article > section.tag-cloud > span:nth-child(INDEX) > span',
+  PHOTO_FEED: '#photos > div.feed-items',
+  LOCATION: '#main-action-bar > ul > li.bar-icon.trail-directions > div > a',
 };

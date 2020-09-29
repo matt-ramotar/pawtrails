@@ -11,24 +11,23 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
       },
-      uri: {
+      allTrailsURI: {
         type: Sequelize.STRING,
       },
       overview: {
         type: Sequelize.TEXT,
       },
       length: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       elevationGain: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       routeType: {
-        type: Sequelize.STRING,
-        references: { model: 'RouteTypes', key: 'type' },
+        type: Sequelize.ENUM('Loop', 'Point to Point', 'Out & Back'),
       },
       difficulty: {
-        type: Sequelize.ENUM('Easy', 'Moderate', 'Hard'),
+        type: Sequelize.ENUM('easy', 'moderate', 'hard'),
       },
       cityId: {
         type: Sequelize.INTEGER,
