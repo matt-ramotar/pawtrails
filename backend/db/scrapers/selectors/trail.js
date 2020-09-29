@@ -16,4 +16,5 @@ module.exports = {
   TAG:
     '#main > div.row.trail-info > div.col-md-8.col-sm-12 > article > section.tag-cloud > span:nth-child(INDEX) > span',
   PHOTO_FEED: '#photos > div.feed-items',
+  LOCATION: '#main-action-bar > ul > li.bar-icon.trail-directions > div > a',
 };
