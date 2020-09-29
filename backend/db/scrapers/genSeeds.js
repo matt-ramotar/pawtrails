@@ -32,9 +32,10 @@ const cities = {
       try {
         // await Photo.create({ trailId: trail.id, url: imgURL });
         fs.appendFile(
-          '../data/json/Photos.json',
+          '../data/json/Photos--withURI.json',
           JSON.stringify({
             trailId: trail.id,
+            allTrailsURI: trail.allTrailsURI,
             url: imgURL,
             createdAt: 'new Date()',
             updatedAt: 'new Date()',
@@ -45,41 +46,41 @@ const cities = {
       }
     }
     // TrailTag
-    for (const tag of trail.tags) {
-      try {
-        // await TrailTag.create({ trailId: trail.id, tag });
-        fs.appendFile(
-          '../data/json/TrailTag.json',
-          JSON.stringify({
-            trailId: trail.id,
-            tag,
-            createdAt: 'new Date()',
-            updatedAt: 'new Date()',
-          })
-        );
-      } catch (e) {
-        console.e;
-      }
-    }
+    // for (const tag of trail.tags) {
+    //   try {
+    //     // await TrailTag.create({ trailId: trail.id, tag });
+    //     fs.appendFile(
+    //       '../data/json/TrailTag.json',
+    //       JSON.stringify({
+    //         trailId: trail.id,
+    //         tag,
+    //         createdAt: 'new Date()',
+    //         updatedAt: 'new Date()',
+    //       })
+    //     );
+    //   } catch (e) {
+    //     console.e;
+    //   }
+    // }
     // Trail
-    try {
-      fs.appendFile(
-        '../data/json/Trail.json',
-        JSON.stringify({
-          name: trail.name,
-          allTrailsURI: trail.allTrailsURI,
-          overview: trail.overview,
-          length: trail.length,
-          elevationGain: trail.elevationGain,
-          routeType: trail.routeType,
-          difficulty: trail.difficulty,
-          cityId,
-          createdAt: 'new Date()',
-          updatedAt: 'new Date()',
-        })
-      );
-    } catch (e) {
-      console.e;
-    }
+    // try {
+    //   fs.appendFile(
+    //     '../data/json/Trail.json',
+    //     JSON.stringify({
+    //       name: trail.name,
+    //       allTrailsURI: trail.allTrailsURI,
+    //       overview: trail.overview,
+    //       length: trail.length,
+    //       elevationGain: trail.elevationGain,
+    //       routeType: trail.routeType,
+    //       difficulty: trail.difficulty,
+    //       cityId,
+    //       createdAt: 'new Date()',
+    //       updatedAt: 'new Date()',
+    //     })
+    //   );
+    // } catch (e) {
+    //   console.e;
+    // }
   }
 })();
