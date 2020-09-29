@@ -28,40 +28,41 @@ const cities = {
     const cityId = cities[trail.city.city];
     console.log(cityId);
     // Photo
-    for (const imgURL of trail.images) {
-      try {
-        // await Photo.create({ trailId: trail.id, url: imgURL });
-        fs.appendFile(
-          '../data/json/Photos--withURI.json',
-          JSON.stringify({
-            trailId: trail.id,
-            allTrailsURI: trail.allTrailsURI,
-            url: imgURL,
-            createdAt: 'new Date()',
-            updatedAt: 'new Date()',
-          })
-        );
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    // TrailTag
-    // for (const tag of trail.tags) {
+    // for (const imgURL of trail.images) {
     //   try {
-    //     // await TrailTag.create({ trailId: trail.id, tag });
+    //     // await Photo.create({ trailId: trail.id, url: imgURL });
     //     fs.appendFile(
-    //       '../data/json/TrailTag.json',
+    //       '../data/json/Photos--withURI.json',
     //       JSON.stringify({
     //         trailId: trail.id,
-    //         tag,
+    //         allTrailsURI: trail.allTrailsURI,
+    //         url: imgURL,
     //         createdAt: 'new Date()',
     //         updatedAt: 'new Date()',
     //       })
     //     );
     //   } catch (e) {
-    //     console.e;
+    //     console.error(e);
     //   }
     // }
+    // TrailTag
+    for (const tag of trail.tags) {
+      try {
+        // await TrailTag.create({ trailId: trail.id, tag });
+        fs.appendFile(
+          '../data/json/TrailTag--withURI.json',
+          JSON.stringify({
+            trailId: trail.id,
+            allTrailsURI: trail.allTrailsURI,
+            tag,
+            createdAt: 'new Date()',
+            updatedAt: 'new Date()',
+          })
+        );
+      } catch (e) {
+        console.e;
+      }
+    }
     // Trail
     // try {
     //   fs.appendFile(
