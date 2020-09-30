@@ -12,6 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import MultipleSelect from './components/MultipleSelect';
 import MenuAppBar from './components/AppBar';
 import configureStore from './store/configureStore';
+import Pages from './pages/Pages';
 
 const store = configureStore();
 
@@ -65,14 +66,7 @@ function App() {
         <MenuAppBar></MenuAppBar>
         <MultipleSelect></MultipleSelect>
         <BrowserRouter>
-          <Provider store={store}>
-            <Route exact path='/'>
-              <h1>Paw Trails</h1>
-              <Button variant='contained' color='secondary' className={classes.button}>
-                Material-Ui
-              </Button>
-            </Route>
-          </Provider>
+          <Pages></Pages>
         </BrowserRouter>
       </ThemeProvider>
     </>
