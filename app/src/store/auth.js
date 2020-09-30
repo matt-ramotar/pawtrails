@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 
 const SET_USER = 'auth/SET_USER';
 
-const setUser = user => {
+export const setUser = user => {
   return {
     type: SET_USER,
     user,
@@ -20,15 +20,33 @@ export const login = (username, password) => {
       },
       body: JSON.stringify({ username, password }),
     });
-    res.data = await res.json();
     if (res.ok) {
-      dispatch(setUser(res.data));
+      const data = await res.json();
+      dispatch(setUser(data.user));
     }
     return res;
   };
 };
 
-export default function authReducer(state = {}, action) {
+function loadUser() {
+  const authToken = Cookies.get('token');
+  if (authToken) {
+    try {
+      const payload = authToken.split('.')[1];
+      const decodedPayload = atob(payload);
+      const payloadObj = JSON.parse(decodedPayload);
+      const { data } = payloadObj;
+      return data;
+    } catch (e) {
+      Cookies.remove('token');
+    }
+  }
+  return {};
+}
+
+window.login = login;
+
+export default function authReducer(state = loadUser(), action) {
   switch (action.type) {
     case SET_USER:
       return action.user;
