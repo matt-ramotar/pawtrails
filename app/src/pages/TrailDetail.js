@@ -4,7 +4,9 @@ import { useParams } from 'react-router-dom';
 import Carousel from 'react-material-ui-carousel';
 import Typography from '@material-ui/core/Typography';
 import { Chip } from '@material-ui/core';
-
+import { Button } from '@material-ui/core';
+import { useModal } from 'react-modal-hook';
+import CreateReviewModal from '../components/CreateReviewModal';
 import { getTrail } from '../store/trails';
 
 const TrailDetail = ({ getTrailDispatch, trail }) => {
@@ -15,6 +17,10 @@ const TrailDetail = ({ getTrailDispatch, trail }) => {
   useEffect(() => {
     getTrailDispatch(id);
   }, [id]);
+
+  const [showCreateReviewModal, hideCreateReviewModal] = useModal(({ in: open, onExited }) => (
+    <CreateReviewModal id={id} open={open} onExited={onExited} onClose={hideCreateReviewModal} />
+  ));
 
   if (!trail) return null;
 
@@ -36,11 +42,7 @@ const TrailDetail = ({ getTrailDispatch, trail }) => {
         ))}
       </Carousel>
 
-      <Chip color='secondary' size='small' label={trail.difficulty} />
-
-      <Typography variant='body2' color='textSecondary' component='p'>
-        {trail.overview}
-      </Typography>
+      <Chip color='primary' size='small' label={trail.difficulty} />
 
       <div>
         <div>
@@ -58,9 +60,17 @@ const TrailDetail = ({ getTrailDispatch, trail }) => {
       </div>
       <div>
         {trail.Tags.map(tag => (
-          <Chip color='primary' size='small' label={tag.tag} />
+          <Chip color='default' size='small' label={tag.tag} />
         ))}
       </div>
+
+      <Typography variant='body2' color='textSecondary' component='p'>
+        {trail.overview}
+      </Typography>
+
+      <Button color='inherit' className='success button' href='/reviews/new'>
+        Write Review
+      </Button>
     </>
   );
 };
