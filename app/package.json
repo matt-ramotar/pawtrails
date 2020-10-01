@@ -9,7 +9,9 @@
     "js-cookie": "^2.2.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-material-ui-carousel": "^2.0.0",
     "react-redux": "^7.2.1",
+    "react-responsive-carousel": "^3.2.10",
     "react-scripts": "3.4.3",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0"
