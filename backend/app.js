@@ -35,7 +35,7 @@ app.use(
     },
   })
 );
-
+console.log('here beefore routees');
 // connect the routes from the /routes folder
 app.use(routes);
 
@@ -57,10 +57,10 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
-
 // create a 404 error for any requests that reach this middleware
 // (requests will not reach this middleware if the response has been resolved)
 app.use(function (_req, _res, next) {
+  console.log('404');
   next(createError(404));
 });
 

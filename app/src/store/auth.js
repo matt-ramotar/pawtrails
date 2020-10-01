@@ -19,8 +19,8 @@ export const login = (username, password) => {
       body: JSON.stringify({ username, password }),
     });
     if (res.ok) {
-      const data = await res.json();
-      dispatch(setUser(data.user));
+      const { user } = await res.json();
+      dispatch(setUser(user));
     } else {
       console.log(res);
     }
@@ -48,8 +48,8 @@ function loadUser() {
       const payload = authToken.split('.')[1];
       const decodedPayload = atob(payload);
       const payloadObj = JSON.parse(decodedPayload);
-      const { data } = payloadObj;
-      return data;
+      // const { data } = payloadObj;
+      return payloadObj;
     } catch (e) {
       Cookies.remove('token');
     }
