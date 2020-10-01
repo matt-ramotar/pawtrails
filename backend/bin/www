@@ -15,6 +15,7 @@ const config = require('../config');
  */
 
 const port = normalizePort(config.port || '5000');
+console.log('listning on port ', port);
 app.set('port', port);
 
 /**

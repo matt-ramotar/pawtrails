@@ -21,23 +21,6 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 function App() {
-  const [loading, setLoading] = useState(true);
-  const dispatch = useDispatch();
-  // Check to see if there is a user logged in before loading the application
-  useEffect(() => {
-    const loadUser = async () => {
-      const res = await fetch('/api/session');
-      if (res.ok) {
-        res.data = await res.json(); // current user info
-        console.log(res.data);
-        // if using Redux, add current user info to the store
-        dispatch(setUser(res.data.user));
-      }
-      setLoading(false);
-    };
-    loadUser();
-  }, [dispatch]);
-
   const useStyles = makeStyles(theme => ({
     button: {
       margin: theme.spacing(1),

@@ -2,12 +2,12 @@ const express = require('express');
 const asyncHandler = require('express-async-handler');
 const { check } = require('express-validator');
 
-const { User } = require('../../db/models');
-const { handleValidationErrors } = require('../util/validation');
-const { getCurrentUser, generateToken } = require('../util/auth');
+const { User } = require('../backend/db/models');
+const { handleValidationErrors } = require('../backend/routes/util/validation');
+const { getCurrentUser, generateToken } = require('../backend/routes/util/auth');
 const {
   jwtConfig: { expiresIn },
-} = require('../../config');
+} = require('../backend/config');
 
 const router = express.Router();
 

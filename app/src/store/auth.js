@@ -11,21 +11,34 @@ export const setUser = user => {
 
 export const login = (username, password) => {
   return async dispatch => {
-    const res = await fetch('/api/session', {
+    const res = await fetch('/api/auth/login', {
       method: 'put',
       headers: {
         'Content-Type': 'application/json',
-        // anything other than get method needs XSRF-TOKEN header
-        'XSRF-TOKEN': Cookies.get('XSRF-TOKEN'),
       },
       body: JSON.stringify({ username, password }),
     });
     if (res.ok) {
-      const data = await res.json();
-      dispatch(setUser(data.user));
+      const { user } = await res.json();
+      dispatch(setUser(user));
+    } else {
+      console.log(res);
     }
     return res;
   };
+};
+
+export const signup = (firstName, lastName, username, email, password) => async dispatch => {
+  const res = await fetch('/api/auth/signup', {
+    method: 'post',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ firstName, lastName, username, email, password }),
+  });
+
+  if (res.ok) {
+    const { user } = await res.json();
+    dispatch(setUser(user));
+  }
 };
 
 function loadUser() {
@@ -35,16 +48,14 @@ function loadUser() {
       const payload = authToken.split('.')[1];
       const decodedPayload = atob(payload);
       const payloadObj = JSON.parse(decodedPayload);
-      const { data } = payloadObj;
-      return data;
+      // const { data } = payloadObj;
+      return payloadObj;
     } catch (e) {
       Cookies.remove('token');
     }
   }
   return {};
 }
-
-window.login = login;
 
 export default function authReducer(state = loadUser(), action) {
   switch (action.type) {
