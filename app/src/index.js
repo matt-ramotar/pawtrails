@@ -9,6 +9,18 @@ import configureStore from './store/configureStore';
 
 const store = configureStore();
 
+if (process.env.NODE_ENV !== 'production') {
+  const getCSRFToken = () => {
+    return fetch('/api/csrf/token');
+  };
+
+  getCSRFToken();
+}
+
+if (process.env.NODE_ENV !== 'production') {
+  window.store = store;
+}
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
