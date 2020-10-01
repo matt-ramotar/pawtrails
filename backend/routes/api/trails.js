@@ -22,6 +22,16 @@ router.get(
   })
 );
 
+router.get(
+  '/:id',
+  asyncHandler(async (req, res) => {
+    const trail = await Trail.findByPk(req.params.id, {
+      include: [{ model: Photo }, { model: Tag }, { model: City }],
+    });
+    res.json(trail);
+  })
+);
+
 // router.post('/', asyncHandler(async (req, res) => {
 //   const trails = await Trail.findAll
 // }))
