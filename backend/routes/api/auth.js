@@ -111,19 +111,19 @@ router.put(
 );
 
 //full path /api/auth/logout
-router.delete(
-  '/logout',
-  [restoreUser],
-  asyncHandler(async (req, res) => {
-    //remove token from db & save user
-    //restoreuser middleware is responsible for finding the user from DB
-    req.user.tokenId = null;
-    await req.user.save();
+// router.delete(
+//   '/logout',
+//   restoreUser,
+//   asyncHandler(async (req, res) => {
+//     //remove token from db & save user
+//     //restoreuser middleware is responsible for finding the user from DB
+//     req.user.tokenId = null;
+//     await req.user.save();
 
-    //remove cookie from user's browser
-    res.clearCookie('token');
-    res.json({ message: 'success' });
-  })
-);
+//     //remove cookie from user's browser
+//     res.clearCookie('token');
+//     res.json({ message: 'success' });
+//   })
+// );
 
 module.exports = router;

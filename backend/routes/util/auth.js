@@ -4,6 +4,7 @@ const uuid = require('uuid').v4;
 const {
   jwtConfig: { secret, expiresIn },
 } = require('../../config');
+
 const { User } = require('../../db/models');
 
 function generateToken(user) {
@@ -54,4 +55,6 @@ function restoreUser(req, res, next) {
   });
 }
 
-module.exports = { generateToken, restoreUser };
+const authenticated = [restoreUser];
+
+module.exports = { generateToken, authenticated };
