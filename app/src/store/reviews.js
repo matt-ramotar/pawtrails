@@ -9,3 +9,10 @@ export const createReview = data => async dispatch => {
   //   // dispatch(getPokemon());
   // }
 };
+
+export default function reviewsReducer(state = {}, action) {
+  switch (action.type) {
+    default:
+      return state;
+  }
+}
