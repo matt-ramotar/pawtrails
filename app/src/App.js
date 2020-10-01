@@ -47,7 +47,6 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <MenuAppBar></MenuAppBar>
-        <MultipleSelect></MultipleSelect>
         <BrowserRouter>
           <Pages></Pages>
         </BrowserRouter>

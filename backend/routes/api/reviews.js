@@ -32,3 +32,5 @@ router.post(
     return res.json({ review });
   })
 );
+
+module.exports = router;
