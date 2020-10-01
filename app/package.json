@@ -10,6 +10,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-material-ui-carousel": "^2.0.0",
+    "react-modal-hook": "^3.0.0",
     "react-redux": "^7.2.1",
     "react-responsive-carousel": "^3.2.10",
     "react-scripts": "3.4.3",
