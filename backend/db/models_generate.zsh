@@ -15,3 +15,7 @@ npx sequelize model:generate --name TrailTag --attributes trailId:integer,tag:st
 npx sequelize model:generate --name Photo --attributes trailId:integer,userId:integer,url:string
 
 npx sequelize model:generate --name TrailCondition --attributes condition:string
+
+npx sequelize model:generate --name ReviewTrailCondition --attributes reviewId:integer,trailCondition:string
+
+npx sequelize model:generate --name Review --attributes trailId:integer,userId:integer,rating:integer,body:text,date:date
