@@ -20,7 +20,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: 'Lists' },
       },
-
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
