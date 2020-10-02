@@ -9,6 +9,8 @@ router.post(
   '/',
   asyncHandler(async (req, res) => {
     const { trailId, userId, rating, body, date, trailConditions } = req.body;
+    console.log('post api/reviews');
+    console.log(req);
 
     // create review
 

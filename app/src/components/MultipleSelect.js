@@ -40,16 +40,23 @@ const MenuProps = {
 };
 
 const names = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
+  'Great!',
+  'Blowdown',
+  'Bridge out',
+  'Bugs',
+  'Closed',
+  'Fee',
+  'Flooded',
+  'Icy',
+  'Muddy',
+  'No shade',
+  'Off trail',
+  'Over grown',
+  'Private property',
+  'Rocky',
+  'Scramble',
+  'Snow',
+  'Washed out',
 ];
 
 function getStyles(name, personName, theme) {
@@ -84,46 +91,7 @@ export default function MultipleSelect() {
   return (
     <div>
       <FormControl className={classes.formControl}>
-        <InputLabel id='demo-mutiple-name-label'>Name</InputLabel>
-        <Select
-          labelId='demo-mutiple-name-label'
-          id='demo-mutiple-name'
-          multiple
-          value={personName}
-          onChange={handleChange}
-          input={<Input />}
-          MenuProps={MenuProps}>
-          {names.map(name => (
-            <MenuItem
-              key={name}
-              value={name}
-              style={getStyles(name, personName, theme)}>
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      <FormControl className={classes.formControl}>
-        <InputLabel id='demo-mutiple-checkbox-label'>Tag</InputLabel>
-        <Select
-          labelId='demo-mutiple-checkbox-label'
-          id='demo-mutiple-checkbox'
-          multiple
-          value={personName}
-          onChange={handleChange}
-          input={<Input />}
-          renderValue={selected => selected.join(', ')}
-          MenuProps={MenuProps}>
-          {names.map(name => (
-            <MenuItem key={name} value={name}>
-              <Checkbox checked={personName.indexOf(name) > -1} />
-              <ListItemText primary={name} />
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      <FormControl className={classes.formControl}>
-        <InputLabel id='demo-mutiple-chip-label'>Chip</InputLabel>
+        <InputLabel id='demo-mutiple-chip-label'>Trail Conditions</InputLabel>
         <Select
           labelId='demo-mutiple-chip-label'
           id='demo-mutiple-chip'
@@ -140,60 +108,9 @@ export default function MultipleSelect() {
           )}
           MenuProps={MenuProps}>
           {names.map(name => (
-            <MenuItem
-              key={name}
-              value={name}
-              style={getStyles(name, personName, theme)}>
+            <MenuItem key={name} value={name} style={getStyles(name, personName, theme)}>
               {name}
             </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      <FormControl className={clsx(classes.formControl, classes.noLabel)}>
-        <Select
-          multiple
-          displayEmpty
-          value={personName}
-          onChange={handleChange}
-          input={<Input />}
-          renderValue={selected => {
-            if (selected.length === 0) {
-              return <em>Placeholder</em>;
-            }
-
-            return selected.join(', ');
-          }}
-          MenuProps={MenuProps}
-          inputProps={{ 'aria-label': 'Without label' }}>
-          <MenuItem disabled value=''>
-            <em>Placeholder</em>
-          </MenuItem>
-          {names.map(name => (
-            <MenuItem
-              key={name}
-              value={name}
-              style={getStyles(name, personName, theme)}>
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      <FormControl className={classes.formControl}>
-        <InputLabel shrink htmlFor='select-multiple-native'>
-          Native
-        </InputLabel>
-        <Select
-          multiple
-          native
-          value={personName}
-          onChange={handleChangeMultiple}
-          inputProps={{
-            id: 'select-multiple-native',
-          }}>
-          {names.map(name => (
-            <option key={name} value={name}>
-              {name}
-            </option>
           ))}
         </Select>
       </FormControl>
