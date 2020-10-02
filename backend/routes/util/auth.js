@@ -21,7 +21,10 @@ function generateToken(user) {
 
 function restoreUser(req, res, next) {
   //try to get cookie from user
+
   const { token } = req.cookies;
+
+  console.log('authenticated');
 
   //if there is no cookie, cant restore the user, send unauthorized http status code
   if (!token) {

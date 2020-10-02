@@ -1,12 +1,29 @@
 import Cookies from 'js-cookie';
 
 const SET_USER = 'auth/SET_USER';
+const REMOVE_USER = 'pokedex/authentication/REMOVE_USER';
 
 export const setUser = user => {
   return {
     type: SET_USER,
     user,
   };
+};
+
+export const removeUser = () => {
+  return {
+    type: REMOVE_USER,
+  };
+};
+export const logout = () => async dispatch => {
+  console.log('store');
+  const res = await fetch('/api/session', {
+    method: 'delete',
+  });
+  if (res.ok) {
+    dispatch(removeUser());
+  }
+  console.log(res);
 };
 
 export const login = (username, password) => {
@@ -70,6 +87,8 @@ export default function authReducer(state = loadUser(), action) {
   switch (action.type) {
     case SET_USER:
       return action.user;
+    case REMOVE_USER:
+      return {};
     default:
       return state;
   }

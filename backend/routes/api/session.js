@@ -46,8 +46,10 @@ router.delete(
   '/',
   [authenticated],
   asyncHandler(async (req, res) => {
+    console.log(req.user);
     req.user.tokenId = null;
     await req.user.save();
+    console.log(req.user);
     res.clearCookie('token');
     res.json({ message: 'success' });
   })

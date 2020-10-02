@@ -12,6 +12,8 @@ import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
+import LogoutButtonContainer from './LogoutButton';
+
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -56,7 +58,7 @@ export default function MenuAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography variant='h6' className={classes.title}>
-            Photos
+            Paw Trails
           </Typography>
           {auth && (
             <div>
@@ -68,6 +70,7 @@ export default function MenuAppBar() {
                 color='inherit'>
                 <AccountCircle />
               </IconButton>
+              <LogoutButtonContainer />
               <Menu
                 id='menu-appbar'
                 anchorEl={anchorEl}
