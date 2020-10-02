@@ -55,6 +55,7 @@ export default function trailsReducer(state = {}, action) {
       return { ...state, list: action.trails };
     case LOAD_QUERIED_TRAILS:
       return { ...state, matches: action.trails };
+
     case LOAD_TRAIL:
       return { ...state, current: action.trail };
     default:

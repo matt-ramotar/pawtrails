@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, NavLink } from 'react-router-dom';
 import Carousel from 'react-material-ui-carousel';
 import Typography from '@material-ui/core/Typography';
 import { Chip } from '@material-ui/core';
@@ -8,8 +8,9 @@ import { Button } from '@material-ui/core';
 import { useModal } from 'react-modal-hook';
 import CreateReviewModal from '../components/CreateReviewModal';
 import { getTrail } from '../store/trails';
+import CreateReviewFormContainer from '../components/CreateReviewForm.js';
 
-const TrailDetail = ({ getTrailDispatch, trail }) => {
+const TrailDetail = ({ getTrailDispatch, trail, user }) => {
   const { id } = useParams();
 
   const [data, setData] = useState([]);
@@ -68,9 +69,14 @@ const TrailDetail = ({ getTrailDispatch, trail }) => {
         {trail.overview}
       </Typography>
 
-      <Button color='inherit' className='success button' href='/reviews/new'>
+      <NavLink
+        to='/reviews/new'
+        trailId={trail.id}
+        type='button'
+        userId={user.id}
+        render={() => <CreateReviewFormContainer></CreateReviewFormContainer>}>
         Write Review
-      </Button>
+      </NavLink>
     </>
   );
 };
@@ -128,5 +134,7 @@ export default function TrailDetailContainer() {
   const dispatch = useDispatch();
   const getTrailDispatch = id => dispatch(getTrail(id));
   const trail = useSelector(state => state.trails.current);
-  return <TrailDetail getTrailDispatch={getTrailDispatch} trail={trail} />;
+  const user = useSelector(state => state.auth.data);
+  console.log('container', trail);
+  return <TrailDetail getTrailDispatch={getTrailDispatch} trail={trail} user={user} />;
 }

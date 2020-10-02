@@ -12,7 +12,7 @@ export default function Pages() {
       <Route path='/login' component={LoginPage}></Route>
       <Route path='/signup' component={SignupPage}></Route>
       <Route path='/search' component={Search}></Route>
-      <Route exact path='/reviews/new' component={CreateReviewFormContainer}></Route>
+      <Route path='/reviews/new' component={CreateReviewFormContainer}></Route>
       <Route path='/trails/:id' component={TrailDetailContainer}></Route>
       <Route exact path='/trails' component={TrailsContainer}></Route>
     </>
