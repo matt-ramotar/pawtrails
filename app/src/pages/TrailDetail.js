@@ -9,8 +9,9 @@ import { useModal } from 'react-modal-hook';
 import CreateReviewModal from '../components/CreateReviewModal';
 import { getTrail } from '../store/trails';
 import CreateReviewFormContainer from '../components/CreateReviewForm.js';
+import { useGoogleMaps } from 'react-hook-google-maps';
 
-const TrailDetail = ({ getTrailDispatch, trail, user }) => {
+const TrailDetail = ({ getTrailDispatch, trail, user, google, location }) => {
   const { id } = useParams();
 
   const [data, setData] = useState([]);
@@ -23,10 +24,16 @@ const TrailDetail = ({ getTrailDispatch, trail, user }) => {
     <CreateReviewModal id={id} open={open} onExited={onExited} onClose={hideCreateReviewModal} />
   ));
 
-  if (!trail) return null;
+  const { ref, map, googleAPIObj } = useGoogleMaps(
+    google,
 
-  console.log('here');
-  console.log(trail);
+    {
+      center: { lat: location.lat, lng: location.lng },
+      zoom: 10,
+    }
+  );
+
+  if (!trail) return null;
 
   return (
     <>
@@ -77,6 +84,8 @@ const TrailDetail = ({ getTrailDispatch, trail, user }) => {
         render={() => <CreateReviewFormContainer></CreateReviewFormContainer>}>
         Write Review
       </NavLink>
+
+      <div ref={ref} style={{ width: 400, height: 300 }} />
     </>
   );
 };
@@ -133,8 +142,23 @@ const TrailDetail = ({ getTrailDispatch, trail, user }) => {
 export default function TrailDetailContainer() {
   const dispatch = useDispatch();
   const getTrailDispatch = id => dispatch(getTrail(id));
+  const google = 'AIzaSyCc2n17HzNm-X-Czh8kIk846_V2L6A7Cs4';
+
+  const location = {
+    lat: 33.87779,
+    lng: -84.44162,
+  };
+
   const trail = useSelector(state => state.trails.current);
   const user = useSelector(state => state.auth.data);
   console.log('container', trail);
-  return <TrailDetail getTrailDispatch={getTrailDispatch} trail={trail} user={user} />;
+  return (
+    <TrailDetail
+      getTrailDispatch={getTrailDispatch}
+      trail={trail}
+      user={user}
+      google={google}
+      location={location}
+    />
+  );
 }
