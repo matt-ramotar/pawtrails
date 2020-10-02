@@ -11,10 +11,15 @@ import { getTrail } from '../store/trails';
 import CreateReviewFormContainer from '../components/CreateReviewForm.js';
 import { useGoogleMaps } from 'react-hook-google-maps';
 
-const TrailDetail = ({ getTrailDispatch, trail, user, google, location }) => {
+const TrailDetail = ({ getTrailDispatch, trail, user, google, location, lat, lng }) => {
   const { id } = useParams();
 
   const [data, setData] = useState([]);
+
+  console.log(lat, lng);
+
+  // console.log(trail.lat);
+  // console.log(trail.lng);
 
   useEffect(() => {
     getTrailDispatch(id);
@@ -28,7 +33,7 @@ const TrailDetail = ({ getTrailDispatch, trail, user, google, location }) => {
     google,
 
     {
-      center: { lat: location.lat, lng: location.lng },
+      center: { lat: Number(lat), lng: Number(lng) },
       zoom: 10,
     }
   );
@@ -144,21 +149,16 @@ export default function TrailDetailContainer() {
   const getTrailDispatch = id => dispatch(getTrail(id));
   const google = 'AIzaSyCc2n17HzNm-X-Czh8kIk846_V2L6A7Cs4';
 
-  const location = {
-    lat: 33.87779,
-    lng: -84.44162,
-  };
-
   const trail = useSelector(state => state.trails.current);
   const user = useSelector(state => state.auth.data);
-  console.log('container', trail);
   return (
     <TrailDetail
       getTrailDispatch={getTrailDispatch}
       trail={trail}
       user={user}
       google={google}
-      location={location}
+      lat={trail ? trail.lat : null}
+      lng={trail ? trail.lng : null}
     />
   );
 }
