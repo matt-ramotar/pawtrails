@@ -10,6 +10,7 @@ import CreateReviewModal from '../components/CreateReviewModal';
 import { getTrail } from '../store/trails';
 import CreateReviewFormContainer from '../components/CreateReviewForm.js';
 import { useGoogleMaps } from 'react-hook-google-maps';
+import FavoriteButtonContainer from '../components/FavoriteButton';
 
 const TrailDetail = ({ getTrailDispatch, trail, user, google, location, lat, lng }) => {
   const { id } = useParams();
@@ -91,6 +92,8 @@ const TrailDetail = ({ getTrailDispatch, trail, user, google, location, lat, lng
       </NavLink>
 
       <div ref={ref} style={{ width: 400, height: 300 }} />
+
+      <FavoriteButtonContainer />
     </>
   );
 };

@@ -20,9 +20,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: 'Lists' },
       },
-      isFavorite: {
-        type: Sequelize.BOOLEAN,
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
