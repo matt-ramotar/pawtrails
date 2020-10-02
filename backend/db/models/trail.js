@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
       routeType: DataTypes.ENUM('Loop', 'Point to Point', 'Out & Back'),
       difficulty: DataTypes.ENUM('easy', 'moderate', 'hard'),
       cityId: DataTypes.INTEGER,
+      lat: DataTypes.DECIMAL,
+      lng: DataTypes.DECIMAL,
     },
     {}
   );
