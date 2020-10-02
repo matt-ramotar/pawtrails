@@ -35,7 +35,6 @@ app.use(
     },
   })
 );
-console.log('here beefore routees');
 // connect the routes from the /routes folder
 app.use(routes);
 
