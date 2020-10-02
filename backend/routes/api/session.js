@@ -3,6 +3,7 @@ const asyncHandler = require('express-async-handler');
 const { check, validationResult } = require('express-validator');
 
 const { User } = require('../../db/models');
+
 const { authenticated, generateToken } = require('../util/auth');
 
 const router = express.Router();
@@ -11,24 +12,28 @@ const email = check('email')
   .isEmail()
   .withMessage('Please provide a valid email address')
   .normalizeEmail();
-const firstName = check('firstName').not().isEmpty().withMessage('Please provide a first name');
-const lastName = check('lastName').not().isEmpty().withMessage('Please provide a last name');
-const username = check('username').not().isEmpty().withMessage('Please provide a username');
-const password = check('password').not().isEmpty().withMessage('Please provide a password');
 
-const signupValidators = [email, firstName, lastName, username, password];
+const password = check('password').not().isEmpty().withMessage('Please provide a password');
 
 router.post(
   '/',
-  signupValidators,
+  [email, password],
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return next({ status: 422, errors: errors.array() });
     }
+    const { email, password } = req.body;
 
-    const user = await User.create(req.body);
+    const user = await User.findOne({ where: { email } });
 
+    if (!user.isValidPassword(password)) {
+      const err = new Error('Login failed');
+      err.status = 401;
+      err.title = 'Login failed';
+      err.errors = ['Invalid credentials'];
+      return next(err);
+    }
     const { jti, token } = generateToken(user);
     user.tokenId = jti;
     await user.save();
@@ -37,11 +42,15 @@ router.post(
   })
 );
 
-router.get('/me', authenticated, (req, res) => {
-  res.json({
-    email: req.user.email,
-    username: req.user.username,
-  });
-});
+router.delete(
+  '/',
+  [authenticated],
+  asyncHandler(async (req, res) => {
+    req.user.tokenId = null;
+    await req.user.save();
+    res.clearCookie('token');
+    res.json({ message: 'success' });
+  })
+);
 
 module.exports = router;

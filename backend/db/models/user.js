@@ -1,4 +1,7 @@
 'use strict';
+
+const bcrypt = require('bcryptjs');
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
     'User',
@@ -41,6 +44,16 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   User.associate = function (models) {};
+
+  User.prototype.isValid = () => true;
+
+  User.prototype.setPassword = password => {
+    this.hashedPassword = bcrypt.hashSync(password);
+    return this;
+  };
+
+  User.prototype.isValidPassword = password =>
+    bcrypt.compareSync(password, this.hashedPassword.toString());
 
   User.prototype.toSafeObject = function () {
     return {
