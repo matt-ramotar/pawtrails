@@ -24,27 +24,34 @@ router.post(
   '/favorites',
   asyncHandler(async (req, res, next) => {
     const { trailId, userId } = req.body;
+    console.log(trailId, userId);
 
     // get userTrail where userId trailId and listId name attribute equals 'My favorites'
-    const userFavTrailsId = (
-      await UserTrail.findOne({
-        attributes: ['listId'],
-        where: {
-          userId,
-          trailId,
-        },
-        include: [
-          {
-            model: List,
-            where: {
-              name: 'My Favorites',
-            },
+    try {
+      const userFavTrailsId = (
+        await List.findOne({
+          where: {
+            name: 'My Favorites',
           },
-        ],
-      })
-    ).Lists[0].id;
+          include: [
+            {
+              model: User,
+              where: {
+                id: userId,
+              },
+            },
+          ],
+        })
+      ).dataValues.id;
 
-    const newFavoriteTrail = await UserTrail.create({ trailId, userId, listId: userFavTrailsId });
-    return res.json(userTrail);
+      console.log(userFavTrailsId);
+
+      const newFavoriteTrail = await UserTrail.create({ trailId, userId, listId: userFavTrailsId });
+      return res.json(newFavoriteTrail);
+    } catch (e) {
+      console.log(e);
+    }
   })
 );
+
+module.exports = router;
