@@ -14,6 +14,8 @@ function r(o) {
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
+    queryInterface.sequelize.query('ALTER SEQUENCE "Users_id_seq" RESTART WITH 1');
+
     return queryInterface.bulkInsert('Users', [
       r({
         firstName: 'demo-first-1',
