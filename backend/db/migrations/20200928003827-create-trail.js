@@ -33,6 +33,12 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: 'Cities' },
       },
+      lat: {
+        type: Sequelize.DECIMAL,
+      },
+      lat: {
+        type: Sequelize.DECIMAL,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
