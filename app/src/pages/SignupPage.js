@@ -4,18 +4,19 @@ import { signup } from '../store/auth';
 import { Redirect, NavLink } from 'react-router-dom';
 
 export default function SignupPage() {
-  const [firstName, setFirstName] = useState();
-  const [lastName, setLastName] = useState();
-  const [username, setUsername] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [confirmPassword, setConfirmPassword] = useState();
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const dispatch = useDispatch();
 
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(signup(firstName, lastName, username, email, password));
+    console.log(firstName, password, confirmPassword);
+    dispatch(signup(firstName, lastName, username, email, password, confirmPassword));
   };
 
   return (

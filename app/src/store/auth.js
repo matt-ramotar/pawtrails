@@ -28,12 +28,21 @@ export const login = (username, password) => {
   };
 };
 
-export const signup = (firstName, lastName, username, email, password) => async dispatch => {
+export const signup = (
+  firstName,
+  lastName,
+  username,
+  email,
+  password,
+  confirmPassword
+) => async dispatch => {
   const res = await fetch('/api/auth/signup', {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ firstName, lastName, username, email, password }),
+    body: JSON.stringify({ firstName, lastName, username, email, password, confirmPassword }),
   });
+
+  console.log(res);
 
   if (res.ok) {
     const { user } = await res.json();

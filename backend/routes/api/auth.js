@@ -15,19 +15,18 @@ router.post(
   validateSignup,
   asyncHandler(async (req, res, next) => {
     // check for errors (validateLogin)
-    const errors = validationResult(req);
+    const { errors } = validationResult(req);
 
-    console.log(req);
+    console.log(errors.length);
 
     // if there are errors, stop the function and pass object to next error-handling middleware in app.js
-    if (!errors.isEmpty()) {
+    if (errors.length > 0) {
       console.log(errors);
       return next({ status: 422, errors: errors.array() });
     }
 
     //destructure signup form's info
-    const { firstName, lastName, userName, email, password } = req.body;
-
+    const { firstName, lastName, username, email, password } = req.body;
     //hash given password
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -35,10 +34,12 @@ router.post(
     const user = await User.create({
       firstName,
       lastName,
-      username: userName,
+      username,
       email,
       hashedPassword,
     });
+
+    console.log(user);
 
     //generate a token
     const { jti, token } = generateToken(user);
