@@ -150,7 +150,8 @@ const TrailDetail = ({ getTrailDispatch, trail, user, google, location, lat, lng
 export default function TrailDetailContainer() {
   const dispatch = useDispatch();
   const getTrailDispatch = id => dispatch(getTrail(id));
-  const google = 'AIzaSyCc2n17HzNm-X-Czh8kIk846_V2L6A7Cs4';
+  const google = process.env.REACT_APP_GOOGLE_API_KEY;
+  console.log(google);
 
   const trail = useSelector(state => state.trails.current);
   const user = useSelector(state => state.auth.data);
