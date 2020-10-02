@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const express = require('express');
 const { validationResult } = require('express-validator');
 
-const { User } = require('../../db/models');
+const { User, List, UserTrail } = require('../../db/models');
 const { validateSignup, validateLogin } = require('../middleware/validators');
 const { restoreUser, generateToken } = require('../util/auth');
 
@@ -49,6 +49,14 @@ router.post(
 
     //save newUser with tokenId to DB
     await user.save();
+
+    const list = await List.create({ name: 'My Favorites' });
+
+    console.log(list);
+
+    const userTrail = await UserTrail.create({ userId: user.id, listId: list.id });
+
+    console.log(userTrail);
 
     //respond with a cookie token to be set in authentication reducer as initial state via loadUser() function
     res.cookie('token', token);
