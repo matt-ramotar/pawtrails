@@ -16,6 +16,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Chip } from '@material-ui/core';
+import { Redirect, useHistory, Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -37,38 +38,46 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SearchCard({ data }) {
+export default function SearchCard({ trail, city }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
+  const history = useHistory();
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  console.log(data);
+  const handleClick = e => {
+    e.preventDefault();
+    history.push(`/trails/${trail.id}`);
+  };
+
+  console.log('search card', trail.name, city.name);
+
+  if (!trail.name) return null;
 
   return (
-    <Card className={classes.root}>
-      <CardHeader title={data.name} />
-      <CardHeader subheader={`${data.City.name}, ${data.City.state}`} />
+    <Card onClick={handleClick} className={classes.root}>
+      <CardHeader title={trail.name} />
+      <CardHeader subheader={`${city.name}, ${city.state}`} />
       <CardMedia
         className={classes.media}
-        image={data.Photos.length > 0 ? data.Photos[0].url : ''}
+        image={trail.Photos.length > 0 ? trail.Photos[0].url : ''}
         title='Paella dish'
       />
       <CardContent>
-        <Chip color='secondary' size='small' label={data.difficulty} />
+        <Chip color='secondary' size='small' label={trail.difficulty} />
 
         <div>
-          <p>{`Length: ${data.length}  *  Elevation Gain: ${data.elevationGain}`}</p>
+          <p>{`Length: ${trail.length}  *  Elevation Gain: ${trail.elevationGain}`}</p>
         </div>
 
         <Typography variant='body2' color='textSecondary' component='p'>
-          {data.overview}
+          {trail.overview}
         </Typography>
         <br></br>
         <div>
-          {data.Tags.map(tag => (
+          {trail.Tags.map(tag => (
             <Chip color='primary' size='small' label={tag.tag} />
           ))}
         </div>

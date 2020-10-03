@@ -26,15 +26,12 @@ export const getAllTrails = () => async dispatch => {
 };
 
 export const getTrails = name => async dispatch => {
-  const res = await fetch('/api/trails', {
-    method: 'post',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name }),
-  });
-
+  const res = await fetch(`/api/trails/us/${name.toLowerCase()}`);
+  console.log(res);
   if (res.ok) {
     const data = await res.json();
-    dispatch(loadQueriedTrails(data.trails));
+    console.log(data);
+    dispatch(loadQueriedTrails(data));
   }
 };
 

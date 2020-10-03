@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllTrails } from '../store/trails';
-import { Redirect, NavLink } from 'react-router-dom';
+import { Redirect, NavLink, useParams } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -128,6 +128,9 @@ const TrailsPage = ({ getAllTrailsDispatch, trails }) => {
   useEffect(() => {
     getAllTrailsDispatch();
   }, []);
+
+  const params = useParams();
+  console.log(params);
 
   function search(rows) {
     return rows.filter(row => {
