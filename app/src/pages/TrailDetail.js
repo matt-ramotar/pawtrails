@@ -14,6 +14,16 @@ import FavoriteButtonContainer from '../components/FavoriteButton';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
 
+import Fab from '@material-ui/core/Fab';
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+import RateReviewIcon from '@material-ui/icons/RateReview';
+import CreateIcon from '@material-ui/icons/Create';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import AddIcon from '@material-ui/icons/Add';
+import ShareIcon from '@material-ui/icons/Share';
+import NavigationIcon from '@material-ui/icons/Navigation';
+
 const useStyles = makeStyles(theme => ({
   hero: { position: 'relative' },
   mainPhoto: {
@@ -96,6 +106,16 @@ const useStyles = makeStyles(theme => ({
     display: 'block',
     width: 'auto',
   },
+  floatingActions: {
+    position: 'absolute',
+    bottom: '24px',
+    margin: '0 24px',
+    display: 'flex',
+    right: '-5px',
+  },
+  floatingAction: {
+    margin: '5px',
+  },
 }));
 
 const TrailDetail = ({ getTrailDispatch, trail, user, google, location, lat, lng }) => {
@@ -136,6 +156,25 @@ const TrailDetail = ({ getTrailDispatch, trail, user, google, location, lat, lng
             label={trail.difficulty}
             className={classes.difficulty}
           />
+        </div>
+        <div className={classes.floatingActions}>
+          <Fab className={classes.floatingAction} style={{ backgroundColor: '#90caf9' }}>
+            <AddIcon />
+          </Fab>
+          <Fab
+            aria-label='review'
+            href={`/reviews/${trail.id}/new`}
+            className={classes.floatingAction}
+            style={{ backgroundColor: '#F6A5C0' }}>
+            <CreateIcon />
+          </Fab>
+          <Fab className={classes.floatingAction} style={{ backgroundColor: '#D5D5D5' }}>
+            <NavigationIcon />
+          </Fab>
+
+          <Fab className={classes.floatingAction} style={{ backgroundColor: '#414141' }}>
+            <ShareIcon />
+          </Fab>
         </div>
       </div>
       <Box className={classes.article}>
