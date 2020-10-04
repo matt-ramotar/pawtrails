@@ -8,9 +8,18 @@ import FormControl from '@material-ui/core/FormControl';
 import { Button } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
 import { Redirect, useHistory } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+
+const useStyles = makeStyles(theme => ({
+  searchButton: {
+    backgroundColor: '#4CAF4F',
+  },
+}));
 
 export function SearchInput({ cities, location, loadCityDispatcher }) {
   const [city, setCity] = useState('');
+  const classes = useStyles();
 
   const history = useHistory();
 
@@ -42,28 +51,25 @@ export function SearchInput({ cities, location, loadCityDispatcher }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div style={{ width: 300 }}>
+      <div style={{ width: 500 }} className={classes.inputContainer}>
         <Autocomplete
           autoComplete
-          fullwidth
           options={cities.map(city => city.name)}
           onChange={updateCity}
           // onHighlightChange={(event, value, reason = 'mouse') => console.log('key', value)}
           autoSelect
           autoHighlight
+          className={classes.autoComplete}
           renderInput={params => (
             <TextField
               {...params}
-              label='Search input'
               margin='normal'
               variant='outlined'
+              placeholder='Enter a city name'
               InputProps={{ ...params.InputProps, type: 'search' }}
             />
           )}
         />
-        <Button type='submit' onClick={e => console.log(e)} color='primary'>
-          Search
-        </Button>
       </div>
     </form>
   );

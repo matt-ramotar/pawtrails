@@ -46,8 +46,8 @@ function App() {
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <MenuAppBar></MenuAppBar>
         <BrowserRouter>
+          <MenuAppBar></MenuAppBar>
           <Pages></Pages>
         </BrowserRouter>
       </ThemeProvider>
