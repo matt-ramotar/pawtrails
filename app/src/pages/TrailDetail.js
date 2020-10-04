@@ -12,6 +12,7 @@ import CreateReviewFormContainer from '../components/CreateReviewForm.js';
 import { useGoogleMaps } from 'react-hook-google-maps';
 import FavoriteButtonContainer from '../components/FavoriteButton';
 import { makeStyles } from '@material-ui/core/styles';
+import { Box } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   hero: { position: 'relative' },
@@ -30,7 +31,50 @@ const useStyles = makeStyles(theme => ({
     'flex-direction': 'column',
   },
   difficulty: {
-    width: '72px',
+    'max-width': '80px',
+  },
+  overview: {
+    color: '#414141',
+    'font-size': '18px',
+    'line-height': 1.44,
+    'white-space': 'pre-wrap',
+    'overflow-wrap': 'break-word',
+    margin: '0 24px',
+    'border-bottom': '1px solid #414141',
+    padding: '24px 0',
+  },
+  favorites: {
+    position: 'absolute',
+    right: '24px',
+    display: 'flex',
+    bottom: '24 px',
+  },
+  statsContainer: {},
+  statItem: {
+    width: '32%',
+    display: 'inline-block',
+    padding: '24px 0',
+    margin: '0 24px',
+  },
+  article: {
+    width: '66.6666667%',
+    border: '1px solid #414141',
+  },
+
+  statLabel: {
+    display: 'block',
+    color: '#5A5A5A',
+    'font-size': '12px',
+    width: 'auto',
+    'line-height': 1.42,
+  },
+  stat: {
+    display: 'block',
+    color: 'black',
+    width: 'auto',
+    'font-size': '16px',
+    'font-weight': 'bold',
+    'line-height': 1.38,
   },
 }));
 
@@ -44,10 +88,6 @@ const TrailDetail = ({ getTrailDispatch, trail, user, google, location, lat, lng
   useEffect(() => {
     getTrailDispatch(id);
   }, [id]);
-
-  const [showCreateReviewModal, hideCreateReviewModal] = useModal(({ in: open, onExited }) => (
-    <CreateReviewModal id={id} open={open} onExited={onExited} onClose={hideCreateReviewModal} />
-  ));
 
   const { ref, map, googleAPIObj } = useGoogleMaps(
     google,
@@ -67,7 +107,9 @@ const TrailDetail = ({ getTrailDispatch, trail, user, google, location, lat, lng
         <div className={classes.heroDetails}>
           <Typography variant='h5' className={classes.title}>
             {trail.name}
+            <FavoriteButtonContainer className={classes.favorites} />
           </Typography>
+
           <Chip
             color='primary'
             size='small'
@@ -76,54 +118,53 @@ const TrailDetail = ({ getTrailDispatch, trail, user, google, location, lat, lng
           />
         </div>
       </div>
-      <Carousel showArrows={true}>
-        {/* onChange={onChange} */}
-        {/* onClickItem={onClickItem} */}
-        {/* onClickThumb={onClickThumb}> */}
+      <Box className={classes.article}>
+        <div className={classes.overview}>
+          <Typography variant='body2' color='textSecondary' component='p'>
+            {trail.overview}
+          </Typography>
+        </div>
 
+        <Box display='flex' flexDirection='row' className={classes.statsContainer}>
+          <span className={classes.statItem}>
+            <span className={classes.statLabel}>Length</span>
+            <span className={classes.stat}>{trail.length}</span>
+          </span>
+          <span className={classes.statItem}>
+            <span className={classes.statLabel}>Elevation Gain</span>
+            <span className={classes.stat}>{trail.elevationGain}</span>
+          </span>
+          <span className={classes.statItem}>
+            <span className={classes.statLabel}>Route Type</span>
+            <span className={classes.stat}>{trail.routeType}</span>
+          </span>
+        </Box>
+
+        {/* <Carousel showArrows={true}>
         {trail.Photos.map(photo => (
           <div>
             <img src={photo.url} />
           </div>
         ))}
-      </Carousel>
+      </Carousel> */}
 
-      <div>
         <div>
-          <p>Length</p>
-          <p>{trail.length}</p>
+          {trail.Tags.map(tag => (
+            <Chip color='default' size='small' label={tag.tag} />
+          ))}
         </div>
-        <div>
-          <p>Elevation Gain</p>
-          <p>{trail.elevationGain}</p>
-        </div>
-        <div>
-          <p>Route Type</p>
-          <p>{trail.routeType}</p>
-        </div>
-      </div>
-      <div>
-        {trail.Tags.map(tag => (
-          <Chip color='default' size='small' label={tag.tag} />
-        ))}
-      </div>
 
-      <Typography variant='body2' color='textSecondary' component='p'>
-        {trail.overview}
-      </Typography>
+        <NavLink
+          to='/reviews/new'
+          trailId={trail.id}
+          type='button'
+          userId={user.id}
+          render={() => <CreateReviewFormContainer></CreateReviewFormContainer>}>
+          Write Review
+        </NavLink>
 
-      <NavLink
-        to='/reviews/new'
-        trailId={trail.id}
-        type='button'
-        userId={user.id}
-        render={() => <CreateReviewFormContainer></CreateReviewFormContainer>}>
-        Write Review
-      </NavLink>
-
-      <div ref={ref} style={{ width: 400, height: 300 }} />
-
-      <FavoriteButtonContainer />
+        <div ref={ref} style={{ width: 400, height: 300 }} />
+      </Box>
     </>
   );
 };
