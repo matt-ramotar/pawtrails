@@ -11,16 +11,35 @@ import { getTrail } from '../store/trails';
 import CreateReviewFormContainer from '../components/CreateReviewForm.js';
 import { useGoogleMaps } from 'react-hook-google-maps';
 import FavoriteButtonContainer from '../components/FavoriteButton';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+  hero: { position: 'relative' },
+  mainPhoto: {
+    height: '312px',
+    width: '100%',
+    'background-repeat': 'no-repeat',
+    'background-position': 'center center',
+    'background-size': 'cover',
+  },
+  heroDetails: {
+    position: 'absolute',
+    bottom: '24px',
+    margin: '0 24px',
+    display: 'flex',
+    'flex-direction': 'column',
+  },
+  difficulty: {
+    width: '72px',
+  },
+}));
 
 const TrailDetail = ({ getTrailDispatch, trail, user, google, location, lat, lng }) => {
   const { id } = useParams();
 
-  const [data, setData] = useState([]);
-  console.log(id);
-  console.log(lat, lng);
+  const classes = useStyles();
 
-  // console.log(trail.lat);
-  // console.log(trail.lng);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     getTrailDispatch(id);
@@ -43,7 +62,20 @@ const TrailDetail = ({ getTrailDispatch, trail, user, google, location, lat, lng
 
   return (
     <>
-      <h1>{trail.name}</h1>
+      <div className={classes.hero}>
+        <img src={trail.Photos[0].url} className={classes.mainPhoto} />
+        <div className={classes.heroDetails}>
+          <Typography variant='h5' className={classes.title}>
+            {trail.name}
+          </Typography>
+          <Chip
+            color='primary'
+            size='small'
+            label={trail.difficulty}
+            className={classes.difficulty}
+          />
+        </div>
+      </div>
       <Carousel showArrows={true}>
         {/* onChange={onChange} */}
         {/* onClickItem={onClickItem} */}
@@ -55,8 +87,6 @@ const TrailDetail = ({ getTrailDispatch, trail, user, google, location, lat, lng
           </div>
         ))}
       </Carousel>
-
-      <Chip color='primary' size='small' label={trail.difficulty} />
 
       <div>
         <div>
@@ -97,55 +127,6 @@ const TrailDetail = ({ getTrailDispatch, trail, user, google, location, lat, lng
     </>
   );
 };
-
-{
-  /* <Card className={classes.root}>
-  <CardHeader title={data.name} />
-  <CardHeader subheader={`${data.City.name}, ${data.City.state}`} />
-  <CardMedia
-    className={classes.media}
-    image={data.Photos.length > 0 ? data.Photos[0].url : ''}
-    title='Paella dish'
-  />
-  <CardContent>
-    <Chip color='secondary' size='small' label={data.difficulty} />
-
-    <div>
-      <p>{`Length: ${data.length}  *  Elevation Gain: ${data.elevationGain}`}</p>
-    </div>
-
-    <Typography variant='body2' color='textSecondary' component='p'>
-      {data.overview}
-    </Typography>
-    <br></br>
-    <div>
-      {data.Tags.map(tag => (
-        <Chip color='primary' size='small' label={tag.tag} />
-      ))}
-    </div>
-  </CardContent>
-  <CardActions disableSpacing>
-    <IconButton aria-label='add to favorites'>
-      <FavoriteIcon />
-    </IconButton>
-    <IconButton aria-label='share'>
-      <ShareIcon />
-    </IconButton>
-    <IconButton
-      className={clsx(classes.expand, {
-        [classes.expandOpen]: expanded,
-      })}
-      onClick={handleExpandClick}
-      aria-expanded={expanded}
-      aria-label='show more'>
-      <ExpandMoreIcon />
-    </IconButton>
-  </CardActions>
-  <Collapse in={expanded} timeout='auto' unmountOnExit>
-    <CardContent></CardContent>
-  </Collapse>
-</Card>; */
-}
 
 export default function TrailDetailContainer() {
   const dispatch = useDispatch();
