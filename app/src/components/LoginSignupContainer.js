@@ -26,7 +26,7 @@ export default function LoginSignupContainer() {
         className={classes.logoutButton}
         variant='raised'
         href='/signup'
-        style={{ backgroundColor: '#219AD8', color: 'white' }}>
+        style={{ backgroundColor: '#414141', color: 'white' }}>
         Sign Up
       </Button>
       <Button
@@ -35,7 +35,7 @@ export default function LoginSignupContainer() {
         className={classes.logoutButton}
         variant='raised'
         href='/login'
-        style={{ backgroundColor: '#219AD8', color: 'white' }}>
+        style={{ backgroundColor: '#414141', color: 'white' }}>
         Log In
       </Button>
     </div>

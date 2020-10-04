@@ -42,7 +42,7 @@ export default function ButtonAppBar() {
               Paw Trails
             </Typography>
           </Link>
-          <div>{loggedOut ? <LogoutButtonContainer /> : <LoginSignupContainer />}</div>
+          <div>{!loggedOut ? <LogoutButtonContainer /> : <LoginSignupContainer />}</div>
         </Toolbar>
       </AppBar>
     </div>
