@@ -76,6 +76,18 @@ const useStyles = makeStyles(theme => ({
     'font-weight': 'bold',
     'line-height': 1.38,
   },
+  tagCloud: {
+    margin: '0 24px',
+    padding: '24px 0',
+    display: 'block',
+  },
+  tag: {
+    'font-size': '14px',
+    margin: '5px 5px',
+    display: 'inline-block',
+    'background-color': '#81C683',
+    'white-space': 'nowrap',
+  },
 }));
 
 const TrailDetail = ({ getTrailDispatch, trail, user, google, location, lat, lng }) => {
@@ -140,6 +152,14 @@ const TrailDetail = ({ getTrailDispatch, trail, user, google, location, lat, lng
           </span>
         </Box>
 
+        <Box className={classes.tagCloud}>
+          {trail.Tags.map(tag => (
+            <Chip size='small' label={tag.tag} className={classes.tag} />
+          ))}
+        </Box>
+
+        <div ref={ref} style={{ width: 400, height: 300 }} />
+
         {/* <Carousel showArrows={true}>
         {trail.Photos.map(photo => (
           <div>
@@ -147,12 +167,6 @@ const TrailDetail = ({ getTrailDispatch, trail, user, google, location, lat, lng
           </div>
         ))}
       </Carousel> */}
-
-        <div>
-          {trail.Tags.map(tag => (
-            <Chip color='default' size='small' label={tag.tag} />
-          ))}
-        </div>
 
         <NavLink
           to='/reviews/new'
@@ -162,8 +176,6 @@ const TrailDetail = ({ getTrailDispatch, trail, user, google, location, lat, lng
           render={() => <CreateReviewFormContainer></CreateReviewFormContainer>}>
           Write Review
         </NavLink>
-
-        <div ref={ref} style={{ width: 400, height: 300 }} />
       </Box>
     </>
   );
