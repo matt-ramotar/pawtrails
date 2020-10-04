@@ -45,7 +45,7 @@ export const getTrail = id => async dispatch => {
     const data = await res.json();
     console.log('get trail');
     console.log(data);
-    dispatch(loadTrail(data.trails));
+    dispatch(loadTrail(data));
   }
 };
 

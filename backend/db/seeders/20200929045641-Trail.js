@@ -1614,7 +1614,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        name: 'Boston s Freedom Trail',
+        name: "Boston's Freedom Trail",
         allTrailsURI: '/trail/us/massachusetts/bostons-freedom-trail',
         overview:
           "Boston's Freedom Trail is a 2.5 mile heavily trafficked point-to-point trail located near Boston, Massachusetts that features a river and is good for all skill levels. The trail is primarily used for hiking, walking, and running and is accessible year-round. Dogs are also able to use this trail but must be kept on leash.",

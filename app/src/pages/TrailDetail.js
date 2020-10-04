@@ -16,7 +16,7 @@ const TrailDetail = ({ getTrailDispatch, trail, user, google, location, lat, lng
   const { id } = useParams();
 
   const [data, setData] = useState([]);
-
+  console.log(id);
   console.log(lat, lng);
 
   // console.log(trail.lat);
