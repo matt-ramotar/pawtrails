@@ -49,7 +49,11 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     bottom: '24 px',
   },
-  statsContainer: {},
+  statsContainer: {
+    'border-bottom': '1px solid #414141',
+    margin: '0 24px',
+    padding: '24px 0',
+  },
   statItem: {
     width: '32%',
     display: 'inline-block',
@@ -82,11 +86,9 @@ const useStyles = makeStyles(theme => ({
     display: 'block',
   },
   tag: {
-    'font-size': '14px',
     margin: '5px 5px',
     display: 'inline-block',
     'background-color': '#81C683',
-    'white-space': 'nowrap',
   },
 }));
 
