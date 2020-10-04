@@ -20,18 +20,11 @@ import { Redirect, useHistory, Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: '100%',
+    maxWidth: 345,
   },
   media: {
-    height: 0,
+    height: 140,
     paddingTop: '56.25%', // 16:9
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
   },
   expandOpen: {
     transform: 'rotate(180deg)',
@@ -59,49 +52,33 @@ export default function SearchCard({ trail, city }) {
   return (
     <Card onClick={handleClick} className={classes.root}>
       <CardHeader title={trail.name} />
-      <CardHeader subheader={`${city.name}, ${city.state}`} />
+
       <CardMedia
         className={classes.media}
         image={trail.Photos.length > 0 ? trail.Photos[0].url : ''}
-        title='Paella dish'
       />
       <CardContent>
-        <Chip color='secondary' size='small' label={trail.difficulty} />
+        <Chip
+          color={
+            trail.difficulty === 'easy'
+              ? 'default'
+              : trail.difficulty === 'moderate'
+              ? 'primary'
+              : 'secondary'
+          }
+          size='small'
+          label={trail.difficulty}
+        />
 
         <div>
-          <p>{`Length: ${trail.length}  *  Elevation Gain: ${trail.elevationGain}`}</p>
+          <p>{`Length: ${trail.length}`}</p>
+          <p>{`Elevation Gain: ${trail.elevationGain}`}</p>
         </div>
 
         <Typography variant='body2' color='textSecondary' component='p'>
           {trail.overview}
         </Typography>
-        <br></br>
-        <div>
-          {trail.Tags.map(tag => (
-            <Chip color='primary' size='small' label={tag.tag} />
-          ))}
-        </div>
       </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label='add to favorites'>
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label='share'>
-          <ShareIcon />
-        </IconButton>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label='show more'>
-          <ExpandMoreIcon />
-        </IconButton>
-      </CardActions>
-      <Collapse in={expanded} timeout='auto' unmountOnExit>
-        <CardContent></CardContent>
-      </Collapse>
     </Card>
   );
 }
