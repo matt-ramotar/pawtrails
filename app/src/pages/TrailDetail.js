@@ -90,6 +90,12 @@ const useStyles = makeStyles(theme => ({
     display: 'inline-block',
     'background-color': '#81C683',
   },
+  googleMap: {
+    margin: '0 24px',
+    padding: '24px 0',
+    display: 'block',
+    width: 'auto',
+  },
 }));
 
 const TrailDetail = ({ getTrailDispatch, trail, user, google, location, lat, lng }) => {
@@ -160,7 +166,9 @@ const TrailDetail = ({ getTrailDispatch, trail, user, google, location, lat, lng
           ))}
         </Box>
 
-        <div ref={ref} style={{ width: 400, height: 300 }} />
+        <Box className={classes.googleMap}>
+          <div ref={ref} style={{ width: '100%', height: 300 }} />
+        </Box>
 
         {/* <Carousel showArrows={true}>
         {trail.Photos.map(photo => (
