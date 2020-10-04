@@ -8,7 +8,6 @@ import { Typography } from '@material-ui/core';
 import SearchInput from '../components/SearchInput';
 import MenuAppBar from '../components/AppBar';
 import SimpleSelect from '../components/Select';
-import Image from '../brothers.jpeg';
 
 export default function HomePage() {
   // const handleSubmit = e => {

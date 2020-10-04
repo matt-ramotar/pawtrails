@@ -21,7 +21,7 @@ router.get(
 
     const trails = city.Trails;
 
-    res.json(trails);
+    res.json({ trails, city });
   })
 );
 

@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SearchCard({ trail, city }) {
+export default function SearchCard({ trail }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const history = useHistory();
@@ -44,8 +44,6 @@ export default function SearchCard({ trail, city }) {
     e.preventDefault();
     history.push(`/trails/${trail.id}`);
   };
-
-  console.log('search card', trail.name, city.name);
 
   if (!trail.name) return null;
 

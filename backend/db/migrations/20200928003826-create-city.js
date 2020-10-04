@@ -14,6 +14,12 @@ module.exports = {
       state: {
         type: Sequelize.STRING,
       },
+      lat: {
+        type: Sequelize.DECIMAL,
+      },
+      lng: {
+        type: Sequelize.DECIMAL,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

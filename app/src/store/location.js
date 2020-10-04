@@ -2,6 +2,7 @@ const SET_CITY = 'location/SET_CITY';
 const SET_CITIES = 'location/LOAD_CITIES';
 
 export const setCity = city => {
+  console.log('setCity', city);
   return {
     type: SET_CITY,
     city,
