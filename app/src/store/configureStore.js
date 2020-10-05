@@ -3,14 +3,14 @@ import thunk from 'redux-thunk';
 import auth from './auth';
 import trails from './trails';
 import reviews from './reviews';
-import location from './location';
+import cities from './cities';
 import filters from './filters';
 
 const rootReducer = combineReducers({
   auth,
   trails,
   reviews,
-  location,
+  cities,
   filters,
 });
 

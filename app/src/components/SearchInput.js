@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import { Autocomplete } from '@material-ui/lab';
-import { loadCities, loadCity } from '../store/location';
+import { getCities, getCity } from '../store/cities';
 import FormControl from '@material-ui/core/FormControl';
 import { Button } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export function SearchInput({ cities, location, loadCityDispatcher }) {
+export function SearchInput({ cities, location, getCityDispatcher }) {
   const [city, setCity] = useState('');
   const classes = useStyles();
 
@@ -25,7 +25,7 @@ export function SearchInput({ cities, location, loadCityDispatcher }) {
 
   useEffect(() => {
     console.log('use effect', city);
-    loadCityDispatcher();
+    getCityDispatcher();
   }, [city]);
 
   // useEffect(() => {
@@ -187,9 +187,7 @@ export default function SearchInputContainer() {
 
   const location = useSelector(state => state.location);
   // const loadCitiesDispatcher = () => dispatch(loadCities());
-  const loadCityDispatcher = () => dispatch(loadCity);
+  const getCityDispatcher = () => dispatch(getCity);
 
-  return (
-    <SearchInput cities={cities} location={location} loadCityDispatcher={loadCityDispatcher} />
-  );
+  return <SearchInput cities={cities} location={location} getCityDispatcher={getCityDispatcher} />;
 }

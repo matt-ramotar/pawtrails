@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, NavLink, useParams } from 'react-router-dom';
-import { getTrails } from '../store/trails';
+import { getTrails, loadAllTrails } from '../store/trails';
 import { useGoogleMaps } from 'react-hook-google-maps';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+
+import { getCity } from '../store/cities';
 
 import SearchCard from '../components/SearchCard';
 
@@ -27,19 +29,33 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const CityTrailsPage = ({ getTrailsDispatcher, cityTrails, google, city, lat, lng }) => {
+export const CityTrailsPage = ({
+  getTrailsDispatcher,
+  getCityDispatcher,
+  loadAllTrailsDispatcher,
+  cityTrails,
+  trails,
+  google,
+  city,
+  lat,
+  lng,
+}) => {
   const classes = useStyles();
 
   const { cityName } = useParams();
-
-  const test = useSelector(state => state.trails.city);
+  console.log(cityName);
 
   useEffect(() => {
-    getTrailsDispatcher(cityName);
+    getCityDispatcher(cityName);
+  }, [cityName]);
+
+  console.log(city);
+
+  useEffect(() => {
+    loadAllTrailsDispatcher(trails);
     console.log('useEffect', city);
   }, [cityName]);
 
-  console.log('test', test);
   console.log('after use', city);
   const handleClick = e => {
     e.preventDefault();
@@ -56,8 +72,7 @@ export const CityTrailsPage = ({ getTrailsDispatcher, cityTrails, google, city, 
   //     return row.name.toLowerCase().indexOf(query.toLowerCase()) > -1;
   //   });
   // }
-  if (city === {}) return null;
-  if (!cityTrails) return null;
+  if (!trails) return null;
 
   return (
     <>
@@ -86,16 +101,25 @@ export const CityTrailsPage = ({ getTrailsDispatcher, cityTrails, google, city, 
 export default function CityTrailsContainer() {
   const dispatch = useDispatch();
 
-  const getTrailsDispatcher = city => dispatch(getTrails(city));
+  const getCityDispatcher = name => dispatch(getCity(name));
+  const loadAllTrailsDispatcher = trails => dispatch(loadAllTrails(trails));
+
+  // const getTrailsDispatcher = city => dispatch(getTrails(city));
+
   const cityTrails = useSelector(state => state.trails.matches);
+
   const city = useSelector(state => state.trails.city);
+
   const google = process.env.REACT_APP_GOOGLE_API_KEY;
 
   return (
     <CityTrailsPage
       google={google}
-      getTrailsDispatcher={getTrailsDispatcher}
+      // getTrailsDispatcher={getTrailsDispatcher}
+      loadAllTrailsDispatcher={loadAllTrailsDispatcher}
+      getCityDispatcher={getCityDispatcher}
       cityTrails={cityTrails}
+      trails={city ? city.Trails : null}
       city={city}
       lat={city ? city.lat : null}
       lng={city ? city.lng : null}

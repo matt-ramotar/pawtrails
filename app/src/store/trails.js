@@ -1,4 +1,4 @@
-import setCity from './location';
+import { setCity } from './cities';
 
 const LOAD_ALL_TRAILS = 'trails/LOAD_ALL_TRAILS';
 const LOAD_QUERIED_TRAILS = 'trails/LOAD_QUERIED_TRAILS';
