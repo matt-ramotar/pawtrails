@@ -17,10 +17,9 @@ export default function Pages() {
       <Route path='/signup' component={SignupPage}></Route>
       <Route path='/search' component={Search}></Route>
       <Route path='/reviews/:id/new' component={CreateReviewFormContainer}></Route>
-      <Route exact path='/trails/us/:nameOfCity' component={CityTrailsContainer}></Route>
+      <Route exact path='/trails/us/:nameOfCity' component={CityProfileContainer}></Route>
       <Route exact path='/trails/:id' component={TrailDetailContainer}></Route>
       <Route exact path='/trails' component={TrailsContainer}></Route>
-      <Route exact path='/test' component={CityProfileContainer}></Route>
       <Route exact path='/' component={HomePage}></Route>
     </>
   );
