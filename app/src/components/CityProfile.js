@@ -5,6 +5,7 @@ import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import CityMap from './CityMap';
+import CityTrails from './CityTrails';
 
 import { getCity } from '../store/cities';
 
@@ -68,6 +69,7 @@ export const CityProfile = ({ getCityDispatcher, nameOfCity }) => {
         Best Trails in {city.name}
       </Typography>
       <CityMap lat={lat} lng={lng}></CityMap>
+      <CityTrails trails={city.Trails} />
     </>
   );
 };
