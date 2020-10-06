@@ -96,7 +96,7 @@ module.exports = {
         name: 'Portland',
         state: 'Oregon',
         lat: 45.5051,
-        lng: 122.675,
+        lng: -122.675,
         createdAt: new Date(),
         updatedAt: new Date(),
       },

@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import CityMap from './CityMap';
 import CityTrails from './CityTrails';
+import Filters from './Filters/Filters';
 
 import { getCity } from '../store/cities';
 
@@ -21,13 +22,15 @@ const useStyles = makeStyles(theme => ({
   riverPic: {
     width: '272px',
     height: '181px',
-    'border-radius': '8px',
+    'border-radius': '16px',
     'object-fit': 'cover',
     padding: '0 8px',
   },
   title: {
     fontSize: '32px',
-    color: 'black',
+    fontWeight: 700,
+    color: '#414141',
+    fontFamily: 'Proxima Nova,Arial,sans-serif!important',
   },
 }));
 
@@ -65,10 +68,11 @@ export const CityProfile = ({ getCityDispatcher, nameOfCity }) => {
         <img src={city.Trails[2].Photos[0].url} className={classes.riverPic}></img>
         <img src={city.Trails[3].Photos[0].url} className={classes.riverPic}></img>
       </div>
-      <Typography variant='h5' align='left' className={classes.title}>
+      <Typography variant='h1' align='left' className={classes.title}>
         Best Trails in {city.name}
       </Typography>
       <CityMap lat={lat} lng={lng}></CityMap>
+      <Filters />
       <CityTrails trails={city.Trails} />
     </>
   );
