@@ -3,7 +3,7 @@ import LoginSignupContainer from './LoginSignupContainer';
 
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from '@material-ui/core/';
+import { Link, Box } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -15,15 +15,16 @@ import MenuIcon from '@material-ui/icons/Menu';
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    backgroundColor: '#333333',
+    backgroundColor: '#FFFFFF',
   },
   menuButton: {
     marginRight: theme.spacing(2),
-    color: '#C0C0C0',
+    color: '#414141',
   },
   title: {
     flexGrow: 1,
-    color: '#E57373',
+    color: '#414141',
+    fontSize: '14px',
   },
 }));
 
@@ -32,7 +33,7 @@ export default function ButtonAppBar() {
   const loggedOut = useSelector(state => !state.auth.jti);
   return (
     <div className={classes.root}>
-      <AppBar position='static' className={classes.root}>
+      <AppBar position='static' className={classes.root} display='flex' flexDirection='row'>
         <Toolbar>
           <IconButton edge='start' className={classes.menuButton} color='inherit' aria-label='menu'>
             <MenuIcon />
@@ -42,7 +43,13 @@ export default function ButtonAppBar() {
               Paw Trails
             </Typography>
           </Link>
-          <div>{!loggedOut ? <LogoutButtonContainer /> : <LoginSignupContainer />}</div>
+          <Box display='flex' flexDirection='row'>
+            {!loggedOut ? (
+              <LogoutButtonContainer style={{ backgroundColor: '#4BAFE1' }} />
+            ) : (
+              <LoginSignupContainer />
+            )}
+          </Box>
         </Toolbar>
       </AppBar>
     </div>
