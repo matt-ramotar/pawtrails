@@ -189,5 +189,12 @@ export default function SearchInputContainer() {
   // const loadCitiesDispatcher = () => dispatch(loadCities());
   const getCityDispatcher = () => dispatch(getCity);
 
-  return <SearchInput cities={cities} location={location} getCityDispatcher={getCityDispatcher} />;
+  return (
+    <SearchInput
+      bgcolor='black'
+      cities={cities}
+      location={location}
+      getCityDispatcher={getCityDispatcher}
+    />
+  );
 }
