@@ -58,6 +58,11 @@ export const CityProfile = ({ getCityDispatcher, nameOfCity }) => {
     }
   }, [reduxCity]);
 
+  const search = (trails, filters) => {
+    const { difficulty, length, elevationGain, routeType, tags } = filters;
+    return;
+  };
+
   if (!city) return null;
 
   return (

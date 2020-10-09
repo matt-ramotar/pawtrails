@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Select,
   Slider,
@@ -18,8 +19,11 @@ import {
 
 import Tags from './Tags';
 import MultipleSelect from '../MultipleSelect';
+import { setFilters } from '../../store/filters';
+import InputSlider from './SliderWithInputField';
 
 const useStyles = makeStyles(theme => ({
+  root: {},
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
@@ -54,7 +58,7 @@ const MenuProps = {
   },
 };
 
-export function Filters() {
+export function Filters({ filtersDispatcher }) {
   const classes = useStyles();
   const theme = useTheme();
   const [difficulty, setDifficulty] = useState('');
@@ -62,28 +66,91 @@ export function Filters() {
   const [elevationGain, setElevationGain] = useState();
   const [routeType, setRouteType] = useState('');
   const [tags, setTags] = useState([]);
+  const [slider, setSlider] = useState(0);
+  const [filters, setFilters] = useState({});
 
-  const updateDifficulty = e => setDifficulty(e.target.value);
-  const updateLength = e => setLength(e.target.value);
-  const updateElevationGain = e => setElevationGain(e.target.value);
-  const updateRouteType = e => setRouteType(e.target.value);
-  const updateTags = e => setTags(e.target.value);
+  // {
+  //   difficulty: Null OR easy, moderate, hard
+  //   length: Null OR 0 - Inf
+  //   elevationGain: Null OR 0 - Inf
+  //   routeType: Null OR Loop, Out & Back, Point to Point
+  //   tags: []
+  //   }
+
+  const updateDifficulty = e => {
+    console.log(e.target.value);
+    console.log(filters);
+    setDifficulty(e.target.value);
+    console.log(filters);
+    updateFilters({ difficulty: e.target.value });
+  };
+  const updateLength = (e, val) => {
+    setLength(val);
+    updateFilters({ length: val });
+  };
+  const updateElevationGain = (e, val) => {
+    setElevationGain(val);
+    updateFilters({ elevationGain: val });
+  };
+  const updateRouteType = e => {
+    setRouteType(e.target.value);
+    updateFilters({ routeType: e.target.value });
+  };
+  const updateTags = e => {
+    setTags(e.target.value);
+    updateFilters({ tags: e.target.value });
+  };
+
+  const updateSlider = (e, val) => {
+    console.log('update slider', val);
+    setSlider(val);
+    updateFilters({ slider: val });
+  };
+  const updateFilters = filter => {
+    console.log('filter', filter);
+    setFilters({ ...filters, ...filter });
+  };
+
+  useEffect(() => {
+    console.log(filters);
+  }, [difficulty]);
+
+  useEffect(() => {
+    console.log('use effect, filter dispatcher', filters);
+    filtersDispatcher(filters);
+  }, [filters]);
+
+  /* useEffect
+
+const updateFilters = (name, value) => {
+
+}
+[difficulty, length, elevationGain, routeType, tags]
+*/
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
       {/* <InputLabel id='difficulty-label'>Difficulty</InputLabel> */}
-      <Select value={difficulty} onChange={updateDifficulty} labelId='difficulty-label'>
+      <Select
+        value={difficulty}
+        onChange={updateDifficulty}
+        labelId='difficulty-label'
+        style={{ width: '150px' }}>
         <MenuItem value={'Easy'}>Easy</MenuItem>
         <MenuItem value={'Moderate'}>Moderate</MenuItem>
         <MenuItem value={'Hard'}>Hard</MenuItem>
       </Select>
       <Typography id='discrete-slider-always'>Length</Typography>
-      <Slider value={length} onChange={updateLength} />
+      <Slider value={length} onChange={updateLength} style={{ width: '100px' }} />
       <Typography id='discrete-slider-always'>Elevation Gain</Typography>
-      <Slider value={elevationGain} onChange={updateElevationGain} />
+      <Slider value={elevationGain} onChange={updateElevationGain} style={{ width: '100px' }} />
 
       {/* <InputLabel>Route Type</InputLabel> */}
-      <Select value={routeType} onChange={updateRouteType} labelId='routeType-label'>
+      <Select
+        value={routeType}
+        onChange={updateRouteType}
+        labelId='routeType-label'
+        style={{ width: '150px' }}>
         <MenuItem value={'Easy'}>Easy</MenuItem>
         <MenuItem value={'Moderate'}>Moderate</MenuItem>
         <MenuItem value={'Hard'}>Hard</MenuItem>
@@ -96,6 +163,7 @@ export function Filters() {
         value={tags}
         onChange={updateTags}
         input={<Input id='select-multiple-chip' />}
+        style={{ width: '100%' }}
         renderValue={selected => (
           <div className={classes.chips}>
             {selected.map(value => (
@@ -116,13 +184,15 @@ export function Filters() {
 
 export default function FiltersContainer() {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const filtersDispatcher = filters => dispatch(setFilters(filters));
   return (
     <AppBar
       position='sticky'
       style={{ backgroundColor: 'white', display: 'flex', flexDirection: 'row' }}
       className={classes.stickyBar}>
       <Toolbar>
-        <Filters />
+        <Filters filtersDispatcher={filtersDispatcher} />
       </Toolbar>
     </AppBar>
   );
