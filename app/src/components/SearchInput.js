@@ -5,15 +5,41 @@ import TextField from '@material-ui/core/TextField';
 import { Autocomplete } from '@material-ui/lab';
 import { getCities, getCity } from '../store/cities';
 import FormControl from '@material-ui/core/FormControl';
-import { Button } from '@material-ui/core';
+import { Button, Box } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
 import { Redirect, useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import IconButton from '@material-ui/core/IconButton';
+import SearchIcon from '@material-ui/icons/Search';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 const useStyles = makeStyles(theme => ({
-  searchButton: {
-    backgroundColor: '#4CAF4F',
+  inputBox: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  inputField: {
+    backgroundColor: 'white',
+    width: '340px',
+    height: '35px',
+    border: '1px solid transparent',
+    'border-radius': '8px',
+    color: '#414141',
+  },
+  paper: {
+    width: '350px',
+    backgroundColor: 'white',
+    opacity: 0.4,
+    'border-radius': '8px',
+    position: 'absolute',
+    height: '55px',
+  },
+  autoComplete: {
+    border: 'none',
+    color: 'white',
+    opacity: 1,
   },
 }));
 
@@ -51,7 +77,8 @@ export function SearchInput({ cities, location, getCityDispatcher }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div style={{ width: 500 }} className={classes.inputContainer}>
+      <Box className={classes.inputBox}>
+        <Paper className={classes.paper}></Paper>
         <Autocomplete
           autoComplete
           options={cities.map(city => city.name)}
@@ -64,13 +91,22 @@ export function SearchInput({ cities, location, getCityDispatcher }) {
             <TextField
               {...params}
               margin='normal'
-              variant='outlined'
-              placeholder='Enter a city name'
-              InputProps={{ ...params.InputProps, type: 'search' }}
+              variant='standard'
+              placeholder='Enter a city, park or trail name'
+              className={classes.inputField}
+              InputProps={{
+                ...params.InputProps,
+                type: 'search',
+                startAdornment: (
+                  <InputAdornment position='start'>
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
             />
           )}
         />
-      </div>
+      </Box>
     </form>
   );
 }

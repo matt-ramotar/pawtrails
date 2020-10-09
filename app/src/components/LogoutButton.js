@@ -8,7 +8,7 @@ import { logout } from '../store/auth';
 
 const useStyles = makeStyles(theme => ({
   logoutButton: {
-    backgroundColor: '#414141',
+    backgroundColor: '#4BAFE1',
     color: 'white',
   },
 }));
@@ -26,15 +26,9 @@ const LogoutButton = ({ loggedOut, logoutDispatcher }) => {
   // }
 
   return (
-    <div id='logout-button-holder'>
-      <Button
-        color='primary'
-        className={classes.logoutButton}
-        variant='raised'
-        onClick={handleClick}>
-        Logout
-      </Button>
-    </div>
+    <Button color='primary' className={classes.logoutButton} variant='raised' onClick={handleClick}>
+      Logout
+    </Button>
   );
 };
 

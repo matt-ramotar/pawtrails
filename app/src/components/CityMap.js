@@ -9,5 +9,5 @@ export default function CityMap({ lat, lng }) {
     zoom: 10,
   });
 
-  return <div ref={ref} style={{ width: 400, height: 300 }} />;
+  return <div ref={ref} style={{ width: '100%', height: 300 }} />;
 }
