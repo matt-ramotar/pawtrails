@@ -18,6 +18,25 @@ import SimpleSelect from '../components/Select';
 import HeroImg from '../Home-Hero-1-Large-1550x885-9d224c1181d0d606bfbc8de11b07d6f9.jpg';
 
 const useStyles = makeStyles(theme => ({
+  heroBox: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    flexWrap: 'nowrap',
+    alignItems: 'center',
+  },
+  headerBox: {
+    position: 'absolute',
+    top: '20%',
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  searchBox: {
+    position: 'absolute',
+    top: '28%',
+    display: 'flex',
+    justifyContent: 'center',
+  },
   header: {
     fontFamily: 'Museo Sans Rounded, Arial, sans-serif',
     fontWeight: 500,
@@ -26,37 +45,12 @@ const useStyles = makeStyles(theme => ({
     fontSize: '3.5rem',
     'text-shadow': '0px 0px 160px rgba(0, 0, 0, 0.)',
     'line-height': 1.2,
-    position: 'absolute',
-    top: '20%',
   },
-
   heroImg: {
     backgroundImage: `url(${HeroImg})`,
     height: '432px',
     backgroundSize: 'cover',
     backgroundPosition: 'center center',
-  },
-  searchForm: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    flexWrap: 'nowrap',
-    alignItems: 'center',
-  },
-  searchInput: {
-    'border-radius': '10px',
-    backgroundColor: 'white',
-    'background-position': 'center center',
-    position: 'absolute',
-  },
-  paper: {
-    width: '550px',
-    backgroundColor: 'white',
-    opacity: 0.4,
-    'border-radius': '10px',
-    margin: 0,
-    position: 'absolute',
-    top: '28%',
   },
 }));
 
@@ -69,16 +63,16 @@ export default function HomePage() {
 
   return (
     <>
-      <section>
-        <Box className={classes.heroImg} align='center'></Box>
-        <Box className='searchForm' display='flex' justifyContent='center'>
-          <Box display='flex' justifyContent='center'>
-            <Typography className={classes.header} variant='h1' align='center'>
+      <section className={classes.heroSection}>
+        <Box className={classes.heroImg}></Box>
+        <Box className={classes.heroBox}>
+          <Box className={classes.headerBox}>
+            <Typography className={classes.header} variant='h1'>
               Find your next favorite trail
             </Typography>
           </Box>
-          <Box className={classes.paper} display='flex' justifyContent='center'>
-            <SearchInput position='absolute' bgcolor='white'></SearchInput>
+          <Box className={classes.searchBox}>
+            <SearchInput />
           </Box>
         </Box>
       </section>

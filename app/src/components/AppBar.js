@@ -44,11 +44,7 @@ export default function ButtonAppBar() {
             </Typography>
           </Link>
           <Box display='flex' flexDirection='row'>
-            {!loggedOut ? (
-              <LogoutButtonContainer style={{ backgroundColor: '#4BAFE1' }} />
-            ) : (
-              <LoginSignupContainer />
-            )}
+            {!loggedOut ? <LogoutButtonContainer /> : <LoginSignupContainer />}
           </Box>
         </Toolbar>
       </AppBar>
