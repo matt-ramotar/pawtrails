@@ -18,10 +18,10 @@ module.exports = {
         type: Sequelize.TEXT,
       },
       length: {
-        type: Sequelize.STRING,
+        type: Sequelize.DECIMAL,
       },
       elevationGain: {
-        type: Sequelize.STRING,
+        type: Sequelize.DECIMAL,
       },
       routeType: {
         type: Sequelize.ENUM('Loop', 'Point to Point', 'Out & Back'),
