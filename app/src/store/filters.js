@@ -15,20 +15,3 @@ export default function filtersReducer(state = {}, action) {
       return state;
   }
 }
-
-/*
-    const { difficulty, length, elevationGain, routeType, tags } = filters;
-
-{
-
-}
-
-{
-difficulty: Null OR easy, moderate, hard
-length: Null OR 0 - Inf
-elevationGain: Null OR 0 - Inf
-routeType: Null OR Loop, Out & Back, Point to Point
-tags: []
-}
-
-*/

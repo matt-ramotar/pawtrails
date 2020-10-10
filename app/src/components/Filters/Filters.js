@@ -69,19 +69,8 @@ export function Filters({ filtersDispatcher }) {
   const [slider, setSlider] = useState(0);
   const [filters, setFilters] = useState({});
 
-  // {
-  //   difficulty: Null OR easy, moderate, hard
-  //   length: Null OR 0 - Inf
-  //   elevationGain: Null OR 0 - Inf
-  //   routeType: Null OR Loop, Out & Back, Point to Point
-  //   tags: []
-  //   }
-
   const updateDifficulty = e => {
-    console.log(e.target.value);
-    console.log(filters);
     setDifficulty(e.target.value);
-    console.log(filters);
     updateFilters({ difficulty: e.target.value });
   };
   const updateLength = (e, val) => {
@@ -100,33 +89,17 @@ export function Filters({ filtersDispatcher }) {
     setTags(e.target.value);
     updateFilters({ tags: e.target.value });
   };
-
   const updateSlider = (e, val) => {
-    console.log('update slider', val);
     setSlider(val);
     updateFilters({ slider: val });
   };
   const updateFilters = filter => {
-    console.log('filter', filter);
     setFilters({ ...filters, ...filter });
   };
 
   useEffect(() => {
-    console.log(filters);
-  }, [difficulty]);
-
-  useEffect(() => {
-    console.log('use effect, filter dispatcher', filters);
     filtersDispatcher(filters);
   }, [filters]);
-
-  /* useEffect
-
-const updateFilters = (name, value) => {
-
-}
-[difficulty, length, elevationGain, routeType, tags]
-*/
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>

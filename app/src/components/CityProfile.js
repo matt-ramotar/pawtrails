@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const CityProfile = ({ getCityDispatcher, nameOfCity }) => {
+export const CityProfile = ({ getCityDispatcher, nameOfCity, filters }) => {
   const classes = useStyles();
   const [city, setCity] = useState('');
   const [lat, setLat] = useState('');
@@ -50,6 +50,7 @@ export const CityProfile = ({ getCityDispatcher, nameOfCity }) => {
 
   useEffect(() => {
     console.log('updating internal', reduxCity);
+    console.log(filters);
 
     if (reduxCity && reduxCity.name.toLowerCase() === nameOfCity) {
       setCity(reduxCity);
@@ -58,9 +59,70 @@ export const CityProfile = ({ getCityDispatcher, nameOfCity }) => {
     }
   }, [reduxCity]);
 
-  const search = (trails, filters) => {
+  // {
+  //   difficulty: Null OR easy, moderate, hard
+  //   length: Null OR 0 - Inf
+  //   elevationGain: Null OR 0 - Inf
+  //   routeType: Null OR Loop, Out & Back, Point to Point
+  //   tags: []
+  //   }
+
+  /*
     const { difficulty, length, elevationGain, routeType, tags } = filters;
-    return;
+*/
+
+  const hasTags = (trail, tags) => {
+    for (let tag of tags) {
+      if (!trail.Tags.includes(tag)) return false;
+    }
+    return true;
+  };
+
+  const isLength = (trail, length) => (trail.length <= length ? true : false);
+
+  const isDifficulty = (trail, difficulty) =>
+    trail.difficulty === difficulty.toLowerCase() ? true : false;
+
+  const isElevationGain = (trail, elevationGain) =>
+    trail.elevationGain <= elevationGain ? true : false;
+
+  const isRouteType = (trail, routeType) => (trail.RouteType === routeType ? true : false);
+
+  const search = (trails, filters) => {
+    console.log('trails', trails);
+    console.log('filters', filters);
+    let matchingTrails = trails;
+
+    let filtersMap = {
+      tags: hasTags,
+      length: isLength,
+      difficulty: isDifficulty,
+      elevationGain: isElevationGain,
+      routeType: isRouteType,
+    };
+
+    let easy = trails.filter(trail => trail.difficulty === 'easy');
+    console.log('easy', easy);
+
+    // let filtersToRun = Object.entries(filters).map((key, value) => [filtersMap[key], value]);
+    let filtersToRun = Object.entries(filters).map(filter => [filtersMap[filter[0]], filter[1]]);
+
+    while (filtersToRun.length > 0) {
+      let filter = filtersToRun.shift();
+      let cb = filter[0];
+      let val = filter[1];
+      matchingTrails = matchingTrails.filter(trail => cb(trail, val));
+      console.log(matchingTrails);
+    }
+
+    return matchingTrails;
+
+    const { difficulty, length, elevationGain, routeType, tags } = filters;
+    console.log(Object.entries(filters));
+    console.log('difficulty', difficulty);
+    console.log('length', length);
+    console.log('elevationGain', elevationGain);
+    console.log('routeType', routeType);
   };
 
   if (!city) return null;
@@ -78,7 +140,7 @@ export const CityProfile = ({ getCityDispatcher, nameOfCity }) => {
       </Typography>
       <CityMap lat={lat} lng={lng}></CityMap>
       <Filters />
-      <CityTrails trails={city.Trails} />
+      <CityTrails trails={search(city.Trails, filters)} />
     </>
   );
 };
@@ -86,8 +148,11 @@ export const CityProfile = ({ getCityDispatcher, nameOfCity }) => {
 export default function CityProfileContainer() {
   const dispatch = useDispatch();
   let { nameOfCity } = useParams();
+  const filters = useSelector(state => state.filters);
 
   const getCityDispatcher = name => dispatch(getCity(name));
 
-  return <CityProfile nameOfCity={nameOfCity} getCityDispatcher={getCityDispatcher} />;
+  return (
+    <CityProfile nameOfCity={nameOfCity} getCityDispatcher={getCityDispatcher} filters={filters} />
+  );
 }
