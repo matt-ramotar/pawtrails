@@ -72,8 +72,10 @@ export const CityProfile = ({ getCityDispatcher, nameOfCity, filters }) => {
 */
 
   const hasTags = (trail, tags) => {
+    let tagValues = Object.values(trail.Tags).map(t => t.tag);
+
     for (let tag of tags) {
-      if (!trail.Tags.includes(tag)) return false;
+      if (!tagValues.includes(tag)) return false;
     }
     return true;
   };
