@@ -1,13 +1,11 @@
 const asyncHandler = require('express-async-handler');
+const axios = require('axios');
 const bcrypt = require('bcryptjs');
-const express = require('express');
+const router = require('express').Router();
 const { validationResult } = require('express-validator');
 
 const { Trail, Photo, Tag, City, sequelize } = require('../../db/models');
-
 const { restoreUser, generateToken } = require('../util/auth');
-
-const router = express.Router();
 
 router.get(
   '/us/:city',
@@ -33,6 +31,22 @@ router.get(
       include: [{ model: Photo }, { model: Tag }, { model: City }],
     });
     res.json(trail);
+  })
+);
+
+router.get(
+  '/weather/:coords',
+  asyncHandler(async (req, res) => {
+    const lat = Number(req.params.coords.match(/(?<=lat=)[\d.+-]+/).join(''));
+    const lng = Number(req.params.coords.match(/(?<=lng=)[\d.+-]+/).join(''));
+    console.log(lat, lng);
+    const apiKey = process.env.REACT_APP_OPEN_WEATHER_API_KEY;
+    console.log(apiKey);
+    const weather = await axios.get(
+      `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&appid=${apiKey}`
+    );
+    console.log(weather);
+    return res.json(weather.data);
   })
 );
 

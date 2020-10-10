@@ -2,7 +2,9 @@ import { setCity } from './cities';
 
 const LOAD_ALL_TRAILS = 'trails/LOAD_ALL_TRAILS';
 const LOAD_QUERIED_TRAILS = 'trails/LOAD_QUERIED_TRAILS';
+
 const LOAD_TRAIL = 'trails/LOAD_TRAIL';
+const SET_WEATHER = '/weather/SET_WEATHER';
 
 export const loadAllTrails = trails => ({
   type: LOAD_ALL_TRAILS,
@@ -19,6 +21,13 @@ export const loadTrail = trail => ({
   type: LOAD_TRAIL,
   trail,
 });
+
+const setWeather = weather => {
+  return {
+    type: SET_WEATHER,
+    weather,
+  };
+};
 
 export const getAllTrails = () => async dispatch => {
   const res = await fetch('/api/trails');
@@ -49,6 +58,17 @@ export const getTrail = id => async dispatch => {
   }
 };
 
+export const getWeather = (lat, lng) => {
+  return async dispatch => {
+    const res = await fetch(`/api/trails/weather/lat=${lat}&lng=${lng}`);
+    if (res.ok) {
+      const weather = await res.json();
+      console.log(weather);
+      dispatch(setWeather(weather));
+    }
+  };
+};
+
 export default function trailsReducer(state = {}, action) {
   switch (action.type) {
     case LOAD_ALL_TRAILS:
@@ -58,6 +78,10 @@ export default function trailsReducer(state = {}, action) {
 
     case LOAD_TRAIL:
       return { ...state, current: action.trail };
+
+    case SET_WEATHER:
+      return { ...state, weather: action.weather };
+
     default:
       return state;
   }

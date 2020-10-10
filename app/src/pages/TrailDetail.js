@@ -24,6 +24,8 @@ import AddIcon from '@material-ui/icons/Add';
 import ShareIcon from '@material-ui/icons/Share';
 import NavigationIcon from '@material-ui/icons/Navigation';
 
+import { getWeather } from '../store/trails';
+
 const useStyles = makeStyles(theme => ({
   hero: { position: 'relative' },
   mainPhoto: {
@@ -118,7 +120,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const TrailDetail = ({ getTrailDispatch, trail, user, google, location, lat, lng }) => {
+const TrailDetail = ({
+  getTrailDispatch,
+  getWeatherDispatcher,
+  trail,
+  user,
+  google,
+  location,
+  lat,
+  lng,
+}) => {
   const { id } = useParams();
 
   const classes = useStyles();
@@ -128,6 +139,12 @@ const TrailDetail = ({ getTrailDispatch, trail, user, google, location, lat, lng
   useEffect(() => {
     getTrailDispatch(id);
   }, [id]);
+
+  useEffect(() => {
+    if (trail) {
+      getWeatherDispatcher(trail.lat, trail.lng);
+    }
+  }, [trail]);
 
   const { ref, map, googleAPIObj } = useGoogleMaps(
     google,
@@ -233,6 +250,7 @@ const TrailDetail = ({ getTrailDispatch, trail, user, google, location, lat, lng
 export default function TrailDetailContainer() {
   const dispatch = useDispatch();
   const getTrailDispatch = id => dispatch(getTrail(id));
+  const getWeatherDispatcher = (lat, lng) => dispatch(getWeather(lat, lng));
   const google = process.env.REACT_APP_GOOGLE_API_KEY;
   console.log(google);
 
@@ -241,6 +259,7 @@ export default function TrailDetailContainer() {
   return (
     <TrailDetail
       getTrailDispatch={getTrailDispatch}
+      getWeatherDispatcher={getWeatherDispatcher}
       trail={trail}
       user={user}
       google={google}
