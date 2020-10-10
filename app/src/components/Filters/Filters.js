@@ -124,9 +124,9 @@ export function Filters({ filtersDispatcher }) {
         onChange={updateRouteType}
         labelId='routeType-label'
         style={{ width: '150px' }}>
-        <MenuItem value={'Easy'}>Easy</MenuItem>
-        <MenuItem value={'Moderate'}>Moderate</MenuItem>
-        <MenuItem value={'Hard'}>Hard</MenuItem>
+        <MenuItem value={'Loop'}>Loop</MenuItem>
+        <MenuItem value={'Out & Back'}>Out & Back</MenuItem>
+        <MenuItem value={'Point to Point'}>Point to Point</MenuItem>
       </Select>
 
       <Select

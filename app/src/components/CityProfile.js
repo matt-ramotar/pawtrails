@@ -86,7 +86,7 @@ export const CityProfile = ({ getCityDispatcher, nameOfCity, filters }) => {
   const isElevationGain = (trail, elevationGain) =>
     trail.elevationGain <= elevationGain ? true : false;
 
-  const isRouteType = (trail, routeType) => (trail.RouteType === routeType ? true : false);
+  const isRouteType = (trail, routeType) => (trail.routeType === routeType ? true : false);
 
   const search = (trails, filters) => {
     console.log('trails', trails);
@@ -101,10 +101,6 @@ export const CityProfile = ({ getCityDispatcher, nameOfCity, filters }) => {
       routeType: isRouteType,
     };
 
-    let easy = trails.filter(trail => trail.difficulty === 'easy');
-    console.log('easy', easy);
-
-    // let filtersToRun = Object.entries(filters).map((key, value) => [filtersMap[key], value]);
     let filtersToRun = Object.entries(filters).map(filter => [filtersMap[filter[0]], filter[1]]);
 
     while (filtersToRun.length > 0) {
