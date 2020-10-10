@@ -22,10 +22,11 @@ export const loadTrail = trail => ({
   trail,
 });
 
-const setWeather = weather => {
+const setWeather = (weather, week) => {
   return {
     type: SET_WEATHER,
     weather,
+    week,
   };
 };
 
@@ -64,7 +65,31 @@ export const getWeather = (lat, lng) => {
     if (res.ok) {
       const weather = await res.json();
       console.log(weather);
-      dispatch(setWeather(weather));
+      // current
+
+      // daily
+      const convertKelvintoFahrenheit = temp => temp * (9 / 5) - 459.67;
+      const week = weather.daily.map((d, i) => {
+        const icon = `http://openweathermap.org/img/wn/${d.weather[0].icon}.png`;
+        const min = convertKelvintoFahrenheit(d.temp.min);
+        const max = convertKelvintoFahrenheit(d.temp.max);
+        const options = { weekday: 'long' };
+        const today = new Date();
+        const day = new Date(today);
+        day.setDate(day.getDate() + i);
+        const dayOfWeek = new Intl.DateTimeFormat('en-US', options).format(day);
+        console.log(dayOfWeek);
+
+        return {
+          icon,
+          min,
+          max,
+          day,
+          dayOfWeek,
+        };
+      });
+
+      dispatch(setWeather(weather, week));
     }
   };
 };
@@ -80,7 +105,13 @@ export default function trailsReducer(state = {}, action) {
       return { ...state, current: action.trail };
 
     case SET_WEATHER:
-      return { ...state, weather: action.weather };
+      return {
+        ...state,
+        weather: {
+          current: action.weather,
+          daily: action.week,
+        },
+      };
 
     default:
       return state;

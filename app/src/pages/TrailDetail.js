@@ -25,6 +25,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import NavigationIcon from '@material-ui/icons/Navigation';
 
 import { getWeather } from '../store/trails';
+import WeatherContainer from '../components/Weather';
 
 const useStyles = makeStyles(theme => ({
   hero: { position: 'relative' },
@@ -226,6 +227,12 @@ const TrailDetail = ({
           <div ref={ref} style={{ width: '100%', height: 300 }} />
         </Box>
 
+        <Box>
+          <WeatherContainer lat={lat} lng={lng}></WeatherContainer>
+        </Box>
+
+        {/* <Box className={classes.weather}>{trail.weather.daily[0].weather[0].icon}</Box> */}
+
         {/* <Carousel showArrows={true}>
         {trail.Photos.map(photo => (
           <div>
@@ -256,6 +263,7 @@ export default function TrailDetailContainer() {
 
   const trail = useSelector(state => state.trails.current);
   const user = useSelector(state => state.auth.data);
+
   return (
     <TrailDetail
       getTrailDispatch={getTrailDispatch}
