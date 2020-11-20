@@ -3,7 +3,7 @@ const uuid = require('uuid').v4;
 
 const {
   jwtConfig: { secret, expiresIn },
-} = require('../../config');
+} = require('../../../config');
 
 const { User } = require('../../db/models');
 

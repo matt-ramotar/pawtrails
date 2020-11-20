@@ -7,7 +7,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const { ValidationError } = require('sequelize');
 
-const routes = require('./routes');
+const routes = require('./backend/routes');
 
 const app = express();
 
