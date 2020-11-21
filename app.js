@@ -40,11 +40,14 @@ app.use(function (err, _req, res, _next) {
   if (err.status === 401) {
     res.clearCookie('token');
   }
-  res.json({
-    message: err.message,
-    stack: err.stack,
-    errors: err.errors,
-  });
+
+  if (process.env.NODE_ENV !== 'production') {
+    res.json({
+      message: err.message,
+      stack: err.stack,
+      errors: err.errors,
+    });
+  }
 });
 
 module.exports = app;
