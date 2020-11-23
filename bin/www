@@ -14,7 +14,7 @@ const config = require('../config');
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(config.port || '5000');
+const port = normalizePort(config.port || '8080');
 console.log('listning on port ', port);
 app.set('port', port);
 
