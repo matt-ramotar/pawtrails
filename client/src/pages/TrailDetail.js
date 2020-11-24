@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, NavLink } from 'react-router-dom';
-import Carousel from 'react-material-ui-carousel';
 import Typography from '@material-ui/core/Typography';
 import { Chip } from '@material-ui/core';
-import { Button } from '@material-ui/core';
-import { useModal } from 'react-modal-hook';
-import CreateReviewModal from '../components/CreateReviewModal';
 import { getTrail } from '../store/trails';
 import CreateReviewFormContainer from '../components/CreateReviewForm.js';
 import { useGoogleMaps } from 'react-hook-google-maps';
@@ -15,11 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
 
 import Fab from '@material-ui/core/Fab';
-import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
-import RateReviewIcon from '@material-ui/icons/RateReview';
 import CreateIcon from '@material-ui/icons/Create';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import AddIcon from '@material-ui/icons/Add';
 import ShareIcon from '@material-ui/icons/Share';
 import NavigationIcon from '@material-ui/icons/Navigation';
@@ -27,7 +19,7 @@ import NavigationIcon from '@material-ui/icons/Navigation';
 import { getWeather } from '../store/trails';
 import WeatherContainer from '../components/Weather';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   hero: { position: 'relative' },
   mainPhoto: {
     height: '312px',
@@ -121,21 +113,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const TrailDetail = ({
-  getTrailDispatch,
-  getWeatherDispatcher,
-  trail,
-  user,
-  google,
-  location,
-  lat,
-  lng,
-}) => {
+const TrailDetail = ({ getTrailDispatch, getWeatherDispatcher, trail, user, google, lat, lng }) => {
   const { id } = useParams();
 
   const classes = useStyles();
 
-  const [data, setData] = useState([]);
+  const [] = useState([]);
 
   useEffect(() => {
     getTrailDispatch(id);
@@ -147,7 +130,7 @@ const TrailDetail = ({
     }
   }, [trail]);
 
-  const { ref, map, googleAPIObj } = useGoogleMaps(
+  const { ref } = useGoogleMaps(
     google,
 
     {
@@ -168,12 +151,7 @@ const TrailDetail = ({
             <FavoriteButtonContainer className={classes.favorites} />
           </Typography>
 
-          <Chip
-            color='primary'
-            size='small'
-            label={trail.difficulty}
-            className={classes.difficulty}
-          />
+          <Chip color='primary' size='small' label={trail.difficulty} className={classes.difficulty} />
         </div>
         <div className={classes.floatingActions}>
           <Fab className={classes.floatingAction} style={{ backgroundColor: '#90caf9' }}>

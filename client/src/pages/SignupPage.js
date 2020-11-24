@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { signup } from '../store/auth';
-import { Redirect, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export default function SignupPage() {
   const [firstName, setFirstName] = useState('');
@@ -22,36 +22,11 @@ export default function SignupPage() {
   return (
     <main>
       <form onSubmit={handleSubmit}>
-        <input
-          type='text'
-          placeholder='First Name'
-          value={firstName}
-          onChange={e => setFirstName(e.target.value)}
-        />
-        <input
-          type='text'
-          placeholder='Last Name'
-          value={lastName}
-          onChange={e => setLastName(e.target.value)}
-        />
-        <input
-          type='text'
-          placeholder='Username'
-          value={username}
-          onChange={e => setUsername(e.target.value)}
-        />
-        <input
-          type='text'
-          placeholder='Email'
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        />
-        <input
-          type='password'
-          placeholder='Password'
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        />
+        <input type='text' placeholder='First Name' value={firstName} onChange={e => setFirstName(e.target.value)} />
+        <input type='text' placeholder='Last Name' value={lastName} onChange={e => setLastName(e.target.value)} />
+        <input type='text' placeholder='Username' value={username} onChange={e => setUsername(e.target.value)} />
+        <input type='text' placeholder='Email' value={email} onChange={e => setEmail(e.target.value)} />
+        <input type='password' placeholder='Password' value={password} onChange={e => setPassword(e.target.value)} />
         <input
           type='password'
           placeholder='Confirm Password'

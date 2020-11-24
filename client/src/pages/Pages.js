@@ -7,7 +7,6 @@ import TrailDetailContainer from './TrailDetail';
 import TrailsContainer from './TrailsPage';
 import CreateReviewFormContainer from '../components/CreateReviewForm';
 import HomePage from './HomePage';
-import CityTrailsContainer from './Trails';
 import CityProfileContainer from '../components/CityProfile';
 
 export default function Pages() {

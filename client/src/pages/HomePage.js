@@ -1,23 +1,13 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  ThemeProvider,
-  makeStyles,
-  createMuiTheme,
-  responsiveFontSizes,
-} from '@material-ui/core/styles';
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 
-import { login } from '../store/auth';
-import { Redirect } from 'react-router-dom';
-import { Box, Grid, Typography, Paper } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 
 import SearchInput from '../components/SearchInput';
-import MenuAppBar from '../components/AppBar';
-import SimpleSelect from '../components/Select';
 
 import HeroImg from '../Home-Hero-1-Large-1550x885-9d224c1181d0d606bfbc8de11b07d6f9.jpg';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   heroBox: {
     display: 'flex',
     flexDirection: 'row',
@@ -56,10 +46,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function HomePage() {
   const classes = useStyles();
-  // const handleSubmit = e => {
-  //   e.preventDefault();
-  //   dispatch(login(username, password));
-  // };
 
   return (
     <>

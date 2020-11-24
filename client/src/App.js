@@ -1,15 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
-
-import { Provider, useDispatch } from 'react-redux';
-import { setUser } from './store/auth';
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import { CssBaseline, Button } from '@material-ui/core';
+import { CssBaseline } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import MultipleSelect from './components/MultipleSelect';
 import MenuAppBar from './components/AppBar';
 import configureStore from './store/configureStore';
 import Pages from './pages/Pages';
@@ -21,13 +17,6 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 function App() {
-  const useStyles = makeStyles(theme => ({
-    button: {
-      margin: theme.spacing(1),
-    },
-  }));
-
-  const classes = useStyles();
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
   const theme = React.useMemo(
@@ -39,8 +28,6 @@ function App() {
       }),
     [prefersDarkMode]
   );
-
-  // if (loading) return null;
 
   return (
     <>

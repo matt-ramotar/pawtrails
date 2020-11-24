@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllTrails } from '../store/trails';
-import { Redirect, NavLink, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import DirectionsIcon from '@material-ui/icons/Directions';
 import Button from '@material-ui/core/Button';
-import SearchCard from '../components/SearchCard';
 import DataTable from '../components/DataTable';
 
 const useStyles = makeStyles(theme => ({
@@ -54,9 +50,9 @@ export function CustomizedInputBase() {
 }
 
 const TrailsPage = ({ getAllTrailsDispatch, trails }) => {
-  const [data, setData] = useState([]);
+  const [] = useState([]);
   const [query, setQuery] = useState('');
-  const [searchColumns, setSearchColumns] = useState({
+  const [] = useState({
     name: '',
     city: '',
     difficulty: ['easy', 'moderate', 'hard'],
@@ -120,7 +116,6 @@ const TrailsPage = ({ getAllTrailsDispatch, trails }) => {
   useEffect(
     () => async () => {
       const res = await fetch('/api/trails');
-      const data = await res.json();
     },
     []
   );
