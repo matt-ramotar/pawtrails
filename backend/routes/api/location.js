@@ -8,7 +8,7 @@ router.get(
   asyncHandler(async (req, res, next) => {
     const lat = Number(req.params.coords.match(/(?<=lat=)[\d.+-]+/).join(''));
     const lng = Number(req.params.coords.match(/(?<=lng=)[\d.+-]+/).join(''));
-    const config = { key: process.env.GOOGLE_API_KEY, lat, lng };
+    const config = { key: process.env.REACT_GOOGLE_API_KEY, lat, lng };
     return res.json(config);
   })
 );
