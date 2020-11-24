@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, NavLink, useParams } from 'react-router-dom';
 import { getTrails, loadAllTrails } from '../store/trails';
-// import { useGoogleMaps } from 'react-hook-google-maps';
+import { useGoogleMaps } from 'react-hook-google-maps';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -35,7 +35,7 @@ export const CityTrailsPage = ({
   loadAllTrailsDispatcher,
   cityTrails,
   trails,
-  // google,
+  google,
   city,
   lat,
   lng,
@@ -62,16 +62,16 @@ export const CityTrailsPage = ({
     console.log(e.target.trail);
   };
 
-  // const { ref, map, googleAPIObj } = useGoogleMaps(google, {
-  //   center: { lat: Number(lat), lng: Number(lng) },
-  //   zoom: 10,
-  // });
+  const { ref, map, googleAPIObj } = useGoogleMaps(google, {
+    center: { lat: Number(lat), lng: Number(lng) },
+    zoom: 10,
+  });
 
-  // function search(rows) {
-  //   return rows.filter(row => {
-  //     return row.name.toLowerCase().indexOf(query.toLowerCase()) > -1;
-  //   });
-  // }
+  function search(rows) {
+    return rows.filter(row => {
+      return row.name.toLowerCase().indexOf(query.toLowerCase()) > -1;
+    });
+  }
   if (!trails) return null;
 
   return (
@@ -85,7 +85,7 @@ export const CityTrailsPage = ({
       <Typography variant='h5' align='left' className={classes.title}>
         Best Trails in {city.name}
       </Typography>
-      {/* <div ref={ref} style={{ width: 400, height: 300 }} /> */}
+      <div ref={ref} style={{ width: 400, height: 300 }} />
 
       <div>
         {cityTrails.map(trail => (
@@ -104,18 +104,18 @@ export default function CityTrailsContainer() {
   const getCityDispatcher = name => dispatch(getCity(name));
   const loadAllTrailsDispatcher = trails => dispatch(loadAllTrails(trails));
 
-  // const getTrailsDispatcher = city => dispatch(getTrails(city));
+  const getTrailsDispatcher = city => dispatch(getTrails(city));
 
   const cityTrails = useSelector(state => state.trails.matches);
 
   const city = useSelector(state => state.trails.city);
 
-  // const google = process.env.REACT_APP_GOOGLE_API_KEY;
+  const google = process.env.REACT_APP_GOOGLE_API_KEY;
 
   return (
     <CityTrailsPage
-      // google={google}
-      // getTrailsDispatcher={getTrailsDispatcher}
+      google={google}
+      getTrailsDispatcher={getTrailsDispatcher}
       loadAllTrailsDispatcher={loadAllTrailsDispatcher}
       getCityDispatcher={getCityDispatcher}
       cityTrails={cityTrails}

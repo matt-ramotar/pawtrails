@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { Chip } from '@material-ui/core';
 import { getTrail } from '../store/trails';
 import CreateReviewFormContainer from '../components/CreateReviewForm.js';
-// import { useGoogleMaps } from 'react-hook-google-maps';
+import { useGoogleMaps } from 'react-hook-google-maps';
 import FavoriteButtonContainer from '../components/FavoriteButton';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
@@ -113,7 +113,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const TrailDetail = ({ getTrailDispatch, getWeatherDispatcher, trail, user, lat, lng }) => {
+const TrailDetail = ({ getTrailDispatch, getWeatherDispatcher, trail, google, user, lat, lng }) => {
   const { id } = useParams();
 
   const classes = useStyles();
@@ -130,14 +130,14 @@ const TrailDetail = ({ getTrailDispatch, getWeatherDispatcher, trail, user, lat,
     }
   }, [trail]);
 
-  // const { ref } = useGoogleMaps(
-  //   google,
+  const { ref } = useGoogleMaps(
+    google,
 
-  //   {
-  //     center: { lat: Number(lat), lng: Number(lng) },
-  //     zoom: 10,
-  //   }
-  // );
+    {
+      center: { lat: Number(lat), lng: Number(lng) },
+      zoom: 10,
+    }
+  );
 
   if (!trail) return null;
 
@@ -201,9 +201,9 @@ const TrailDetail = ({ getTrailDispatch, getWeatherDispatcher, trail, user, lat,
           ))}
         </Box>
 
-        {/* <Box className={classes.googleMap}>
+        <Box className={classes.googleMap}>
           <div ref={ref} style={{ width: '100%', height: 300 }} />
-        </Box> */}
+        </Box>
 
         <Box>
           <WeatherContainer lat={lat} lng={lng}></WeatherContainer>
@@ -212,12 +212,12 @@ const TrailDetail = ({ getTrailDispatch, getWeatherDispatcher, trail, user, lat,
         {/* <Box className={classes.weather}>{trail.weather.daily[0].weather[0].icon}</Box> */}
 
         {/* <Carousel showArrows={true}>
-        {trail.Photos.map(photo => (
-          <div>
-            <img src={photo.url} />
-          </div>
-        ))}
-      </Carousel> */}
+          {trail.Photos.map(photo => (
+            <div>
+              <img src={photo.url} />
+            </div>
+          ))}
+        </Carousel> */}
 
         <NavLink
           to='/reviews/new'
@@ -236,8 +236,8 @@ export default function TrailDetailContainer() {
   const dispatch = useDispatch();
   const getTrailDispatch = id => dispatch(getTrail(id));
   const getWeatherDispatcher = (lat, lng) => dispatch(getWeather(lat, lng));
-  // const google = process.env.REACT_APP_GOOGLE_API_KEY;
-  // console.log(google);
+  const google = process.env.REACT_APP_GOOGLE_API_KEY;
+  console.log(google);
 
   const trail = useSelector(state => state.trails.current);
   const user = useSelector(state => state.auth.data);
@@ -248,7 +248,7 @@ export default function TrailDetailContainer() {
       getWeatherDispatcher={getWeatherDispatcher}
       trail={trail}
       user={user}
-      // google={google}
+      google={google}
       lat={trail ? trail.lat : null}
       lng={trail ? trail.lng : null}
     />
