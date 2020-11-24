@@ -237,7 +237,6 @@ export default function TrailDetailContainer() {
   const getTrailDispatch = id => dispatch(getTrail(id));
   const getWeatherDispatcher = (lat, lng) => dispatch(getWeather(lat, lng));
   const google = process.env.REACT_APP_GOOGLE_API_KEY;
-  console.log(google);
 
   const trail = useSelector(state => state.trails.current);
   const user = useSelector(state => state.auth.data);
