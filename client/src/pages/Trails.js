@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, NavLink, useParams } from 'react-router-dom';
 import { getTrails, loadAllTrails } from '../store/trails';
-import { useGoogleMaps } from 'react-hook-google-maps';
+// import { useGoogleMaps } from 'react-hook-google-maps';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -35,7 +35,7 @@ export const CityTrailsPage = ({
   loadAllTrailsDispatcher,
   cityTrails,
   trails,
-  google,
+  // google,
   city,
   lat,
   lng,
@@ -110,11 +110,11 @@ export default function CityTrailsContainer() {
 
   const city = useSelector(state => state.trails.city);
 
-  const google = process.env.REACT_APP_GOOGLE_API_KEY;
+  // const google = process.env.REACT_APP_GOOGLE_API_KEY;
 
   return (
     <CityTrailsPage
-      google={google}
+      // google={google}
       // getTrailsDispatcher={getTrailsDispatcher}
       loadAllTrailsDispatcher={loadAllTrailsDispatcher}
       getCityDispatcher={getCityDispatcher}
