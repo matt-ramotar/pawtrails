@@ -11,7 +11,7 @@ export default function CityMap({ lat, lng }) {
 
   return (
     <div>
-      <div ref={ref} style={{ width: '100%', height: 300 }} />;<h1>Map</h1>
+      <div ref={ref} style={{ width: '100%', height: 300 }} />;
     </div>
   );
 }
