@@ -19,7 +19,7 @@ export default function Pages() {
       <Route exact path='/trails/us/:nameOfCity' component={CityProfileContainer}></Route>
       <Route exact path='/trails/:id' component={TrailDetailContainer}></Route>
       <Route exact path='/trails' component={TrailsContainer}></Route>
-      <Route exact path='/' component={HomePage}></Route>
+      <Route path='/' component={HomePage}></Route>
     </>
   );
 }
