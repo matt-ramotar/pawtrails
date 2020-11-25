@@ -2,8 +2,10 @@ import React from 'react';
 import { Drawer } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import App from '../App';
-
+import { Box, Typography } from '@material-ui/core';
 import SearchInput from './SearchInput';
+import Trails from './Trails';
+
 export const sidebarWidth = 500;
 
 const useStyles = makeStyles(theme => ({
@@ -18,12 +20,13 @@ export default function Sidebar() {
   return (
     <div>
       <Drawer variant='permanent' anchor='left' classes={{ paper: classes.drawerPaper }}>
-        <div>
+        <Box>
           <SearchInput />
-        </div>
-        <div>
-          <h1>Paw Trails</h1>
-        </div>
+        </Box>
+
+        <Box>
+          <Trails />
+        </Box>
       </Drawer>
     </div>
   );

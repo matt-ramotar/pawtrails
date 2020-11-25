@@ -4,6 +4,7 @@ import auth from './auth';
 import trails from './trails';
 import reviews from './reviews';
 import cities from './cities';
+import city from './city';
 import filters from './filters';
 
 const rootReducer = combineReducers({
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   trails,
   reviews,
   cities,
+  city,
   filters,
 });
 

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import { Autocomplete } from '@material-ui/lab';
-import { getCities, getCity } from '../store/cities';
+import { loadCity } from '../store/city';
 import FormControl from '@material-ui/core/FormControl';
 import { Button, Box } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -43,34 +43,23 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export function SearchInput({ cities, location, getCityDispatcher }) {
+export function SearchInput({ cities, location, loadCityDispatch }) {
   const [city, setCity] = useState('');
   const classes = useStyles();
 
   const history = useHistory();
-
-  useEffect(() => {
-    console.log('use effect', city);
-    getCityDispatcher();
-  }, [city]);
 
   // useEffect(() => {
   //   loadCitiesDispatcher();
   //   console.log(cities);
   // }, []);
 
-  const updateCity = (event, value) => {
-    console.log('updaate query', value);
-
-    setCity(value);
-
-    console.log('query', city);
+  const updateCity = (event, val) => {
+    loadCityDispatch(val);
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    console.log('submit', city);
-    history.push(`/trails/us/${city.toLowerCase()}`);
+  const handleSubmit = (event, val) => {
+    event.preventDefault();
   };
 
   console.log(cities);
@@ -92,7 +81,7 @@ export function SearchInput({ cities, location, getCityDispatcher }) {
               {...params}
               margin='normal'
               variant='standard'
-              placeholder='Enter a city, park or trail name'
+              placeholder='Search Paw Trails'
               className={classes.inputField}
               InputProps={{
                 ...params.InputProps,
@@ -223,7 +212,7 @@ export default function SearchInputContainer() {
 
   const location = useSelector(state => state.location);
   // const loadCitiesDispatcher = () => dispatch(loadCities());
-  const getCityDispatcher = () => dispatch(getCity);
+  const loadCityDispatch = name => dispatch(loadCity(name));
 
-  return <SearchInput cities={cities} location={location} getCityDispatcher={getCityDispatcher} />;
+  return <SearchInput cities={cities} location={location} loadCityDispatch={loadCityDispatch} />;
 }

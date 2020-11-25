@@ -34,7 +34,6 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <BrowserRouter>
-          <MenuAppBar></MenuAppBar>
           <Pages></Pages>
           <Default />
         </BrowserRouter>

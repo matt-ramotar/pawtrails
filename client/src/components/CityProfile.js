@@ -8,7 +8,7 @@ import CityMap from './CityMap';
 import CityTrails from './CityTrails';
 import Filters from './Filters/Filters';
 
-import { getCity } from '../store/cities';
+import { loadCity } from '../store/city';
 
 import SearchCard from '../components/SearchCard';
 import { set } from 'js-cookie';
@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const CityProfile = ({ getCityDispatcher, nameOfCity, filters }) => {
+export const CityProfile = ({ loadCityDispatch, nameOfCity, filters }) => {
   const classes = useStyles();
   const [city, setCity] = useState('');
   const [lat, setLat] = useState('');
@@ -45,7 +45,7 @@ export const CityProfile = ({ getCityDispatcher, nameOfCity, filters }) => {
 
   useEffect(() => {
     console.log('updating redux', reduxCity);
-    getCityDispatcher(nameOfCity);
+    loadCityDispatch(nameOfCity);
   }, [nameOfCity]);
 
   useEffect(() => {
@@ -82,11 +82,9 @@ export const CityProfile = ({ getCityDispatcher, nameOfCity, filters }) => {
 
   const isLength = (trail, length) => (trail.length <= length ? true : false);
 
-  const isDifficulty = (trail, difficulty) =>
-    trail.difficulty === difficulty.toLowerCase() ? true : false;
+  const isDifficulty = (trail, difficulty) => (trail.difficulty === difficulty.toLowerCase() ? true : false);
 
-  const isElevationGain = (trail, elevationGain) =>
-    trail.elevationGain <= elevationGain ? true : false;
+  const isElevationGain = (trail, elevationGain) => (trail.elevationGain <= elevationGain ? true : false);
 
   const isRouteType = (trail, routeType) => (trail.routeType === routeType ? true : false);
 
@@ -148,9 +146,7 @@ export default function CityProfileContainer() {
   let { nameOfCity } = useParams();
   const filters = useSelector(state => state.filters);
 
-  const getCityDispatcher = name => dispatch(getCity(name));
+  const loadCityDispatch = name => dispatch(loadCity(name));
 
-  return (
-    <CityProfile nameOfCity={nameOfCity} getCityDispatcher={getCityDispatcher} filters={filters} />
-  );
+  return <CityProfile nameOfCity={nameOfCity} loadCityDispatch={loadCityDispatch} filters={filters} />;
 }
