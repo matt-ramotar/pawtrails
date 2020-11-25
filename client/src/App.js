@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import MenuAppBar from './components/AppBar';
 import configureStore from './store/configureStore';
 import Pages from './pages/Pages';
-
+import Default from './pages/Default';
 const store = configureStore();
 
 if (process.env.NODE_ENV !== 'production') {
@@ -36,6 +36,7 @@ function App() {
         <BrowserRouter>
           <MenuAppBar></MenuAppBar>
           <Pages></Pages>
+          <Default />
         </BrowserRouter>
       </ThemeProvider>
     </>
