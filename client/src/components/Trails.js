@@ -6,8 +6,7 @@ export default function Trails() {
   const trails = useSelector(state => state.city.trails);
   if (!trails) return null;
   return (
-    <Box
-      style={{ maxHeight: '100%', overflow: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <Box style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       {trails.map(trail => (
         <TrailCard trail={trail} />
       ))}

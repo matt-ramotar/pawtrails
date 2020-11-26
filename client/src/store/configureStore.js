@@ -5,6 +5,7 @@ import trails from './trails';
 import reviews from './reviews';
 import cities from './cities';
 import city from './city';
+import trail from './trail';
 import filters from './filters';
 
 const rootReducer = combineReducers({
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   cities,
   city,
   filters,
+  trail,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
