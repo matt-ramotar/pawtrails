@@ -13,13 +13,9 @@ export function Marker({ lat, lng }) {
 }
 
 export default function Explore() {
-  const [center, setCenter] = useState({ lat: 45.765, lng: -123.9777161 });
-  const coords = useSelector(state => state.city.coords);
-  const trails = useSelector(state => state.city.trails);
+  const { lat, lng } = useSelector(state => state.map.center);
 
-  useEffect(() => {
-    if (coords) setCenter({ lat: Number.parseFloat(coords.lat), lng: Number.parseFloat(coords.lng) });
-  }, [coords]);
+  const trails = useSelector(state => state.city.trails);
 
   const zoom = 14;
 
@@ -31,7 +27,7 @@ export default function Explore() {
     <Box style={{ width: '100vw', height: '100vh', marginLeft: 0 }}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: 'AIzaSyA4fFeyvSm7WKc6-V-HSWa1h_aNxu-Zico' }}
-        center={center}
+        center={{ lat: Number.parseFloat(lat), lng: Number.parseFloat(lng) }}
         zoom={zoom}
         defaultOptions={defaultOptions}>
         {trails ? trails.map(trail => <Marker lat={trail.lat} lng={trail.lng} text={trail.name} />) : null}

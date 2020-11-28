@@ -1,6 +1,6 @@
 const SET_CENTER = 'map/SET_CENTER';
 
-const initialState = { center: { lat: '37.7749', lng: '-122.4194' } };
+const initialState = { center: { lat: 37.7749, lng: -122.4194 } };
 
 export const setCenter = center => ({ type: SET_CENTER, center });
 
