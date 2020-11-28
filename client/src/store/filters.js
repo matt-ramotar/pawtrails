@@ -11,10 +11,10 @@ const SET_DIFFICULTY = 'filters/SET_DIFFICULTY';
 const SET_TAGS = 'filters/SET_TAGS';
 
 const initialState = {
-  distance: { min: 0, max: Infinity },
-  elevationGain: { min: 0, max: Infinity },
-  trailType: null,
-  difficulty: null,
+  distance: [],
+  elevationGain: [],
+  trailType: [],
+  difficulty: [],
   tags: [],
 };
 
