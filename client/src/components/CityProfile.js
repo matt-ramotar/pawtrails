@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import CityMap from './CityMap';
 import CityTrails from './CityTrails';
-import Filters from './Filters/Filters';
+import Filters from './_Filter/Filters';
 
 import { loadCity } from '../store/city';
 
