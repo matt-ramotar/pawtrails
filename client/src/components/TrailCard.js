@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Button, Chip, Link, Paper, Typography } from '@material-ui/core';
 import { setTrail } from '../store/trail';
+import { setCenter } from '../store/map';
 export default function TrailCard({ trail }) {
   console.log(trail);
   const dispatch = useDispatch();
 
   const handleClick = () => {
     dispatch(setTrail(trail));
+    dispatch(setCenter({ lat: trail.lat, lng: trail.lng }));
   };
 
   return (
