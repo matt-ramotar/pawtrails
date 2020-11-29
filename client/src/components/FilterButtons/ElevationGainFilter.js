@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { setDistance } from '../../store/filters';
+import { setElevationGain } from '../../store/filters';
 import { Button } from '@material-ui/core';
 
 export default function DistanceFilter() {
@@ -8,7 +8,7 @@ export default function DistanceFilter() {
   const [max, setMax] = useState(Infinity);
 
   const handleClick = () => {
-    setDistance();
+    setElevationGain();
   };
 
   return (
@@ -21,7 +21,7 @@ export default function DistanceFilter() {
         marginLeft: 8,
         marginTop: 8,
       }}>
-      <span style={{ fontSize: '1.5rem' }}>📏</span> Distance
+      <span style={{ fontSize: '1.5rem' }}>↕️</span> Elevation Gain
     </Button>
   );
 }

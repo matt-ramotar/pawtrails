@@ -1,9 +1,7 @@
 import React from 'react';
-import { Box, Button, Chip, Typography } from '@material-ui/core';
-import { DistanceFilter } from './FilterButtons';
+import { Box } from '@material-ui/core';
+import { DistanceFilter, ElevationGainFilter, RouteTypeFilter, DifficultyFilter, TagsFilter } from './FilterButtons';
 export default function Filters() {
-  const handleClick = (event, val) => {};
-
   return (
     <Box
       style={{
@@ -15,50 +13,10 @@ export default function Filters() {
         flexWrap: 'wrap',
       }}>
       <DistanceFilter />
-      <Button
-        style={{
-          fontSize: 16,
-          fontFamily: 'Roboto',
-          fontWeight: 'bold',
-          backgroundColor: '#f5f5f5',
-          marginLeft: 8,
-          marginTop: 8,
-        }}>
-        <span style={{ fontSize: '1.5rem' }}>↕️</span> Elevation Gain
-      </Button>
-      <Button
-        style={{
-          fontSize: 16,
-          fontFamily: 'Roboto',
-          fontWeight: 'bold',
-          backgroundColor: '#f5f5f5',
-          marginLeft: 8,
-          marginTop: 8,
-        }}>
-        <span style={{ fontSize: '1.5rem' }}>⛰️</span> Trail Type
-      </Button>
-      <Button
-        style={{
-          fontSize: 16,
-          fontFamily: 'Roboto',
-          fontWeight: 'bold',
-          backgroundColor: '#f5f5f5',
-          marginLeft: 8,
-          marginTop: 8,
-        }}>
-        <span style={{ fontSize: '1.5rem' }}>😅</span> Difficulty
-      </Button>
-      <Button
-        style={{
-          fontSize: 16,
-          fontFamily: 'Roboto',
-          fontWeight: 'bold',
-          backgroundColor: '#f5f5f5',
-          marginLeft: 8,
-          marginTop: 8,
-        }}>
-        <span style={{ fontSize: '1.5rem' }}>🏷️</span> Tags
-      </Button>
+      <ElevationGainFilter />
+      <RouteTypeFilter />
+      <DifficultyFilter />
+      <TagsFilter />
     </Box>
   );
 }

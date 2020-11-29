@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { setDistance } from '../../store/filters';
+import { setRouteType } from '../../store/filters';
 import { Button } from '@material-ui/core';
 
 export default function DistanceFilter() {
-  const [min, setMin] = useState(0);
-  const [max, setMax] = useState(Infinity);
-
   const handleClick = () => {
-    setDistance();
+    setRouteType();
   };
 
   return (
@@ -21,7 +18,7 @@ export default function DistanceFilter() {
         marginLeft: 8,
         marginTop: 8,
       }}>
-      <span style={{ fontSize: '1.5rem' }}>📏</span> Distance
+      <span style={{ fontSize: '1.5rem' }}>⛰️</span> Route Type
     </Button>
   );
 }

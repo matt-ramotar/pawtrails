@@ -1,34 +1,54 @@
 import { useSelector } from 'react-redux';
 
+const DISTANCE = 'filters/DISTANCE';
+const ELEVATION_GAIN = 'filters/ELEVATION_GAIN';
+const TRAIL_TYPE = 'filters/TRAIL_TYPE';
+const DIFFICULTY = 'filters/DIFFICULTY';
+const TAGS = 'filters/TAGS';
+
 export default function filterTrails(trails) {
-  const distanceFilter = useSelector(state.filters.distance);
-  const elevationGainFilter = useSelector(state.filters.elevationGain);
-  const trailTypeFilter = useSelector(state.filters.trailType);
-  const difficultyFilter = useSelector(state.filters.difficulty);
-  const tagsFilter = useSelector(state.filters.tags);
-  const filters = [distanceFilter, elevationGainFilter, trailTypeFilter, difficultyFilter, tagsFilter];
+  const filters = useSelector(state.filters);
 
-  const type = {
-    type: 'singleSelect, multiSelect, slider',
-    propertyName: 'distance, elevationGain',
-    value: '',
-  };
+  const filters = Object.entries(filters);
+  let matches;
 
-  const difficulty = {
-    type: 'singleSelect',
-    propertyName: 'difficulty',
-    value: 'hard',
-  };
+  while (filters.length) {
+    const [name, filter] = filters.shift();
+    switch (filter.name) {
+      case DISTANCE:
+        const { min, max } = filter.value;
+        matches = trails.filter(trail => trail.distance >= min && trail.distance <= max);
 
-  const slider = {
-    type: 'slider',
-    propertyName: '',
-    value: [min, max],
-  };
+      case ELEVATION_GAIN:
+        const { min, max } = filter.value;
+        matches = trails.filter(trail => trail.elevationGain >= min && trail.elevationGain <= max);
 
-  const tag = {
-    type: 'multiSelect',
-    propertyName: 'tags',
-    values: ['Dog Friendly', 'Kid Friendly'],
-  };
+      case TRAIL_TYPE:
+        matches = trails.filter(trail => trail.routeType === filter.value);
+
+      case DIFFICULTY:
+        matches = trails.filter(trail => trail.difficulty === filter.value);
+
+      case TAGS:
+        matches = filterTrailsByTags(trails, filter.value);
+
+      default:
+        matches = trails;
+    }
+  }
+}
+
+export function getTags(trail) {
+  return trail.Tags.reduce((tags, tag) => tags.push(tag.tag), []);
+}
+
+export function filterTrailsByTags(trails, tags) {
+  let matches = [];
+
+  while (tags.length) {
+    const tag = tags.shift();
+    matches = trails.filter(trail => getTags(trail).includes(tag));
+  }
+
+  return matches;
 }
