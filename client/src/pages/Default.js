@@ -11,7 +11,7 @@ export default function Default() {
       <Navbar />
       <BottomSlider />
       <Switch>
-        <Route exact path='/explore' component={Explore} />
+        <Route path='/' component={Explore} />
       </Switch>
     </div>
   );

@@ -6,7 +6,6 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import MenuAppBar from './components/AppBar';
 import configureStore from './store/configureStore';
 import Pages from './pages/Pages';
 import Default from './pages/Default';
@@ -34,7 +33,6 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <BrowserRouter>
-          {/* <Pages></Pages> */}
           <Default />
         </BrowserRouter>
       </ThemeProvider>
