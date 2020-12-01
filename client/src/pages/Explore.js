@@ -20,9 +20,10 @@ export default function Explore() {
 
   const zoom = 14;
 
-  const defaultOptions = {
+  const createMapOptions = maps => ({
     fullscreenControl: false,
-  };
+    panControl: false,
+  });
 
   return (
     <Box style={{ width: '100vw', height: '100vh', marginLeft: 0 }}>
@@ -30,7 +31,7 @@ export default function Explore() {
         bootstrapURLKeys={{ key: 'AIzaSyA4fFeyvSm7WKc6-V-HSWa1h_aNxu-Zico' }}
         center={{ lat: Number.parseFloat(lat), lng: Number.parseFloat(lng) }}
         zoom={zoom}
-        defaultOptions={defaultOptions}>
+        options={createMapOptions}>
         {trails
           ? filterTrails(trails, filters).map(trail => <Marker lat={trail.lat} lng={trail.lng} text={trail.name} />)
           : null}
