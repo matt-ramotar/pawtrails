@@ -1,4 +1,3 @@
-require('newrelic');
 const cors = require('cors');
 const createError = require('http-errors');
 const express = require('express');
