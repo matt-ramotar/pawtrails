@@ -3,10 +3,8 @@ import { Drawer } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Typography } from '@material-ui/core';
 import SearchInput from './SearchInput';
-import Trails from './Trails';
 import TrailDetail from './TrailDetail';
 import Filters from './Filters';
-import dogs from '../images/dogemoji.png';
 
 export const sidebarWidth = 500;
 
@@ -43,7 +41,6 @@ export default function Sidebar() {
           <Typography variant='h2' className={classes.logo}>
             🐶
           </Typography>
-          {/* <img src={dogs} className={classes.logo} /> */}
           <SearchInput className={classes.inputBox} />
         </Box>
 
