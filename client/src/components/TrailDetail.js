@@ -46,6 +46,19 @@ const useStyles = makeStyles(theme => ({
   star: {
     color: '#FBBD04',
   },
+  aboutBox: {
+    margin: 10,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  aboutDescriptionBox: {
+    width: '80%',
+  },
+  aboutDescription: {
+    fontFamily: 'Roboto',
+  },
 }));
 
 export default function TrailDetail() {
@@ -118,6 +131,19 @@ export default function TrailDetail() {
           <Typography variant='body1' className={classes.actionLabel}>
             Share
           </Typography>
+        </Box>
+      </Box>
+      <Divider />
+      <Box className={classes.aboutBox}>
+        <Box className={classes.aboutDescriptionBox}>
+          <Typography variant='body1' className={classes.aboutDescription}>
+            {trail.overview}
+          </Typography>
+        </Box>
+        <Box className={classes.moreInfoBox}>
+          <Button className={classes.moreInfoButton}>
+            <i class='fas fa-chevron-right fa-lg'></i>
+          </Button>
         </Box>
       </Box>
     </Paper>
