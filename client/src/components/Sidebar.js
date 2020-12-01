@@ -6,7 +6,7 @@ import SearchInput from './SearchInput';
 import Trails from './Trails';
 import TrailDetail from './TrailDetail';
 import Filters from './Filters';
-import dogs from '../images/dogs.png';
+import dogs from '../images/dogemoji.png';
 
 export const sidebarWidth = 500;
 
@@ -18,13 +18,13 @@ const useStyles = makeStyles(theme => ({
   },
   searchBox: {
     position: 'relative',
-    marginTop: 50,
+    marginTop: 20,
   },
   logo: {
     width: 100,
     margin: 0,
     position: 'absolute',
-    top: -55,
+    top: -30,
     right: 20,
     zIndex: 1,
   },
@@ -40,7 +40,10 @@ export default function Sidebar() {
     <Box>
       <Drawer variant='permanent' anchor='left' classes={{ paper: classes.drawerPaper }}>
         <Box className={classes.searchBox}>
-          <img src={dogs} className={classes.logo} />
+          <Typography variant='h2' className={classes.logo}>
+            🐶
+          </Typography>
+          {/* <img src={dogs} className={classes.logo} /> */}
           <SearchInput className={classes.inputBox} />
         </Box>
 
