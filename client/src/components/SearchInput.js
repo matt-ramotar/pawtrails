@@ -20,16 +20,22 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     marginLeft: '2.5%',
   },
+
   inputField: {
-    backgroundColor: 'white',
+    backgroundColor: '#ffffff',
     width: '95%',
     height: '60px',
     borderRadius: '8px',
-    color: '#414141',
+    color: 'black',
+  },
+  custom: {
+    backgroundColor: '#ffffff',
+    fontFamily: 'Roboto',
+    fontWeight: 'bold',
   },
   autoComplete: {
     border: 'none',
-    color: 'white',
+    color: '#414141',
     width: '100%',
     opacity: 1,
   },
@@ -38,6 +44,8 @@ const useStyles = makeStyles(() => ({
     fontFamily: 'Roboto',
     fontWeight: 'bold',
     textAlign: 'center',
+    backgroundColor: '#ffffff',
+    color: '',
   },
 }));
 
@@ -58,6 +66,7 @@ export function SearchInput({ cities, loadCityDispatch }) {
         autoSelect
         autoHighlight
         className={classes.autoComplete}
+        classes={{ paper: classes.custom }}
         closeIcon=''
         renderInput={params => (
           <TextField

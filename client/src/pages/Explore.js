@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { sidebarWidth } from '../components/Sidebar';
 import GoogleMapReact from 'google-map-react';
 import { Box } from '@material-ui/core';
+import filterTrails from '../helpers/filterTrails';
 
 export function Marker({ lat, lng }) {
   return (
@@ -14,7 +15,7 @@ export function Marker({ lat, lng }) {
 
 export default function Explore() {
   const { lat, lng } = useSelector(state => state.map.center);
-
+  const filters = useSelector(state => state.filters);
   const trails = useSelector(state => state.city.trails);
 
   const zoom = 14;
@@ -30,7 +31,9 @@ export default function Explore() {
         center={{ lat: Number.parseFloat(lat), lng: Number.parseFloat(lng) }}
         zoom={zoom}
         defaultOptions={defaultOptions}>
-        {trails ? trails.map(trail => <Marker lat={trail.lat} lng={trail.lng} text={trail.name} />) : null}
+        {trails
+          ? filterTrails(trails, filters).map(trail => <Marker lat={trail.lat} lng={trail.lng} text={trail.name} />)
+          : null}
       </GoogleMapReact>
     </Box>
   );

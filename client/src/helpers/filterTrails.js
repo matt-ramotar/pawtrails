@@ -1,41 +1,66 @@
-import { useSelector } from 'react-redux';
+const DISTANCE = 'distance';
+const ELEVATION_GAIN = 'elevationGain';
+const ROUTE_TYPE = 'routeType';
+const DIFFICULTY = 'difficulty';
+const TAGS = 'tags';
 
-const DISTANCE = 'filters/DISTANCE';
-const ELEVATION_GAIN = 'filters/ELEVATION_GAIN';
-const TRAIL_TYPE = 'filters/TRAIL_TYPE';
-const DIFFICULTY = 'filters/DIFFICULTY';
-const TAGS = 'filters/TAGS';
+export default function filterTrails(trails, filters) {
+  let matches = trails;
 
-export default function filterTrails(trails) {
-  const filters = useSelector(state.filters);
+  filters = Object.entries(filters);
 
-  const filters = Object.entries(filters);
-  let matches;
-
-  while (filters.length) {
-    const [name, filter] = filters.shift();
-    switch (filter.name) {
+  while (filters.length > 0) {
+    const [name, value] = filters.shift();
+    console.log(name, value);
+    console.log(filters.length);
+    switch (name) {
       case DISTANCE:
-        const { min, max } = filter.value;
-        matches = trails.filter(trail => trail.distance >= min && trail.distance <= max);
+        console.log('hitting distance', filters.length);
+        const minDistance = value.min;
+        const maxDistance = value.max;
+
+        matches = matches.filter(trail => {
+          const distance = Number.parseFloat(trail.length);
+          console.log(distance);
+          console.log(maxDistance, minDistance);
+          console.log(distance >= minDistance && distance <= maxDistance);
+          return distance >= minDistance && distance <= maxDistance;
+        });
+
+        break;
 
       case ELEVATION_GAIN:
-        const { min, max } = filter.value;
-        matches = trails.filter(trail => trail.elevationGain >= min && trail.elevationGain <= max);
+        console.log('hitting elevation gain', filters.length);
+        const minElevationGain = value.min;
+        const maxElevationGain = value.max;
 
-      case TRAIL_TYPE:
-        matches = trails.filter(trail => trail.routeType === filter.value);
+        matches = matches.filter(trail => {
+          const distance = Number.parseInt(trail.elevationGain);
+          return distance >= minElevationGain && distance <= maxElevationGain;
+        });
+        break;
+
+      case ROUTE_TYPE:
+        console.log('hitting route type');
+        console.log(value);
+        matches = matches.filter(trail => trail.routeType === value);
+        console.log(matches);
+        break;
 
       case DIFFICULTY:
-        matches = trails.filter(trail => trail.difficulty === filter.value);
+        console.log('hitting difficulty');
+        matches = matches.filter(trail => trail.difficulty === value);
+        break;
 
       case TAGS:
-        matches = filterTrailsByTags(trails, filter.value);
-
-      default:
-        matches = trails;
+        console.log('hitting tags');
+        matches = filterTrailsByTags(matches, value);
+        break;
     }
   }
+  console.log(matches);
+  console.log('before return');
+  return matches;
 }
 
 export function getTags(trail) {

@@ -8,7 +8,7 @@ export default function TrailDetail() {
   return (
     <Paper style={{ width: '95%', maxHeight: 500, marginLeft: '2.5%', marginTop: 50 }}>
       <Box>
-        <Typography variant='h6' style={{ fontFamily: 'Roboto', fontWeight: 'bold' }}>
+        <Typography variant='h6' style={{ fontFamily: 'Roboto', fontWeight: 'bold', color: '#212121' }}>
           <span style={{ fontSize: '2rem' }}>📍</span> {trail.name}
         </Typography>
       </Box>

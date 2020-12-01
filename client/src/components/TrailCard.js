@@ -4,7 +4,6 @@ import { Box, Button, Chip, Link, Paper, Typography } from '@material-ui/core';
 import { setTrail } from '../store/trail';
 import { setCenter } from '../store/map';
 export default function TrailCard({ trail }) {
-  console.log(trail);
   const dispatch = useDispatch();
 
   const handleClick = () => {
@@ -74,7 +73,7 @@ export default function TrailCard({ trail }) {
                   <Chip
                     size='small'
                     label={tag.tag}
-                    style={{ marginLeft: 2, marginRight: 2, backgroundColor: '#efebe9' }}
+                    style={{ marginLeft: 2, marginRight: 2, backgroundColor: '#ffffff' }}
                   />
                 ))}
               </Box>

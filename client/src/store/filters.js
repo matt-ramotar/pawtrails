@@ -10,9 +10,9 @@ const SET_DIFFICULTY = 'filters/SET_DIFFICULTY';
 
 const SET_TAGS = 'filters/SET_TAGS';
 
-export const setDistance = distance => ({ type: SET_DISTANCE, distance });
+export const setDistance = (min, max) => ({ type: SET_DISTANCE, distance: { min, max } });
 
-export const setElevationGain = elevationGain => ({ type: SET_ELEVATION_GAIN, elevationGain });
+export const setElevationGain = (min, max) => ({ type: SET_ELEVATION_GAIN, elevationGain: { min, max } });
 
 export const setTags = tags => ({ type: SET_TAGS, tags });
 
@@ -27,10 +27,35 @@ export const setFilters = filters => {
   };
 };
 
+export const addTag = (tag, prevTags) => async dispatch => {
+  const nextTags = prevTags;
+  nextTags[tag] = true;
+  dispatch(setTags(Object.keys(nextTags)));
+};
+
+export const removeTag = (tag, prevTags) => async dispatch => {
+  const nextTags = prevTags;
+  delete nextTags[tag];
+  dispatch(setTags(Object.keys(nextTags)));
+};
+
 export default function filtersReducer(state = {}, action) {
   switch (action.type) {
-    case SET_FILTERS:
-      return { ...state.filters, ...action.filters };
+    case SET_ELEVATION_GAIN:
+      return { ...state, elevationGain: action.elevationGain };
+
+    case SET_DISTANCE:
+      return { ...state, distance: action.distance };
+
+    case SET_ROUTE_TYPE:
+      return { ...state, routeType: action.routeType };
+
+    case SET_DIFFICULTY:
+      return { ...state, difficulty: action.difficulty };
+
+    case SET_TAGS:
+      return { ...state, tags: action.tags };
+
     default:
       return state;
   }

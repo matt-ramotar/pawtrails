@@ -1,12 +1,14 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Box, BottomNavigation, Button, Typography } from '@material-ui/core';
+import filterTrails from '../helpers/filterTrails';
 
 import TrailCard from './TrailCard';
 import { setTrail } from '../store/trail';
 
 export default function BottomSlider() {
   const trails = useSelector(state => state.city.trails);
+  const filters = useSelector(state => state.filters);
 
   return (
     <BottomNavigation
@@ -23,7 +25,7 @@ export default function BottomSlider() {
         flexDirection: 'row',
         justifyContent: 'space-between',
       }}>
-      {trails ? trails.map(trail => <TrailCard trail={trail} />) : null}
+      {trails ? filterTrails(trails, filters).map(trail => <TrailCard trail={trail} />) : null}
     </BottomNavigation>
   );
 }
