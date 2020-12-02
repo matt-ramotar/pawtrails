@@ -21,8 +21,8 @@ const useStyles = makeStyles(theme => ({
   logo: {
     margin: 0,
     position: 'absolute',
-    top: -10,
-    right: 25,
+    top: -5,
+    right: 40,
     zIndex: 1,
   },
   inputBox: {
