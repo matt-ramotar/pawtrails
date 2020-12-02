@@ -12,6 +12,7 @@ export default function BottomSlider() {
 
   return (
     <BottomNavigation
+      id='bottom-nav'
       className='bottom__nav'
       style={{
         width: '100%',

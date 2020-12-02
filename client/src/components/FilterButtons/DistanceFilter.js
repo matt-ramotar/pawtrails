@@ -72,12 +72,12 @@ export default function DistanceFilter() {
       <Button
         onClick={openMenu}
         style={{
-          fontSize: 16,
+          fontSize: 14,
           fontFamily: 'Roboto',
           fontWeight: 'bold',
           backgroundColor: '#ffffff',
-          marginLeft: 8,
-          marginTop: 8,
+          marginLeft: 5,
+          marginTop: 5,
           color: '#212121',
         }}>
         <span style={{ fontSize: '1.5rem' }}>📏</span> Distance

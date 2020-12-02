@@ -9,7 +9,7 @@ import Filters from './Filters';
 export const sidebarWidth = 500;
 
 const useStyles = makeStyles(theme => ({
-  drawerPaper: {
+  custom: {
     width: sidebarWidth,
     backgroundColor: 'transparent',
     border: 'none',
@@ -35,7 +35,7 @@ export default function Sidebar() {
   const classes = useStyles();
   return (
     <Box>
-      <Drawer variant='permanent' anchor='left' classes={{ paper: classes.drawerPaper }}>
+      <Drawer variant='permanent' anchor='left' classes={{ paper: classes.custom }}>
         <Box className={classes.searchBox}>
           <Typography variant='h3' className={classes.logo}>
             🐶

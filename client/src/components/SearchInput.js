@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
+    width: '80%',
     marginLeft: '2.5%',
   },
 
@@ -57,7 +57,7 @@ export function SearchInput({ cities, loadCityDispatch }) {
   };
 
   return (
-    <Box className={classes.inputBox}>
+    <Box id='search-box' className={classes.inputBox}>
       <Autocomplete
         autoComplete
         options={cities.map(city => city.name)}

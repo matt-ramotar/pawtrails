@@ -4,12 +4,13 @@ import { DistanceFilter, ElevationGainFilter, RouteTypeFilter, DifficultyFilter,
 export default function Filters() {
   return (
     <Box
+      id='filters-box'
       style={{
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'flex-start',
         marginLeft: '2.5%',
-        width: 550,
+        width: 500,
         flexWrap: 'wrap',
       }}>
       <DistanceFilter />

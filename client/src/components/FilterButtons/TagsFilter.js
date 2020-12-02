@@ -64,12 +64,12 @@ export default function TagsFilter() {
       <Button
         onClick={handleClick}
         style={{
-          fontSize: 16,
+          fontSize: 14,
           fontFamily: 'Roboto',
           fontWeight: 'bold',
           backgroundColor: '#ffffff',
-          marginLeft: 8,
-          marginTop: 8,
+          marginLeft: 5,
+          marginTop: 5,
         }}>
         <span style={{ fontSize: '1.5rem' }}>🏷️</span> Tags
       </Button>

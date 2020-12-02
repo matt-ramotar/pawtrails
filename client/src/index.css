@@ -5,9 +5,16 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+#map-box, #filters-box, #search-box, #detail-box, #bottom-nav {
+  -moz-transform: scale(0.8, 0.8);
+  zoom: 0.8;
+  zoom: 80%;
 }
