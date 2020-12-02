@@ -5,7 +5,7 @@ const initialState = {
 };
 
 const SET_USER = 'auth/SET_USER';
-const REMOVE_USER = 'pokedex/authentication/REMOVE_USER';
+const REMOVE_USER = 'auth/REMOVE_USER';
 
 export const setUser = user => {
   return {
@@ -26,6 +26,7 @@ export const logout = () => async dispatch => {
   });
   if (res.ok) {
     dispatch(removeUser());
+    return true;
   }
   console.log(res);
 };
@@ -85,7 +86,7 @@ export default function authReducer(state = initialState, action) {
     case SET_USER:
       return action.user;
     case REMOVE_USER:
-      return {};
+      return { user: { loggedIn: false } };
     default:
       return state;
   }
