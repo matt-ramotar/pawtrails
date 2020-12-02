@@ -1,116 +1,14 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Box, Button, Divider, Paper, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles(theme => ({
-  headerBox: {},
-  headerTitle: {
-    fontFamily: 'Roboto',
-    fontWeight: 'bold',
-    color: '#212121',
-  },
-  headerRatingBox: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-  },
-  actionsBox: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    margin: 10,
-  },
-
-  actionBox: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-
-  actionButton: {
-    backgroundColor: '#1D72E7',
-    minWidth: 40,
-    minHeight: 40,
-    maxHeight: 40,
-    maxWidth: 40,
-    borderRadius: '50%',
-  },
-
-  actionLabel: {
-    color: '#1D72E7',
-    fontFamily: 'Roboto',
-    fontWeight: 'bold',
-  },
-
-  star: {
-    color: '#FBBD04',
-  },
-  contentBox: {
-    maxHeight: 500,
-    overflowY: 'auto',
-  },
-  aboutBox: {
-    margin: 10,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-  },
-  aboutDescriptionBox: {
-    width: '80%',
-  },
-  aboutDescription: {
-    fontFamily: 'Roboto',
-    fontSize: '.75rem',
-  },
-
-  photosBox: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-  },
-  photosTitle: {
-    fontFamily: 'Roboto',
-    fontWeight: 'bold',
-    fontSize: '.85rem',
-    alignSelf: 'flex-start',
-  },
-  photos: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    maxWidth: '100%',
-    overflowX: 'scroll',
-  },
-  photo: {
-    width: 120,
-    height: 80,
-    borderRadius: 10,
-    margin: 5,
-  },
-
-  addPhotoButton: {
-    backgroundColor: '#ffffff',
-    borderColor: '#e0e0e0',
-    boxShadow: 'none',
-    borderRadius: 10,
-    justifySelf: 'center',
-  },
-  addPhotoBox: { display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  addPhotoText: {
-    color: '#212121',
-    fontFamily: 'Roboto',
-    fontWeight: 'bold',
-    fontSize: '.7rem',
-  },
-}));
+import { useStyles } from './TrailDetailStyle';
+import RatingsChart from '../charts/RatingsChart';
 
 export default function TrailDetail() {
   const trail = useSelector(state => state.trail);
   const classes = useStyles();
   if (Object.keys(trail).length === 0) return null;
+
   return (
     <Box id='detail-box'>
       <Paper style={{ width: '80%', maxHeight: '100%', marginLeft: '2.5%', marginTop: 50 }}>
@@ -215,6 +113,10 @@ export default function TrailDetail() {
               </Box>
             </Button>
           </Box>
+        </Box>
+        <Divider />
+        <Box className={classes.reviewSummaryBox}>
+          <RatingsChart />
         </Box>
       </Paper>
     </Box>
