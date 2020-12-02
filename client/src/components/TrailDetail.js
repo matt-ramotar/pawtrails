@@ -113,10 +113,43 @@ export default function TrailDetail() {
               </Box>
             </Button>
           </Box>
-        </Box>
-        <Divider />
-        <Box className={classes.reviewSummaryBox}>
-          <RatingsChart />
+
+          <Divider />
+          <Box className={classes.reviewSummaryBox}>
+            <Typography variant='h6' className={classes.photosTitle}>
+              Review summary
+            </Typography>
+            <Box className={classes.ratingSummaryBox}>
+              <RatingsChart />
+              <Box className={classes.avgRatingBox}>
+                <Typography variant='h2' className={classes.avgRating}>
+                  4.8
+                </Typography>
+                <Box className={classes.stars}>
+                  <i class='fas fa-star' style={{ color: '#FBBD04' }}></i>
+                  <i class='fas fa-star' style={{ color: '#FBBD04' }}></i>
+                  <i class='fas fa-star' style={{ color: '#FBBD04' }}></i>
+                  <i class='fas fa-star' style={{ color: '#FBBD04' }}></i>
+                  <i class='fas fa-star' style={{ color: '#FBBD04' }}></i>
+                </Box>
+                <Button>
+                  <Typography variant='body2' style={{ color: '#1D72E7', fontFamily: 'Roboto', fontWeight: 'bold' }}>
+                    5,810 reviews
+                  </Typography>
+                </Button>
+              </Box>
+            </Box>
+            <Button className={classes.writeReviewButton} variant='outlined' elevation={0}>
+              <Box className={classes.writeReviewBox}>
+                <Typography variant='caption' className={classes.writeReviewText}>
+                  <span style={{ margin: 5 }}>
+                    <i class='fas fa-pen fa-2x' style={{ color: '#1D72E7' }}></i>
+                  </span>
+                  Write a Review
+                </Typography>
+              </Box>
+            </Button>
+          </Box>
         </Box>
       </Paper>
     </Box>

@@ -102,4 +102,42 @@ export const useStyles = makeStyles(theme => ({
     fontWeight: 'bold',
     fontSize: '.7rem',
   },
+
+  reviewSummaryBox: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+
+  ratingSummaryBox: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+
+  avgRatingBox: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avgRating: {
+    fontFamily: 'Roboto',
+    fontWeight: 'bold',
+  },
+
+  writeReviewButton: {
+    backgroundColor: '#ffffff',
+    borderColor: '#e0e0e0',
+    boxShadow: 'none',
+    borderRadius: 10,
+    justifySelf: 'center',
+  },
+  writeReviewBox: { display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  writeReviewText: {
+    color: '#212121',
+    fontFamily: 'Roboto',
+    fontWeight: 'bold',
+    fontSize: '.7rem',
+  },
 }));
