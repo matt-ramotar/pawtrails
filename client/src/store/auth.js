@@ -2,10 +2,13 @@ import Cookies from 'js-cookie';
 
 const initialState = {
   user: loadUser(),
+  isLoggedIn: Boolean(loadUser().id),
+  hasAccount: true,
 };
 
 const SET_USER = 'auth/SET_USER';
 const REMOVE_USER = 'auth/REMOVE_USER';
+const SET_ACCOUNT_BOOLEAN = 'auth/SET_ACCOUNT_BOOLEAN';
 
 export const setUser = user => {
   return {
@@ -19,6 +22,14 @@ export const removeUser = () => {
     type: REMOVE_USER,
   };
 };
+
+export const setAccountBoolean = boolean => {
+  return {
+    type: SET_ACCOUNT_BOOLEAN,
+    boolean,
+  };
+};
+
 export const logout = () => async dispatch => {
   console.log('store');
   const res = await fetch('/api/session', {
@@ -42,7 +53,7 @@ export const login = (username, password) => {
     });
     if (res.ok) {
       const { user } = await res.json();
-      dispatch(setUser({ user: { loggedIn: true, ...user } }));
+      dispatch(setUser({ user, isLoggedIn: true, hasAccount: true }));
       return true;
     } else {
       console.log(res);
@@ -50,18 +61,19 @@ export const login = (username, password) => {
   };
 };
 
-export const signup = (firstName, lastName, username, email, password, confirmPassword) => async dispatch => {
+export const signup = (firstName, lastName, email, password, confirmPassword) => async dispatch => {
+  console.log(firstName, lastName, email, password, confirmPassword);
   const res = await fetch('/api/auth/signup', {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ firstName, lastName, username, email, password, confirmPassword }),
+    body: JSON.stringify({ firstName, lastName, username: email, email, password, confirmPassword }),
   });
 
   console.log(res);
 
   if (res.ok) {
     const { user } = await res.json();
-    dispatch(setUser(user));
+    dispatch(setUser({ user, isLoggedIn: true, hasAccount: true }));
   }
 };
 
@@ -73,7 +85,7 @@ function loadUser() {
       const decodedPayload = atob(payload);
       const payloadObj = JSON.parse(decodedPayload);
       const { data } = payloadObj;
-      return { loggedIn: true, ...data };
+      return data;
     } catch (e) {
       Cookies.remove('token');
     }
@@ -83,10 +95,12 @@ function loadUser() {
 
 export default function authReducer(state = initialState, action) {
   switch (action.type) {
+    case SET_ACCOUNT_BOOLEAN:
+      return { isLoggedIn: false, hasAccount: action.boolean };
     case SET_USER:
       return action.user;
     case REMOVE_USER:
-      return { user: { loggedIn: false } };
+      return { isLoggedIn: false, hasAccount: true };
     default:
       return state;
   }
