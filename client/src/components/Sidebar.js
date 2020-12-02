@@ -21,8 +21,8 @@ const useStyles = makeStyles(theme => ({
   logo: {
     margin: 0,
     position: 'absolute',
-    top: -5,
-    right: 40,
+    top: 0,
+    right: 135,
     zIndex: 1,
   },
   inputBox: {
@@ -37,9 +37,9 @@ export default function Sidebar() {
     <Box>
       <Drawer variant='permanent' anchor='left' classes={{ paper: classes.custom }}>
         <Box className={classes.searchBox}>
-          <Typography variant='h3' className={classes.logo}>
-            🐶
-          </Typography>
+          {/* <Typography variant='h3' className={classes.logo}>
+            🐾
+          </Typography> */}
           <SearchInput className={classes.inputBox} />
         </Box>
 
