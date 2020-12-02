@@ -1,5 +1,9 @@
 import Cookies from 'js-cookie';
 
+const initialState = {
+  user: loadUser(),
+};
+
 const SET_USER = 'auth/SET_USER';
 const REMOVE_USER = 'pokedex/authentication/REMOVE_USER';
 
@@ -37,22 +41,15 @@ export const login = (username, password) => {
     });
     if (res.ok) {
       const { user } = await res.json();
-      dispatch(setUser(user));
+      dispatch(setUser({ user: { loggedIn: true, ...user } }));
+      return true;
     } else {
       console.log(res);
     }
-    return res;
   };
 };
 
-export const signup = (
-  firstName,
-  lastName,
-  username,
-  email,
-  password,
-  confirmPassword
-) => async dispatch => {
+export const signup = (firstName, lastName, username, email, password, confirmPassword) => async dispatch => {
   const res = await fetch('/api/auth/signup', {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
@@ -74,8 +71,8 @@ function loadUser() {
       const payload = authToken.split('.')[1];
       const decodedPayload = atob(payload);
       const payloadObj = JSON.parse(decodedPayload);
-      // const { data } = payloadObj;
-      return payloadObj;
+      const { data } = payloadObj;
+      return { loggedIn: true, ...data };
     } catch (e) {
       Cookies.remove('token');
     }
@@ -83,7 +80,7 @@ function loadUser() {
   return {};
 }
 
-export default function authReducer(state = loadUser(), action) {
+export default function authReducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
       return action.user;
