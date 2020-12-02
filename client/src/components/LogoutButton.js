@@ -1,43 +1,21 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Box, Button, Typography } from '@material-ui/core';
 import { logout } from '../store/auth';
 
-const useStyles = makeStyles(theme => ({
-  logoutButton: {
-    backgroundColor: '#4BAFE1',
-    color: 'white',
-  },
-}));
+export default function LogoutButton() {
+  const [loggedIn, setLoggedIn] = useState(true);
 
-const LogoutButton = ({ loggedOut, logoutDispatcher }) => {
-  const classes = useStyles();
+  const dispatch = useDispatch();
 
-  const handleClick = () => {
-    console.log('logging out');
-    logoutDispatcher();
+  const handleClick = async () => {
+    const loggedOut = await dispatch(logout());
+    if (loggedOut) setLoggedIn(false);
   };
 
-  // if (loggedOut) {
-  //   return <Redirect to='/login' />;
-  // }
-
   return (
-    <Button color='primary' className={classes.logoutButton} variant='raised' onClick={handleClick}>
-      Logout
+    <Button onClick={handleClick}>
+      <i class='fas fa-sign-out-alt fa-2x' style={{ color: '#15212B' }}></i>
     </Button>
   );
-};
-
-const LogoutButtonContainer = () => {
-  const dispatch = useDispatch();
-  const logoutDispatcher = () => dispatch(logout());
-  const loggedOut = useSelector(state => !state.auth.jti);
-
-  return <LogoutButton loggedOut={loggedOut} logoutDispatcher={logoutDispatcher} />;
-};
-
-export default LogoutButtonContainer;
+}

@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/styles';
 import { sidebarWidth } from './Sidebar';
 import LoginButton from './LoginButton';
+import LogoutButton from './LogoutButton';
 import UserButton from './UserButton';
 
 const useStyles = makeStyles(theme => ({
@@ -29,7 +30,15 @@ export default function Navbar() {
 
   return (
     <AppBar position='fixed' className={classes.appBar}>
-      <Box className={classes.avatarBox}>{loggedIn ? <UserButton /> : <LoginButton />}</Box>
+      <Box className={classes.avatarBox}>
+        {loggedIn ? (
+          <Box>
+            <UserButton /> <LogoutButton />{' '}
+          </Box>
+        ) : (
+          <LoginButton />
+        )}
+      </Box>
     </AppBar>
   );
 }
