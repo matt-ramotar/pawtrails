@@ -23,8 +23,8 @@ export default function AuthContainer() {
   return (
     <Box className={classes.root}>
       {isLoggedIn ? (
-        <Box>
-          <UserButton /> <LogoutButton />{' '}
+        <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
+          <UserButton /> <LogoutButton />
         </Box>
       ) : (
         <LoginContainer />

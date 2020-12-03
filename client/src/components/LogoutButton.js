@@ -14,7 +14,7 @@ export default function LogoutButton() {
   };
 
   return (
-    <Button onClick={handleClick}>
+    <Button onClick={handleClick} style={{ width: 35, padding: 0 }}>
       <i class='fas fa-sign-out-alt fa-2x' style={{ color: '#15212B' }}></i>
     </Button>
   );
