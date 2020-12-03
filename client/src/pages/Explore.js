@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCenter } from '../store/map';
 import { sidebarWidth } from '../components/Sidebar';
 import GoogleMapReact from 'google-map-react';
 import { Box } from '@material-ui/core';
@@ -14,7 +15,16 @@ export function Marker({ lat, lng }) {
 }
 
 export default function Explore() {
+  const dispatch = useDispatch();
+  const cityCoords = useSelector(state => state.city.coords);
+  const cityLat = cityCoords.lat;
+  const cityLng = cityCoords.lng;
+
   const { lat, lng } = useSelector(state => state.map.center);
+
+  useEffect(() => {
+    dispatch(setCenter({ lat: cityLat, lng: cityLng }));
+  }, [cityLat, cityLng]);
   const filters = useSelector(state => state.filters);
   const trails = useSelector(state => state.city.trails);
 
