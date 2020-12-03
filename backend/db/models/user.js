@@ -39,6 +39,9 @@ module.exports = (sequelize, DataTypes) => {
       tokenId: {
         type: DataTypes.STRING,
       },
+      photo: {
+        type: DataTypes.STRING,
+      },
     },
     {}
   );
@@ -52,8 +55,7 @@ module.exports = (sequelize, DataTypes) => {
     return this;
   };
 
-  User.prototype.isValidPassword = password =>
-    bcrypt.compareSync(password, this.hashedPassword.toString());
+  User.prototype.isValidPassword = password => bcrypt.compareSync(password, this.hashedPassword.toString());
 
   User.prototype.toSafeObject = function () {
     return {

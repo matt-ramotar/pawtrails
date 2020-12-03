@@ -33,6 +33,9 @@ module.exports = {
       tokenId: {
         type: Sequelize.STRING(36),
       },
+      photo: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
