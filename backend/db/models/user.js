@@ -66,6 +66,7 @@ module.exports = (sequelize, DataTypes) => {
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
       username: this.username,
+      photo: this.photo,
     };
   };
 
