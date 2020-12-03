@@ -38,6 +38,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Trail.hasMany(models.Photo, { foreignKey: 'trailId' });
+    Trail.hasMany(models.Review, { foreignKey: 'trailId' });
   };
   return Trail;
 };
