@@ -55,7 +55,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 export default function LoginForm() {
-  const [username, setUsername] = useState('matt');
+  const [username, setUsername] = useState('demo');
   const [password, setPassword] = useState('password');
   const classes = useStyles();
   const dispatch = useDispatch();
