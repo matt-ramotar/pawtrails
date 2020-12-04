@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Box, Button, Divider, Paper, Typography } from '@material-ui/core';
 import { useStyles } from './TrailDetailStyle';
 import RatingsChart from '../charts/RatingsChart';
+import WriteReviewButton from './WriteReviewButton';
 
 export default function TrailDetail() {
   const trail = useSelector(state => state.trail);
@@ -139,16 +140,7 @@ export default function TrailDetail() {
                 </Button>
               </Box>
             </Box>
-            <Button className={classes.writeReviewButton} variant='outlined' elevation={0}>
-              <Box className={classes.writeReviewBox}>
-                <Typography variant='caption' className={classes.writeReviewText}>
-                  <span style={{ margin: 5 }}>
-                    <i class='fas fa-pen fa-2x' style={{ color: '#1D72E7' }}></i>
-                  </span>
-                  Write a Review
-                </Typography>
-              </Box>
-            </Button>
+            <WriteReviewButton />
           </Box>
         </Box>
       </Paper>
