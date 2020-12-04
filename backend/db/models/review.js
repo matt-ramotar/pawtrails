@@ -17,6 +17,12 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'reviewId',
       otherKey: 'trailCondition',
     });
+
+    Review.belongsToMany(models.Reaction, {
+      through: models.ReviewReaction,
+      foreignKey: 'reviewId',
+      otherKey: 'reaction',
+    });
     Review.belongsTo(models.User, { foreignKey: 'userId' });
     Review.belongsTo(models.Trail, { foreignKey: 'trailId' });
   };
