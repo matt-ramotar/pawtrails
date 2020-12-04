@@ -1,18 +1,29 @@
 import React, { useEffect, useState } from 'react';
+
 import { Box, Button, Menu, Modal, Typography } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/styles';
 import ReviewForm from '../forms/ReviewForm';
 import { useStyles } from './TrailDetailStyle';
+import { setReviewForm } from '../store/views';
 
 export default function WriteReviewButton() {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
-  const [open, setOpen] = useState(false);
+  const reviewFormIsVisible = useSelector(state => state.views.reviewForm) || false;
 
-  const handleOpen = () => setOpen(true);
+  const [updates, setUpdates] = useState(0);
 
-  const handleClose = () => setOpen(false);
+  const handleOpen = () => {
+    dispatch(setReviewForm(true));
+    setUpdates(updates + 1);
+  };
+
+  const handleClose = () => {
+    dispatch(setReviewForm(false));
+    setUpdates(updates + 1);
+  };
 
   return (
     <Box>
@@ -27,7 +38,7 @@ export default function WriteReviewButton() {
         </Box>
       </Button>
       <Modal
-        open={open}
+        open={reviewFormIsVisible}
         onClose={handleClose}
         style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
         {<ReviewForm />}

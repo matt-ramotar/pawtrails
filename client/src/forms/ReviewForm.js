@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Box,
   Button,
@@ -16,6 +16,8 @@ import {
 import { makeStyles } from '@material-ui/styles';
 import { useStyles } from './ReviewFormStyle';
 import Rating from '@material-ui/lab/Rating';
+import { createReview } from '../store/reviews';
+import { setReviewForm } from '../store/views';
 
 const trailConditionsArray = [
   'Great!',
@@ -76,7 +78,7 @@ export default function ReviewForm() {
   const classes = useStyles();
   const trail = useSelector(state => state.trail);
   const user = useSelector(state => state.auth.user);
-
+  const dispatch = useDispatch();
   const [rating, setRating] = useState(null);
   const [tags, setTags] = useState({});
   const [userTags, setUserTags] = useState({});
@@ -117,6 +119,24 @@ export default function ReviewForm() {
     setCounter(counter + 1);
   };
 
+  const handleClose = () => dispatch(setReviewForm(false));
+
+  const handleSubmit = () => {
+    const review = {
+      userId: user.id,
+      trailId: trail.id,
+      date: new Date(),
+      rating,
+      body: reviewBody,
+      photos,
+      userTags,
+      reactions,
+      trailConditions,
+    };
+    dispatch(createReview(review));
+    handleClose();
+  };
+
   return (
     <Box className={classes.root}>
       <Paper className={classes.mainPaper}>
@@ -124,7 +144,7 @@ export default function ReviewForm() {
           <Typography variant='h5' className={classes.title}>
             {trail.name}
           </Typography>
-          <Button className={classes.closeButton}>
+          <Button className={classes.closeButton} onClick={handleClose}>
             <Box className={classes.closeButtonBox}>
               <i class='fas fa-times fa-2x' style={{ color: '#212121' }}></i>
             </Box>
@@ -320,7 +340,8 @@ export default function ReviewForm() {
                 width: '100%',
                 marginTop: 10,
                 marginBottom: 10,
-              }}>
+              }}
+              onClick={handleSubmit}>
               <Typography>Post</Typography>
             </Button>
           </Box>
