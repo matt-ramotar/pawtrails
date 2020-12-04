@@ -18,4 +18,8 @@ npx sequelize model:generate --name TrailCondition --attributes condition:string
 
 npx sequelize model:generate --name ReviewTrailCondition --attributes reviewId:integer,trailCondition:string
 
+npx sequelize model:generate --name Reaction --attributes reaction:string
+
+npx sequelize model:generate --name ReviewReaction --attributes reviewId:integer,reaction:string
+
 npx sequelize model:generate --name Review --attributes trailId:integer,userId:integer,rating:integer,body:text,date:date
