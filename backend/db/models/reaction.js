@@ -3,8 +3,10 @@ module.exports = (sequelize, DataTypes) => {
   const Reaction = sequelize.define(
     'Reaction',
     {
-      reaction: DataTypes.STRING,
-      primaryKey: true,
+      reaction: {
+        type: DataTypes.STRING,
+        primaryKey: true,
+      },
     },
     {}
   );
