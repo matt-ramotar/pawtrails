@@ -21,7 +21,7 @@ module.exports = {
         firstName: 'Matt',
         lastName: 'Ramotar',
         email: 'matt.ramotar@jhu.edu',
-        username: 'matt',
+        username: 'demo',
         hashedPassword: '$2a$10$KsLOLl5aPfsH9qJqByVWO.BlE.iarO/Panl5AvSdIsyb2HB7Xp2oy',
         photo:
           'https://media-exp1.licdn.com/dms/image/C5603AQF-BOZXcT8b6A/profile-displayphoto-shrink_400_400/0?e=1612396800&v=beta&t=uCpzaZn9bClzpBW_TLBjtCxE-TJRFS8xHcGzvL5kk4I',
