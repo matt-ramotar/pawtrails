@@ -1,18 +1,14 @@
 const asyncHandler = require('express-async-handler');
 const express = require('express');
 
-const { Trail, Photo, Tag, City, Review, ReviewTrailCondition } = require('../../db/models');
+const { Trail, Photo, Tag, City, Review, ReviewTrailCondition, ReviewReaction } = require('../../db/models');
 
 const router = express.Router();
 
 router.post(
   '/',
   asyncHandler(async (req, res) => {
-    const { trailId, userId, rating, body, date, trailConditions } = req.body;
-    console.log('post api/reviews');
-    console.log(req);
-
-    // create review
+    const { userId, trailId, date, rating, body, photos, userTags, reactions, trailConditions } = req.body;
 
     const review = await Review.create({
       trailId,
@@ -22,16 +18,19 @@ router.post(
       date,
     });
 
-    // add ReviewTrailCondition
+    const trailConditionsToAdd = Object.keys(trailConditions);
 
-    for (const trailCondition of trailConditions) {
-      await ReviewTrailCondition.create({
-        reviewId: review.id,
-        trailCondition,
-      });
+    for (const trailCondition of trailConditionsToAdd) {
+      await ReviewTrailCondition.create({ reviewId: review.id, trailCondition });
     }
 
-    return res.json({ review });
+    const reactionsToAdd = Object.keys(reactions);
+
+    for (const reaction of reactionsToAdd) {
+      await ReviewReaction.create({ reviewId: review.id, reaction });
+    }
+
+    return res.json(true);
   })
 );
 
