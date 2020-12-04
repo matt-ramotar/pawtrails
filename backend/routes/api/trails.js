@@ -15,20 +15,21 @@ router.get(
       where: sequelize.where(sequelize.fn('lower', sequelize.col('name')), req.params.city),
       include: { all: true, nested: true },
     });
-    console.log(city);
+    // console.log(city);
 
-    const trails = city.Trails;
+    // const trails = city.Trails;
+    // console.log(trails);
 
-    res.json({ trails, city });
+    res.json({ city });
   })
 );
 
 router.get(
-  '/:id',
+  '/trail/:id',
   asyncHandler(async (req, res) => {
     console.log('/:id');
     const trail = await Trail.findByPk(req.params.id, {
-      include: [{ model: Photo }, { model: Tag }, { model: City }],
+      include: { all: true, nested: true },
     });
     res.json(trail);
   })

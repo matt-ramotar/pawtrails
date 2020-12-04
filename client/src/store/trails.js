@@ -49,7 +49,7 @@ export const getTrails = name => async dispatch => {
 };
 
 export const getTrail = id => async dispatch => {
-  const res = await fetch(`/api/trails/${id}`);
+  const res = await fetch(`/api/trails/trail/${id}`);
 
   if (res.ok) {
     const data = await res.json();
