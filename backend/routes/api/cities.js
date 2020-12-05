@@ -12,6 +12,7 @@ const {
   TrailTag,
   ReviewReaction,
   ReviewTrailCondition,
+  TrailSummary,
   sequelize,
 } = require('../../db/models');
 
@@ -29,11 +30,12 @@ router.get(
             { model: Tag },
             { model: Photo },
             { model: Review, include: [{ model: TrailCondition }, { model: Reaction }] },
+            { model: TrailSummary },
           ],
         },
       ],
     });
-    console.log(city);
+    console.log(JSON.stringify(city));
     return res.json(city);
   })
 );
