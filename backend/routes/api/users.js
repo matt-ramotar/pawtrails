@@ -7,10 +7,7 @@ const { authenticated, generateToken } = require('../util/auth');
 
 const router = express.Router();
 
-const email = check('email')
-  .isEmail()
-  .withMessage('Please provide a valid email address')
-  .normalizeEmail();
+const email = check('email').isEmail().withMessage('Please provide a valid email address').normalizeEmail();
 const firstName = check('firstName').not().isEmpty().withMessage('Please provide a first name');
 const lastName = check('lastName').not().isEmpty().withMessage('Please provide a last name');
 const username = check('username').not().isEmpty().withMessage('Please provide a username');
@@ -34,6 +31,18 @@ router.post(
     await user.save();
     res.cookie('token', token);
     res.json({ token, user: user.toSafeObject() });
+  })
+);
+
+router.get(
+  '/user/:id',
+  asyncHandler(async (req, res, next) => {
+    console.log(req);
+    const userId = req.params.id;
+
+    const user = await User.findByPk(userId);
+
+    res.json(user);
   })
 );
 
