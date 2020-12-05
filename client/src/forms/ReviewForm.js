@@ -278,7 +278,7 @@ export default function ReviewForm() {
                             height: 50,
                             margin: 0,
                             borderRadius: '50%',
-                            backgroundColor: emoji in reactions ? '#eeeeee' : 'transparent',
+                            backgroundColor: emoji in reactions ? '#FFECB3' : 'transparent',
                           }}
                           clickable
                           onClick={handleReactionClick(emoji)}
