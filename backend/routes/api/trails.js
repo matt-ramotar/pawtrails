@@ -26,6 +26,14 @@ router.get(
 );
 
 router.get(
+  '/:id',
+  asyncHandler(async (req, res) => {
+    const trail = await Trail.findByPk(req.params.id, { include: { all: true, nested: true } });
+    res.json(trail);
+  })
+);
+
+router.get(
   '/trail/:id',
   asyncHandler(async (req, res) => {
     console.log('/:id');
@@ -53,7 +61,7 @@ router.get(
 );
 
 router.get(
-  '/trail/:id/reviews',
+  '/:id/reviews',
   asyncHandler(async (req, res) => {
     const trailId = req.params.id;
 
