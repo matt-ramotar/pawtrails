@@ -39,6 +39,7 @@ module.exports = (sequelize, DataTypes) => {
 
     Trail.hasMany(models.Photo, { foreignKey: 'trailId' });
     Trail.hasMany(models.Review, { foreignKey: 'trailId' });
+    Trail.hasOne(models.TrailSummary, { foreignKey: 'trailId' });
   };
   return Trail;
 };
