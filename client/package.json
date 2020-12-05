@@ -13,6 +13,7 @@
     "@testing-library/user-event": "^7.1.2",
     "date-fns": "^2.0.0-beta.5",
     "google-map-react": "^2.1.9",
+    "javascript-time-ago": "^2.3.3",
     "js-cookie": "^2.2.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -23,6 +24,7 @@
     "react-responsive-carousel": "^3.2.10",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
+    "react-time-ago": "^6.2.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0"
   },
