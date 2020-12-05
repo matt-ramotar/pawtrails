@@ -1,18 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Box, Button, Card, Chip, Divider, Paper, Typography } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import { loadTrailReviews } from '../store/reviews';
 import { useStyles } from './TrailDetailStyle';
 import RatingsChart from '../charts/RatingsChart';
 import WriteReviewButton from './WriteReviewButton';
 import ReviewCard from './ReviewCard';
+import calcAvgRating from '../helpers/calcAvgRating';
+import Rating from '@material-ui/lab/Rating';
 
 export default function TrailDetail() {
   const trail = useSelector(state => state.trail);
+
+  const [avgRating, setAvgRating] = useState(null);
+  const [numOfReviews, setNumOfReviews] = useState(null);
+
   const classes = useStyles();
+
+  useEffect(() => {
+    if (trail.TrailSummary) {
+      setAvgRating(calcAvgRating(trail.TrailSummary.summary.counts));
+      setNumOfReviews(trail.TrailSummary.summary.counts.reviews._total);
+    }
+  }, [trail]);
+
   if (Object.keys(trail).length === 0) return null;
 
   const trailConditionsArray = Object.entries(trail.TrailSummary.summary.counts.trailConditions);
   trailConditionsArray.unshift(['All']);
+
+  if (!avgRating) return null;
 
   return (
     <Box id='detail-box'>
@@ -22,15 +40,11 @@ export default function TrailDetail() {
             <span style={{ fontSize: '2rem' }}>📍</span> {trail.name}
           </Typography>
           <Box className={classes.headerRatingBox}>
-            <Typography variant='caption'>4.8</Typography>
+            <Typography variant='caption'>{avgRating}</Typography>
             <Box className={classes.stars}>
-              <i class='fas fa-star' style={{ color: '#FBBD04' }}></i>
-              <i class='fas fa-star' style={{ color: '#FBBD04' }}></i>
-              <i class='fas fa-star' style={{ color: '#FBBD04' }}></i>
-              <i class='fas fa-star' style={{ color: '#FBBD04' }}></i>
-              <i class='fas fa-star' style={{ color: '#FBBD04' }}></i>
+              <Rating value={avgRating} readOnly size='small' />
             </Box>
-            <Typography variant='caption'>(5,810)</Typography>
+            <Typography variant='caption'>{`(${numOfReviews})`}</Typography>
           </Box>
           <Typography variant='caption' className={classes.headerDescription}>
             Dog-friendly trail
@@ -125,21 +139,17 @@ export default function TrailDetail() {
               Review summary
             </Typography>
             <Box className={classes.ratingSummaryBox}>
-              <RatingsChart />
+              <RatingsChart counts={trail.TrailSummary.summary.counts} />
               <Box className={classes.avgRatingBox}>
                 <Typography variant='h2' className={classes.avgRating}>
-                  4.8
+                  {calcAvgRating(trail.TrailSummary.summary.counts)}
                 </Typography>
                 <Box className={classes.stars}>
-                  <i class='fas fa-star' style={{ color: '#FBBD04' }}></i>
-                  <i class='fas fa-star' style={{ color: '#FBBD04' }}></i>
-                  <i class='fas fa-star' style={{ color: '#FBBD04' }}></i>
-                  <i class='fas fa-star' style={{ color: '#FBBD04' }}></i>
-                  <i class='fas fa-star' style={{ color: '#FBBD04' }}></i>
+                  <Rating value={avgRating} readOnly />
                 </Box>
                 <Button>
                   <Typography variant='body2' style={{ color: '#1D72E7', fontFamily: 'Roboto', fontWeight: 'bold' }}>
-                    5,810 reviews
+                    {`${trail.TrailSummary.summary.counts.reviews._total} reviews`}
                   </Typography>
                 </Button>
               </Box>
