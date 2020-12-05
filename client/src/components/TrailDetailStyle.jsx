@@ -44,7 +44,7 @@ export const useStyles = makeStyles(theme => ({
     color: '#FBBD04',
   },
   contentBox: {
-    maxHeight: 500,
+    maxHeight: 350,
     overflowY: 'auto',
   },
   aboutBox: {
@@ -90,7 +90,7 @@ export const useStyles = makeStyles(theme => ({
 
   addPhotoButton: {
     backgroundColor: '#ffffff',
-    borderColor: '#e0e0e0',
+    borderColor: '#eeeeee',
     boxShadow: 'none',
     borderRadius: 10,
     justifySelf: 'center',
@@ -128,7 +128,7 @@ export const useStyles = makeStyles(theme => ({
 
   writeReviewButton: {
     backgroundColor: '#ffffff',
-    borderColor: '#e0e0e0',
+    borderColor: '#eeeeee',
     boxShadow: 'none',
     borderRadius: 10,
     justifySelf: 'center',
