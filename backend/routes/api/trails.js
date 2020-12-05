@@ -2,9 +2,10 @@ const asyncHandler = require('express-async-handler');
 const axios = require('axios');
 const bcrypt = require('bcryptjs');
 const router = require('express').Router();
+const { Op } = require('sequelize');
 const { validationResult } = require('express-validator');
 
-const { Trail, Photo, Tag, City, sequelize } = require('../../db/models');
+const { Trail, Photo, Tag, City, Review, sequelize } = require('../../db/models');
 const { restoreUser, generateToken } = require('../util/auth');
 
 router.get(
@@ -48,6 +49,25 @@ router.get(
     );
     console.log(weather);
     return res.json(weather.data);
+  })
+);
+
+router.get(
+  '/trail/:id/reviews',
+  asyncHandler(async (req, res) => {
+    const trailId = req.params.id;
+
+    const reviews = await Review.findAll({
+      where: {
+        trailId: {
+          [Op.eq]: trailId,
+        },
+      },
+    });
+
+    console.log(reviews);
+
+    return res.json(reviews);
   })
 );
 
