@@ -7,13 +7,22 @@ import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({}));
 
-export default function RatingsChart() {
+export default function RatingsChart({ counts }) {
   const classes = useStyles();
-  const [pctFiveStarReviews, setPctFiveStarReviews] = useState(80);
-  const [pctFourStarReviews, setPctFourStarReviews] = useState(10);
-  const [pctThreeStarReviews, setPctThreeStarReviews] = useState(6);
-  const [pctTwoStarReviews, setPctTwoStarReviews] = useState(2);
-  const [pctOneStarReviews, setPctOneStarReviews] = useState(2);
+
+  const numOfOneStarReviews = counts['stars']['1'];
+  const numOfTwoStarReviews = counts['stars']['2'];
+  const numOfThreeStarReviews = counts['stars']['3'];
+  const numOfFourStarReviews = counts['stars']['4'];
+  const numOfFiveStarReviews = counts['stars']['5'];
+
+  const totalReviews = counts['reviews']['_total'];
+
+  const pctOneStarReviews = (numOfOneStarReviews / totalReviews) * 100;
+  const pctTwoStarReviews = (numOfTwoStarReviews / totalReviews) * 100;
+  const pctThreeStarReviews = (numOfThreeStarReviews / totalReviews) * 100;
+  const pctFourStarReviews = (numOfFourStarReviews / totalReviews) * 100;
+  const pctFiveStarReviews = (numOfFiveStarReviews / totalReviews) * 100;
 
   const dataset = [pctFiveStarReviews, pctFourStarReviews, pctThreeStarReviews, pctTwoStarReviews, pctOneStarReviews];
 
