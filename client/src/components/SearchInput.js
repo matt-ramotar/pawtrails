@@ -1,5 +1,5 @@
 /* eslint-disable no-use-before-define */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import { Autocomplete } from '@material-ui/lab';
@@ -10,6 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import { getCities } from '../store/cities';
 
 const useStyles = makeStyles(() => ({
   inputBox: {
@@ -51,6 +52,8 @@ const useStyles = makeStyles(() => ({
 
 export function SearchInput({ cities, loadCityDispatch }) {
   const classes = useStyles();
+
+  console.log(cities);
 
   const updateCity = (event, val) => {
     loadCityDispatch(val);
@@ -95,117 +98,20 @@ export function SearchInput({ cities, loadCityDispatch }) {
 
 export default function SearchInputContainer() {
   const dispatch = useDispatch();
-  const cities = [
-    {
-      id: 1,
-      name: 'Atlanta',
-      state: 'Georgia',
-      createdAt: '2020-10-02T17:10:37.479Z',
-      updatedAt: '2020-10-02T17:10:37.479Z',
-    },
-    {
-      id: 2,
-      name: 'Austin',
-      state: 'Texas',
-      createdAt: '2020-10-02T17:10:37.479Z',
-      updatedAt: '2020-10-02T17:10:37.479Z',
-    },
-    {
-      id: 3,
-      name: 'Baltimore',
-      state: 'Maryland',
-      createdAt: '2020-10-02T17:10:37.479Z',
-      updatedAt: '2020-10-02T17:10:37.479Z',
-    },
-    {
-      id: 4,
-      name: 'Boise',
-      state: 'Idaho',
-      createdAt: '2020-10-02T17:10:37.479Z',
-      updatedAt: '2020-10-02T17:10:37.479Z',
-    },
-    {
-      id: 5,
-      name: 'Boston',
-      state: 'Massachusetts',
-      createdAt: '2020-10-02T17:10:37.479Z',
-      updatedAt: '2020-10-02T17:10:37.479Z',
-    },
-    {
-      id: 6,
-      name: 'Boulder',
-      state: 'Colorado',
-      createdAt: '2020-10-02T17:10:37.479Z',
-      updatedAt: '2020-10-02T17:10:37.479Z',
-    },
-    {
-      id: 7,
-      name: 'Chicago',
-      state: 'Illinois',
-      createdAt: '2020-10-02T17:10:37.479Z',
-      updatedAt: '2020-10-02T17:10:37.479Z',
-    },
-    {
-      id: 8,
-      name: 'Denver',
-      state: 'Colorado',
-      createdAt: '2020-10-02T17:10:37.479Z',
-      updatedAt: '2020-10-02T17:10:37.479Z',
-    },
-    {
-      id: 9,
-      name: 'Los Angeles',
-      state: 'California',
-      createdAt: '2020-10-02T17:10:37.479Z',
-      updatedAt: '2020-10-02T17:10:37.479Z',
-    },
-    {
-      id: 10,
-      name: 'New York City',
-      state: 'New York',
-      createdAt: '2020-10-02T17:10:37.479Z',
-      updatedAt: '2020-10-02T17:10:37.479Z',
-    },
-    {
-      id: 11,
-      name: 'Philadelphia',
-      state: 'Pennsylvania',
-      createdAt: '2020-10-02T17:10:37.479Z',
-      updatedAt: '2020-10-02T17:10:37.479Z',
-    },
-    {
-      id: 12,
-      name: 'Portland',
-      state: 'Oregon',
-      createdAt: '2020-10-02T17:10:37.479Z',
-      updatedAt: '2020-10-02T17:10:37.479Z',
-    },
-    {
-      id: 13,
-      name: 'Salt Lake City',
-      state: 'Utah',
-      createdAt: '2020-10-02T17:10:37.479Z',
-      updatedAt: '2020-10-02T17:10:37.479Z',
-    },
-    {
-      id: 14,
-      name: 'San Francisco',
-      state: 'California',
-      createdAt: '2020-10-02T17:10:37.479Z',
-      updatedAt: '2020-10-02T17:10:37.479Z',
-    },
-    {
-      id: 15,
-      name: 'Seattle',
-      state: 'Washington',
-      createdAt: '2020-10-02T17:10:37.479Z',
-      updatedAt: '2020-10-02T17:10:37.479Z',
-    },
-  ];
 
   const location = useSelector(state => state.location);
-  // const loadCitiesDispatcher = () => dispatch(loadCities());
+  const [cities, setCities] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      const cities = await getCities();
+      setCities(cities);
+    })();
+  }, []);
+
   const loadCityDispatch = name => dispatch(loadCity(name));
+
+  if (!cities) return null;
 
   return <SearchInput cities={cities} location={location} loadCityDispatch={loadCityDispatch} />;
 }

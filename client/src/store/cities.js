@@ -7,16 +7,9 @@ export const setCities = cities => {
   };
 };
 
-export const getCities = () => async dispatch => {
+export const getCities = async () => {
   const res = await fetch('/api/cities');
-  const cities = {};
-  if (res.ok) {
-    console.log('load cities', res);
-    (await res.json()).forEach(city => (cities[city.name] = city));
-    dispatch(setCities(cities));
-  }
-  console.log('load cities', res);
-  return cities;
+  if (res.ok) return await res.json();
 };
 
 export default function citiesReducer(state = {}, action) {
