@@ -4,20 +4,19 @@ module.exports = (sequelize, DataTypes) => {
     'List',
     {
       name: DataTypes.STRING,
+      userId: DataTypes.INTEGER,
     },
     {}
   );
   List.associate = function (models) {
     List.belongsToMany(models.Trail, {
-      through: models.UserTrail,
+      through: models.TrailList,
       foreignKey: 'listId',
       otherKey: 'trailId',
     });
 
-    List.belongsToMany(models.User, {
-      through: models.UserTrail,
-      foreignKey: 'listId',
-      otherKey: 'userId',
+    List.belongsTo(models.User, {
+      foreignKey: 'userId',
     });
   };
   return List;
