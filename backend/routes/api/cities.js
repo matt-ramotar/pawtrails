@@ -19,23 +19,16 @@ const {
 router.get(
   '/:city',
   asyncHandler(async (req, res, next) => {
-    console.log(req.params.city);
-
     const city = await City.findOne({
       where: sequelize.where(sequelize.fn('lower', sequelize.col('name')), req.params.city),
       include: [
         {
           model: Trail,
-          include: [
-            { model: Tag },
-            { model: Photo },
-            { model: Review, include: [{ model: TrailCondition }, { model: Reaction }] },
-            { model: TrailSummary },
-          ],
+          include: [{ model: Tag }, { model: Photo }],
         },
       ],
     });
-    console.log(JSON.stringify(city));
+
     return res.json(city);
   })
 );
