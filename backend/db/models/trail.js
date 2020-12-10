@@ -25,14 +25,8 @@ module.exports = (sequelize, DataTypes) => {
       otherKey: 'tag',
     });
 
-    Trail.belongsToMany(models.User, {
-      through: models.UserTrail,
-      foreignKey: 'trailId',
-      otherKey: 'userId',
-    });
-
     Trail.belongsToMany(models.List, {
-      through: models.UserTrail,
+      through: models.TrailList,
       foreignKey: 'trailId',
       otherKey: 'listId',
     });

@@ -46,7 +46,11 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
 
-  User.associate = function (models) {};
+  User.associate = function (models) {
+    User.hasMany(models.List, {
+      foreignKey: 'userId',
+    });
+  };
 
   User.prototype.isValid = () => true;
 
@@ -67,6 +71,7 @@ module.exports = (sequelize, DataTypes) => {
       updatedAt: this.updatedAt,
       username: this.username,
       photo: this.photo,
+      list: this.Lists,
     };
   };
 
