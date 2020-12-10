@@ -25,3 +25,5 @@ npx sequelize model:generate --name ReviewReaction --attributes reviewId:integer
 npx sequelize model:generate --name Review --attributes trailId:integer,userId:integer,rating:integer,body:text,date:date
 
 npx sequelize model:generate --name TrailSummary --attributes summary:JSON,trailId:integer
+
+npx sequelize model:generate --name TrailList --attributes trailId:integer,listId:integer
