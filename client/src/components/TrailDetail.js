@@ -9,14 +9,20 @@ import WriteReviewButton from './WriteReviewButton';
 import ReviewCard from './ReviewCard';
 import calcAvgRating from '../helpers/calcAvgRating';
 import Rating from '@material-ui/lab/Rating';
+import { setReviewForm } from '../store/views';
 
 export default function TrailDetail() {
   const trail = useSelector(state => state.trail);
+  const dispatch = useDispatch();
 
   const [avgRating, setAvgRating] = useState(null);
   const [numOfReviews, setNumOfReviews] = useState(null);
 
   const classes = useStyles();
+
+  const openReviewModal = () => {
+    dispatch(setReviewForm(true));
+  };
 
   useEffect(() => {
     if (trail.TrailSummary) {
@@ -80,7 +86,7 @@ export default function TrailDetail() {
           </Box>
 
           <Box className={classes.actionBox}>
-            <Button className={classes.actionButton}>
+            <Button onClick={openReviewModal} className={classes.actionButton}>
               <i class='fas fa-pen fa-lg' style={{ color: '#ffffff' }}></i>
             </Button>
             <Typography variant='body2' className={classes.actionLabel}>
