@@ -2,7 +2,7 @@ const express = require('express');
 const asyncHandler = require('express-async-handler');
 const { check, validationResult } = require('express-validator');
 
-const { User } = require('../../db/models');
+const { User, List, Trail } = require('../../db/models');
 const { authenticated, generateToken } = require('../util/auth');
 
 const router = express.Router();
@@ -52,5 +52,16 @@ router.get('/me', authenticated, (req, res) => {
     username: req.user.username,
   });
 });
+
+router.get(
+  '/:id/lists',
+  asyncHandler(async (req, res, next) => {
+    const userId = req.params.id;
+    const user = await User.findByPk(userId, {
+      include: [{ model: List, include: [{ model: Trail }] }],
+    });
+    res.json(user.Lists);
+  })
+);
 
 module.exports = router;
