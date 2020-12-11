@@ -30,4 +30,17 @@ router.post(
   })
 );
 
+router.delete(
+  '/:listId/:trailId',
+  asyncHandler(async (req, res, next) => {
+    await TrailList.destroy({
+      where: {
+        trailId: req.params.trailId,
+        listId: req.params.listId,
+      },
+    });
+    return res.json({ destroyed: true });
+  })
+);
+
 module.exports = router;
