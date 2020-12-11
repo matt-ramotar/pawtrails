@@ -118,10 +118,20 @@ export default function TrailDetail() {
               className={userIsLoggedIn ? classes.actionButton : classes.actionButton__disabled}>
               <i class='far fa-bookmark fa-lg' style={{ color: userIsLoggedIn ? '#ffffff' : '#757575' }}></i>
             </Button>
-            <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={closeListMenu}>
+            <Menu
+              open={Boolean(anchorEl)}
+              anchorEl={anchorEl}
+              onClose={closeListMenu}
+              classes={{ paper: classes.custom }}>
               {userIsLoggedIn
                 ? lists.lists.map(list => (
-                    <MenuItem onClick={handleSaveToList(user.id, trail.id, list.id)}>{list.name}</MenuItem>
+                    <MenuItem onClick={handleSaveToList(user.id, trail.id, list.id)} style={{ padding: 5, margin: 0 }}>
+                      <Typography
+                        variant='body2'
+                        style={{ fontFamily: 'Roboto', fontWeight: 'bold', fontSize: '0.8rem' }}>
+                        {list.name}
+                      </Typography>
+                    </MenuItem>
                   ))
                 : null}
             </Menu>

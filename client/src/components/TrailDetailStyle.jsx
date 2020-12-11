@@ -163,4 +163,7 @@ export const useStyles = makeStyles(theme => ({
     fontWeight: 'bold',
     fontSize: '.7rem',
   },
+  custom: {
+    width: 90,
+  },
 }));
