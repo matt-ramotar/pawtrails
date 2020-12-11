@@ -100,7 +100,7 @@ export default function authReducer(state = initialState, action) {
     case SET_USER:
       return action.user;
     case REMOVE_USER:
-      return { isLoggedIn: false, hasAccount: true };
+      return { user: {}, isLoggedIn: false, hasAccount: true };
     default:
       return state;
   }

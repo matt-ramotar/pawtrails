@@ -34,8 +34,31 @@ export const useStyles = makeStyles(theme => ({
     borderRadius: '50%',
   },
 
+  actionButton__disabled: {
+    backgroundColor: '#414141',
+    minWidth: 40,
+    minHeight: 40,
+    maxHeight: 40,
+    maxWidth: 40,
+    borderRadius: '50%',
+  },
+
+  bookmarkIcon: {
+    color: '#ffffff',
+  },
+
+  bookmarkIcon__disabled: {
+    color: '#bdbdbd',
+  },
+
   actionLabel: {
     color: '#1D72E7',
+    fontFamily: 'Roboto',
+    fontWeight: 'bold',
+  },
+
+  actionLabel__disabled: {
+    color: '#414141',
     fontFamily: 'Roboto',
     fontWeight: 'bold',
   },

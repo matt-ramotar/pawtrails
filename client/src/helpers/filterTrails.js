@@ -3,8 +3,9 @@ const ELEVATION_GAIN = 'elevationGain';
 const ROUTE_TYPE = 'routeType';
 const DIFFICULTY = 'difficulty';
 const TAGS = 'tags';
+const FAVORITES = 'favorites';
 
-export default function filterTrails(trails, filters) {
+export default function filterTrails(trails, filters, lists) {
   let matches = trails;
 
   filters = Object.entries(filters);
@@ -56,6 +57,14 @@ export default function filterTrails(trails, filters) {
         console.log('hitting tags');
         matches = filterTrailsByTags(matches, value);
         break;
+
+      case FAVORITES:
+        if (value === true) {
+          const listId = lists['lists'][0]['id'];
+          console.log(listId);
+          matches = filterFavorites(matches, lists['lookup'][listId][trails[0]['cityId']]);
+          break;
+        }
     }
   }
   console.log(matches);
@@ -76,4 +85,9 @@ export function filterTrailsByTags(trails, tags) {
   }
 
   return matches;
+}
+
+export function filterFavorites(trails, lookup) {
+  console.log(lookup);
+  return trails.filter(trail => lookup[trail.id] === true);
 }

@@ -10,6 +10,8 @@ const SET_DIFFICULTY = 'filters/SET_DIFFICULTY';
 
 const SET_TAGS = 'filters/SET_TAGS';
 
+const SET_FAVORITES = 'filters/SET_FAVORITES';
+
 export const setDistance = (min, max) => ({ type: SET_DISTANCE, distance: { min, max } });
 
 export const setElevationGain = (min, max) => ({ type: SET_ELEVATION_GAIN, elevationGain: { min, max } });
@@ -26,6 +28,8 @@ export const setFilters = filters => {
     filters,
   };
 };
+
+export const setFavorites = boolean => ({ type: SET_FAVORITES, boolean });
 
 export const addTag = (tag, prevTags) => async dispatch => {
   const nextTags = prevTags;
@@ -55,6 +59,9 @@ export default function filtersReducer(state = {}, action) {
 
     case SET_TAGS:
       return { ...state, tags: action.tags };
+
+    case SET_FAVORITES:
+      return { ...state, favorites: action.boolean };
 
     default:
       return state;

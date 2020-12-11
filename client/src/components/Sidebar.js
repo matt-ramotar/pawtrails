@@ -37,9 +37,6 @@ export default function Sidebar() {
     <Box>
       <Drawer variant='permanent' anchor='left' classes={{ paper: classes.custom }}>
         <Box className={classes.searchBox}>
-          {/* <Typography variant='h3' className={classes.logo}>
-            🐾
-          </Typography> */}
           <SearchInput className={classes.inputBox} />
         </Box>
 

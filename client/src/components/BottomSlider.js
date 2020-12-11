@@ -9,6 +9,7 @@ import { setTrail } from '../store/trail';
 export default function BottomSlider() {
   const trails = useSelector(state => state.city.trails);
   const filters = useSelector(state => state.filters);
+  const lists = useSelector(state => state.lists);
 
   return (
     <BottomNavigation
@@ -26,7 +27,7 @@ export default function BottomSlider() {
         flexDirection: 'row',
         justifyContent: 'space-between',
       }}>
-      {trails ? filterTrails(trails, filters).map(trail => <TrailCard trail={trail} />) : null}
+      {trails ? filterTrails(trails, filters, lists).map(trail => <TrailCard trail={trail} />) : null}
     </BottomNavigation>
   );
 }

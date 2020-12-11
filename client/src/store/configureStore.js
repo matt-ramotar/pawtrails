@@ -9,6 +9,7 @@ import trail from './trail';
 import filters from './filters';
 import map from './map';
 import views from './views';
+import lists from './lists';
 
 const rootReducer = combineReducers({
   auth,
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   trail,
   map,
   views,
+  lists,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

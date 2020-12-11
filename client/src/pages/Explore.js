@@ -27,6 +27,7 @@ export default function Explore() {
   }, [cityLat, cityLng]);
   const filters = useSelector(state => state.filters);
   const trails = useSelector(state => state.city.trails);
+  const lists = useSelector(state => state.lists);
 
   const zoom = 14;
 
@@ -43,7 +44,9 @@ export default function Explore() {
         zoom={zoom}
         options={createMapOptions}>
         {trails
-          ? filterTrails(trails, filters).map(trail => <Marker lat={trail.lat} lng={trail.lng} text={trail.name} />)
+          ? filterTrails(trails, filters, lists).map(trail => (
+              <Marker lat={trail.lat} lng={trail.lng} text={trail.name} />
+            ))
           : null}
       </GoogleMapReact>
     </Box>

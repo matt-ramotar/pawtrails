@@ -1,6 +1,13 @@
 import React from 'react';
 import { Box } from '@material-ui/core';
-import { DistanceFilter, ElevationGainFilter, RouteTypeFilter, DifficultyFilter, TagsFilter } from './FilterButtons';
+import {
+  DistanceFilter,
+  ElevationGainFilter,
+  RouteTypeFilter,
+  DifficultyFilter,
+  TagsFilter,
+  FavoritesFilter,
+} from './FilterButtons';
 export default function Filters() {
   return (
     <Box
@@ -18,6 +25,7 @@ export default function Filters() {
       <RouteTypeFilter />
       <DifficultyFilter />
       <TagsFilter />
+      <FavoritesFilter />
     </Box>
   );
 }

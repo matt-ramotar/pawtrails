@@ -21,10 +21,11 @@ export const loadCity = name => async dispatch => {
   if (res.ok) {
     const city = await res.json();
 
-    const { Trails: trails, lat, lng, name } = city;
-    console.log(JSON.stringify({ name, coords: { lat, lng }, trails }));
+    const { Trails: trails, lat, lng, name, id } = city;
+    console.log(city);
+    console.log(JSON.stringify({ id, name, coords: { lat, lng }, trails }));
 
-    dispatch(setCity({ name, coords: { lat, lng }, trails }));
+    dispatch(setCity({ id, name, coords: { lat, lng }, trails }));
   }
 };
 

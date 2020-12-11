@@ -77,7 +77,7 @@ router.put(
     const { username, password } = req.body;
 
     //query DB by email
-    const user = await User.findOne({ where: { username }, include: [{ model: List, include: [{ model: Trail }] }] });
+    const user = await User.findOne({ where: { username } });
 
     console.log(req);
     console.log(user);

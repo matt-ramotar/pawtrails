@@ -1,5 +1,12 @@
+import createListLookup from '../helpers/createListLookup';
+
+const SET_LISTS = 'lists/SET_LISTS';
+const SET_LIST_LOOKUP = 'lists/SET_LIST_LOOKUP';
 const CREATE_LIST = 'lists/CREATE_LIST';
-const SAVE_TO_LIST = 'lists/SAVE_TO_LIST';
+const ADD_TO_LIST = 'lists/ADD_TO_LIST';
+
+export const setLists = lists => ({ type: SET_LISTS, lists });
+export const setListLookup = lookup => ({ type: SET_LIST_LOOKUP, lookup });
 
 export const createList = ({ userId, listName }) => async dispatch => {
   const response = await fetch('/api/lists', {
@@ -10,11 +17,42 @@ export const createList = ({ userId, listName }) => async dispatch => {
   console.log(response);
 };
 
-export const saveToList = ({ userId, trailId, listName }) => async dispatch => {
-  const response = await fetch(`/api/lists/${listName}`, {
+export const addToList = (userId, trailId, listId) => async dispatch => {
+  const res = await fetch(`/api/lists/${listId}`, {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ userId, trailId }),
   });
-  console.log(response);
+
+  if (res.ok) {
+    const list = await res.json();
+    console.log(list);
+  }
 };
+
+export const removeFromList = (userId, trailId, listId) => async dispatch => {
+  const res = await fetch(`/api/lists/${listId}/${trailId}`, { method: 'delete' });
+  if (res.ok) {
+    console.log(await res.json());
+  }
+};
+
+export const loadLists = userId => async dispatch => {
+  const res = await fetch(`/api/users/${userId}/lists`);
+  if (res.ok) {
+    const lists = await res.json();
+    dispatch(setLists(lists));
+    dispatch(setListLookup(createListLookup(lists)));
+  }
+};
+
+export default function listsReducer(state = {}, action) {
+  switch (action.type) {
+    case SET_LISTS:
+      return { ...state, lists: action.lists };
+    case SET_LIST_LOOKUP:
+      return { ...state, lookup: action.lookup };
+    default:
+      return state;
+  }
+}
