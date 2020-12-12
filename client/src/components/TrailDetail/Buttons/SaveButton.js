@@ -3,8 +3,15 @@ import { useSelector } from 'react-redux';
 import { Box, Button, Menu, MenuItem, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { addToList, removeFromList } from '../../../store/lists';
-
+import { CssBaseline } from '@material-ui/core';
 import { useStyles } from './SaveButton.styles.jsx';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+  palette: {
+    type: 'dark',
+  },
+});
 
 export default function SaveButton() {
   const trail = useSelector(state => state.trail);
@@ -42,23 +49,26 @@ export default function SaveButton() {
         </Button>
       )}
 
-      <Menu
-        open={Boolean(anchorEl)}
-        anchorEl={anchorEl}
-        onClose={closeListMenu}
-        classes={{ paper: classes.menu }}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        transformOrigin={{ horizontal: 'center' }}>
-        {userIsLoggedIn
-          ? lists.lists.map(list => (
-              <MenuItem onClick={handleSaveToList(user.id, trail.id, list.id)} style={{ padding: 5, margin: 0 }}>
-                <Typography variant='body2' style={{ fontFamily: 'Roboto', fontWeight: 'bold', fontSize: '0.8rem' }}>
-                  {`❤️ ${list.name}`}
-                </Typography>
-              </MenuItem>
-            ))
-          : null}
-      </Menu>
+      <ThemeProvider theme={theme}>
+        <Menu
+          open={Boolean(anchorEl)}
+          anchorEl={anchorEl}
+          onClose={closeListMenu}
+          classes={{ paper: classes.menu, root: classes.menu }}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          transformOrigin={{ horizontal: 'center' }}>
+          {userIsLoggedIn
+            ? lists.lists.map(list => (
+                <MenuItem onClick={handleSaveToList(user.id, trail.id, list.id)} style={{ padding: 5, margin: 0 }}>
+                  <Typography variant='body2' style={{ fontFamily: 'Roboto', fontWeight: 'bold', fontSize: '0.8rem' }}>
+                    {`❤️ ${list.name}`}
+                  </Typography>
+                </MenuItem>
+              ))
+            : null}
+        </Menu>
+      </ThemeProvider>
+
       <Typography variant='body2' className={userIsLoggedIn ? classes.label : classes.label__disabled}>
         Save
       </Typography>
