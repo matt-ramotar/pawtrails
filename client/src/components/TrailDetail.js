@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Box, Button, Chip, Divider, Paper, Typography } from '@material-ui/core';
+import { Box, Divider, Paper } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { useStyles } from './TrailDetailStyle';
-import RatingsChart from '../charts/RatingsChart';
-import WriteReviewButton from './TrailDetail/Buttons/WriteReviewButton';
-import ReviewCard from './ReviewCard';
 import calcAvgRating from '../helpers/calcAvgRating';
-import Rating from '@material-ui/lab/Rating';
-import { setReviewForm } from '../store/views';
 import SaveButton from './TrailDetail/Buttons/SaveButton';
 import ShareButton from './TrailDetail/Buttons/ShareButton';
 import DirectionsButton from './TrailDetail/Buttons/DirectionsButton';
@@ -22,18 +17,11 @@ import WeatherContainer from './TrailDetail/Weather';
 import Reviews from './TrailDetail/Reviews';
 
 export default function TrailDetail() {
-  const trail = useSelector(state => state.trail);
-
-  const dispatch = useDispatch();
-
-  const [avgRating, setAvgRating] = useState(null);
-  const [numOfReviews, setNumOfReviews] = useState(null);
-
   const classes = useStyles();
 
-  const openReviewModal = () => {
-    dispatch(setReviewForm(true));
-  };
+  const trail = useSelector(state => state.trail);
+  const [avgRating, setAvgRating] = useState(null);
+  const [numOfReviews, setNumOfReviews] = useState(null);
 
   useEffect(() => {
     if (trail.TrailSummary) {
@@ -50,8 +38,8 @@ export default function TrailDetail() {
   if (!avgRating) return null;
 
   return (
-    <Box id='detail-box'>
-      <Paper style={{ width: '80%', maxHeight: '100%', marginLeft: '2.5%', marginTop: 50 }}>
+    <Box id='trail-detail'>
+      <Paper className={classes.paper}>
         <Header trail={trail} avgRating={avgRating} numOfReviews={numOfReviews} />
         <Divider />
         <Box className={classes.actions__box}>
@@ -62,7 +50,7 @@ export default function TrailDetail() {
           <ShareButton />
         </Box>
         <Divider />
-        <Box className={classes.contentBox}>
+        <Box className={classes.content__box}>
           <Description trail={trail} />
           <Divider />
 
