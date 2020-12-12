@@ -154,7 +154,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },

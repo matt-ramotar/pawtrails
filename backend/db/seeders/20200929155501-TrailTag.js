@@ -2,9 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.sequelize.query(
-      'ALTER SEQUENCE "TrailTags_id_seq" RESTART WITH 1'
-    );
+    await queryInterface.sequelize.query('ALTER SEQUENCE "TrailTags_id_seq" RESTART WITH 1');
 
     return await queryInterface.bulkInsert('TrailTags', [
       {
@@ -945,7 +943,7 @@ module.exports = {
       },
       {
         trailId: 14,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1209,7 +1207,7 @@ module.exports = {
       },
       {
         trailId: 18,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -2583,7 +2581,7 @@ module.exports = {
       },
       {
         trailId: 38,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -2787,7 +2785,7 @@ module.exports = {
       },
       {
         trailId: 42,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -3615,7 +3613,7 @@ module.exports = {
       },
       {
         trailId: 60,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -3669,7 +3667,7 @@ module.exports = {
       },
       {
         trailId: 61,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -3777,7 +3775,7 @@ module.exports = {
       },
       {
         trailId: 63,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -6933,7 +6931,7 @@ module.exports = {
       },
       {
         trailId: 116,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -7941,7 +7939,7 @@ module.exports = {
       },
       {
         trailId: 135,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -8061,7 +8059,7 @@ module.exports = {
       },
       {
         trailId: 137,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -8301,7 +8299,7 @@ module.exports = {
       },
       {
         trailId: 141,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -9603,7 +9601,7 @@ module.exports = {
       },
       {
         trailId: 165,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -11613,7 +11611,7 @@ module.exports = {
       },
       {
         trailId: 201,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -12987,7 +12985,7 @@ module.exports = {
       },
       {
         trailId: 232,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -14145,7 +14143,7 @@ module.exports = {
       },
       {
         trailId: 253,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -14601,7 +14599,7 @@ module.exports = {
       },
       {
         trailId: 264,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -15513,7 +15511,7 @@ module.exports = {
       },
       {
         trailId: 283,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -15645,7 +15643,7 @@ module.exports = {
       },
       {
         trailId: 287,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -16215,7 +16213,7 @@ module.exports = {
       },
       {
         trailId: 296,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -16485,7 +16483,7 @@ module.exports = {
       },
       {
         trailId: 300,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -16659,7 +16657,7 @@ module.exports = {
       },
       {
         trailId: 303,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -16779,7 +16777,7 @@ module.exports = {
       },
       {
         trailId: 305,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -21381,7 +21379,7 @@ module.exports = {
       },
       {
         trailId: 386,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -22041,7 +22039,7 @@ module.exports = {
       },
       {
         trailId: 398,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -22197,7 +22195,7 @@ module.exports = {
       },
       {
         trailId: 400,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -22275,7 +22273,7 @@ module.exports = {
       },
       {
         trailId: 401,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -22419,7 +22417,7 @@ module.exports = {
       },
       {
         trailId: 403,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -22557,7 +22555,7 @@ module.exports = {
       },
       {
         trailId: 405,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -22779,7 +22777,7 @@ module.exports = {
       },
       {
         trailId: 408,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -22851,7 +22849,7 @@ module.exports = {
       },
       {
         trailId: 409,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -23091,7 +23089,7 @@ module.exports = {
       },
       {
         trailId: 412,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -23313,7 +23311,7 @@ module.exports = {
       },
       {
         trailId: 415,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -23427,7 +23425,7 @@ module.exports = {
       },
       {
         trailId: 417,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -23511,7 +23509,7 @@ module.exports = {
       },
       {
         trailId: 418,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -23703,7 +23701,7 @@ module.exports = {
       },
       {
         trailId: 422,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -23775,7 +23773,7 @@ module.exports = {
       },
       {
         trailId: 423,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -23829,7 +23827,7 @@ module.exports = {
       },
       {
         trailId: 424,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -23961,7 +23959,7 @@ module.exports = {
       },
       {
         trailId: 426,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -24093,7 +24091,7 @@ module.exports = {
       },
       {
         trailId: 428,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -24765,7 +24763,7 @@ module.exports = {
       },
       {
         trailId: 438,
-        tag: 'No dogs',
+        tag: 'Dogs on best behavior',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
