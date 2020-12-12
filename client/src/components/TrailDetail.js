@@ -4,7 +4,7 @@ import { Box, Button, Chip, Divider, Paper, Typography } from '@material-ui/core
 import { useDispatch } from 'react-redux';
 import { useStyles } from './TrailDetailStyle';
 import RatingsChart from '../charts/RatingsChart';
-import WriteReviewButton from './WriteReviewButton';
+import WriteReviewButton from './TrailDetail/Buttons/WriteReviewButton';
 import ReviewCard from './ReviewCard';
 import calcAvgRating from '../helpers/calcAvgRating';
 import Rating from '@material-ui/lab/Rating';
@@ -17,6 +17,7 @@ import ReviewButton from './TrailDetail/Buttons/ReviewButton';
 import WeatherContainer from './Weather';
 import Header from './TrailDetail/Header';
 import Photos from './TrailDetail/Photos';
+import ReviewSummary from './TrailDetail/ReviewSummary';
 
 export default function TrailDetail() {
   const trail = useSelector(state => state.trail);
@@ -77,28 +78,8 @@ export default function TrailDetail() {
           <Photos trail={trail} />
           <Divider />
 
-          <Box className={classes.reviewSummaryBox}>
-            <Typography variant='h6' className={classes.photosTitle}>
-              Review summary
-            </Typography>
-            <Box className={classes.ratingSummaryBox}>
-              <RatingsChart counts={trail.TrailSummary.summary.counts} />
-              <Box className={classes.avgRatingBox}>
-                <Typography variant='h2' className={classes.avgRating}>
-                  {calcAvgRating(trail.TrailSummary.summary.counts)}
-                </Typography>
-                <Box className={classes.stars}>
-                  <Rating value={avgRating} readOnly />
-                </Box>
-                <Button>
-                  <Typography variant='body2' style={{ color: '#1D72E7', fontFamily: 'Roboto', fontWeight: 'bold' }}>
-                    {`${trail.TrailSummary.summary.counts.reviews._total} reviews`}
-                  </Typography>
-                </Button>
-              </Box>
-            </Box>
-            <WriteReviewButton />
-          </Box>
+          <ReviewSummary trail={trail} avgRating={avgRating} />
+
           <Divider />
           <WeatherContainer lat={trail.lat} lng={trail.lng} />
           <Divider />
