@@ -15,6 +15,7 @@ import DirectionsButton from './TrailDetail/Buttons/DirectionsButton';
 import NearbyButton from './TrailDetail/Buttons/NearbyButton';
 import ReviewButton from './TrailDetail/Buttons/ReviewButton';
 import Header from './TrailDetail/Header';
+import Description from './TrailDetail/Description';
 import Photos from './TrailDetail/Photos';
 import ReviewSummary from './TrailDetail/ReviewSummary';
 import WeatherContainer from './TrailDetail/Weather';
@@ -62,18 +63,7 @@ export default function TrailDetail() {
         </Box>
         <Divider />
         <Box className={classes.contentBox}>
-          <Box className={classes.aboutBox}>
-            <Box className={classes.aboutDescriptionBox}>
-              <Typography variant='body2' className={classes.aboutDescription}>
-                {trail.overview}
-              </Typography>
-            </Box>
-            <Box className={classes.moreInfoBox}>
-              <Button className={classes.moreInfoButton}>
-                <i class='fas fa-chevron-right fa-lg'></i>
-              </Button>
-            </Box>
-          </Box>
+          <Description trail={trail} />
           <Divider />
 
           <Photos trail={trail} />
