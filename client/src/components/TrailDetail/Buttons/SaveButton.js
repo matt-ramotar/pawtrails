@@ -11,15 +11,11 @@ export default function SaveButton() {
   const user = useSelector(state => state.auth.user);
   const lists = useSelector(state => state.lists);
 
-  const [userIsLoggedIn, setUserIsLoggedIn] = useState(false);
+  const userIsLoggedIn = useSelector(state => state.auth.isLoggedIn);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const dispatch = useDispatch();
   const classes = useStyles();
-
-  useEffect(() => {
-    if (Object.keys(user).length > 0) setUserIsLoggedIn(true);
-  }, [user]);
 
   const openListMenu = e => setAnchorEl(e.currentTarget);
 
@@ -53,13 +49,15 @@ export default function SaveButton() {
         classes={{ paper: classes.menu }}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         transformOrigin={{ horizontal: 'center' }}>
-        {lists.lists.map(list => (
-          <MenuItem onClick={handleSaveToList(user.id, trail.id, list.id)} style={{ padding: 5, margin: 0 }}>
-            <Typography variant='body2' style={{ fontFamily: 'Roboto', fontWeight: 'bold', fontSize: '0.8rem' }}>
-              {list.name}
-            </Typography>
-          </MenuItem>
-        ))}
+        {userIsLoggedIn
+          ? lists.lists.map(list => (
+              <MenuItem onClick={handleSaveToList(user.id, trail.id, list.id)} style={{ padding: 5, margin: 0 }}>
+                <Typography variant='body2' style={{ fontFamily: 'Roboto', fontWeight: 'bold', fontSize: '0.8rem' }}>
+                  {`❤️ ${list.name}`}
+                </Typography>
+              </MenuItem>
+            ))
+          : null}
       </Menu>
       <Typography variant='body2' className={userIsLoggedIn ? classes.label : classes.label__disabled}>
         Save

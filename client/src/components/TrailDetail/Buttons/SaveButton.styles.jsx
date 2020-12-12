@@ -37,7 +37,8 @@ export const useStyles = makeStyles(theme => ({
     fontWeight: 'bold',
   },
   menu: {
-    width: 90,
-    marginTop: -30,
+    width: 110,
+    marginTop: -80,
+    marginLeft: 35,
   },
 }));
