@@ -11,9 +11,8 @@ export default function ShareButton() {
   const classes = useStyles();
 
   const trail = useSelector(state => state.trail);
-  const user = useSelector(state => state.auth.user);
 
-  const userIsLoggedIn = Object.keys(user).length > 0;
+  const userIsLoggedIn = useSelector(state => state.auth.isLoggedIn);
 
   const [popoverIsOpen, setPopoverIsOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -26,15 +25,9 @@ export default function ShareButton() {
 
   return (
     <Box className={classes.root}>
-      {userIsLoggedIn ? (
-        <Button onClick={handleOpenPopover} className={classes.button}>
-          <i class='fas fa-share fa-lg' style={{ color: '#ffffff' }}></i>
-        </Button>
-      ) : (
-        <Button disabled className={classes.button__disabled}>
-          <i class='fas fa-share fa-lg' style={{ color: '#757575' }}></i>
-        </Button>
-      )}
+      <Button onClick={handleOpenPopover} className={classes.button}>
+        <i class='fas fa-share fa-lg' style={{ color: '#ffffff' }}></i>
+      </Button>
 
       <Popover
         open={popoverIsOpen}
@@ -44,7 +37,7 @@ export default function ShareButton() {
         anchorPosition={{ top: 400, right: 400 }}
         onClose={handleClosePopover}
         PaperProps={{ classes: { root: classes.popover } }}>
-        <Box className={classes.iconsBox}>
+        <Box className={classes.icons__box}>
           <Box>
             <FacebookShareButton
               url={`https://matt-ramotar-pawtrails.herokuapp.com`}
@@ -71,7 +64,7 @@ export default function ShareButton() {
           </Box>
         </Box>
       </Popover>
-      <Typography variant='body2' className={userIsLoggedIn ? classes.label : classes.label__disabled}>
+      <Typography variant='body2' className={classes.label}>
         Share
       </Typography>
     </Box>
