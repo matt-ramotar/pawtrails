@@ -28,16 +28,33 @@ const Weather = ({ getWeatherDispatcher, lat, lng, weather }) => {
   if (!weather) return null;
 
   return (
-    <Box className={classes.weather}>
-      {weather.daily.map((day, i) => {
-        return (
-          <Box style={{ width: '50px' }}>
-            <p>{day.dayOfWeek}</p>
-            <img src={day.icon} />
-            <Typography>{`${Math.floor(day.min)}° F ${Math.ceil(day.max)}° F`}</Typography>
-          </Box>
-        );
-      })}
+    <Box>
+      <Box>
+        <Typography variant='h6' style={{ fontFamily: 'Roboto', fontWeight: 'bold', fontSize: '0.85rem' }}>
+          Forecast
+        </Typography>
+      </Box>
+      <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        {weather.daily.map((day, i) => {
+          return (
+            <Box
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}>
+              <Typography variant='body2' style={{ fontFamily: 'Roboto', fontSize: '0.85rem' }}>
+                {day.dayOfWeek}
+              </Typography>
+              <img src={day.icon} />
+              <Typography variant='caption' style={{ fontFamily: 'Roboto' }}>{`${Math.floor(day.min)}° F ${Math.ceil(
+                day.max
+              )}° F`}</Typography>
+            </Box>
+          );
+        })}
+      </Box>
     </Box>
   );
 };
@@ -47,7 +64,5 @@ export default function WeatherContainer({ lat, lng }) {
   const getWeatherDispatcher = (lat, lng) => dispatch(getWeather(lat, lng));
   const weather = useSelector(state => state.trails.weather);
 
-  return (
-    <Weather lat={lat} lng={lng} getWeatherDispatcher={getWeatherDispatcher} weather={weather} />
-  );
+  return <Weather lat={lat} lng={lng} getWeatherDispatcher={getWeatherDispatcher} weather={weather} />;
 }
