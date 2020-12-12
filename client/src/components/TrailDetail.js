@@ -14,10 +14,10 @@ import ShareButton from './TrailDetail/Buttons/ShareButton';
 import DirectionsButton from './TrailDetail/Buttons/DirectionsButton';
 import NearbyButton from './TrailDetail/Buttons/NearbyButton';
 import ReviewButton from './TrailDetail/Buttons/ReviewButton';
-import WeatherContainer from './Weather';
 import Header from './TrailDetail/Header';
 import Photos from './TrailDetail/Photos';
 import ReviewSummary from './TrailDetail/ReviewSummary';
+import WeatherContainer from './TrailDetail/Weather';
 
 export default function TrailDetail() {
   const trail = useSelector(state => state.trail);
@@ -79,10 +79,11 @@ export default function TrailDetail() {
           <Divider />
 
           <ReviewSummary trail={trail} avgRating={avgRating} />
-
           <Divider />
+
           <WeatherContainer lat={trail.lat} lng={trail.lng} />
           <Divider />
+
           <Box className={classes.reviewsBox}>
             <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
               <Typography variant='h6' className={classes.photosTitle}>
