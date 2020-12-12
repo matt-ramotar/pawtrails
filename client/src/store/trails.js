@@ -40,10 +40,9 @@ export const getAllTrails = () => async dispatch => {
 
 export const getTrails = name => async dispatch => {
   const res = await fetch(`/api/trails/us/${name.toLowerCase()}`);
-  console.log(res);
   if (res.ok) {
     const data = await res.json();
-    console.log(data);
+
     dispatch(loadQueriedTrails(data.city, data.trails));
   }
 };
@@ -53,8 +52,7 @@ export const getTrail = id => async dispatch => {
 
   if (res.ok) {
     const data = await res.json();
-    console.log('get trail');
-    console.log(data);
+
     dispatch(loadTrail(data));
   }
 };
@@ -64,13 +62,10 @@ export const getWeather = (lat, lng) => {
     const res = await fetch(`/api/trails/weather/lat=${lat}&lng=${lng}`);
     if (res.ok) {
       const weather = await res.json();
-      console.log(weather);
-      // current
 
-      // daily
       const convertKelvintoFahrenheit = temp => temp * (9 / 5) - 459.67;
-      const week = weather.daily.map((d, i) => {
-        const icon = `http://openweathermap.org/img/wn/${d.weather[0].icon}.png`;
+      const week = weather.daily.slice(0, 4).map((d, i) => {
+        const icon = `http://openweathermap.org/img/wn/${d.weather[0].icon}@2x.png`;
         const min = convertKelvintoFahrenheit(d.temp.min);
         const max = convertKelvintoFahrenheit(d.temp.max);
         const options = { weekday: 'long' };
@@ -78,7 +73,6 @@ export const getWeather = (lat, lng) => {
         const day = new Date(today);
         day.setDate(day.getDate() + i);
         const dayOfWeek = new Intl.DateTimeFormat('en-US', options).format(day);
-        console.log(dayOfWeek);
 
         return {
           icon,
