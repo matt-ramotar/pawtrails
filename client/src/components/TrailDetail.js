@@ -12,12 +12,12 @@ import Rating from '@material-ui/lab/Rating';
 import { setReviewForm } from '../store/views';
 import { loadLists, addToList, removeFromList } from '../store/lists';
 import SaveButton from './TrailDetail/Buttons/SaveButton';
-
+import ShareButton from './TrailDetail/Buttons/ShareButton';
 export default function TrailDetail() {
   const trail = useSelector(state => state.trail);
   const user = useSelector(state => state.auth.user);
   const lists = useSelector(state => state.lists);
-  const userIsLoggedIn = Object.keys(user).length > 0;
+  const userIsLoggedIn = useSelector(state => state.auth.isLoggedIn);
 
   const dispatch = useDispatch();
 
@@ -110,14 +110,7 @@ export default function TrailDetail() {
             </Typography>
           </Box>
 
-          <Box className={classes.actionBox}>
-            <Button className={classes.actionButton}>
-              <i class='fas fa-share fa-lg' style={{ color: '#ffffff' }}></i>
-            </Button>
-            <Typography variant='body2' className={classes.actionLabel}>
-              Share
-            </Typography>
-          </Box>
+          <ShareButton />
         </Box>
         <Divider />
         <Box className={classes.contentBox}>
