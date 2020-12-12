@@ -11,6 +11,7 @@ import calcAvgRating from '../helpers/calcAvgRating';
 import Rating from '@material-ui/lab/Rating';
 import { setReviewForm } from '../store/views';
 import { loadLists, addToList, removeFromList } from '../store/lists';
+import SaveButton from './TrailDetail/Buttons/SaveButton';
 
 export default function TrailDetail() {
   const trail = useSelector(state => state.trail);
@@ -18,32 +19,15 @@ export default function TrailDetail() {
   const lists = useSelector(state => state.lists);
   const userIsLoggedIn = Object.keys(user).length > 0;
 
-  const [updates, setUpdates] = useState(0);
   const dispatch = useDispatch();
 
   const [avgRating, setAvgRating] = useState(null);
   const [numOfReviews, setNumOfReviews] = useState(null);
 
-  const [anchorEl, setAnchorEl] = useState(null);
-
   const classes = useStyles();
 
   const openReviewModal = () => {
     dispatch(setReviewForm(true));
-  };
-
-  const openListMenu = e => setAnchorEl(e.currentTarget);
-
-  const closeListMenu = () => setAnchorEl(null);
-
-  const handleSaveToList = (userId, trailId, listId) => e => {
-    if (lists.lookup[listId][trail.cityId][trailId]) {
-      dispatch(removeFromList(userId, trailId, listId));
-    } else {
-      dispatch(addToList(userId, trailId, listId));
-    }
-    setUpdates(updates + 1);
-    closeListMenu();
   };
 
   useEffect(() => {
@@ -52,11 +36,6 @@ export default function TrailDetail() {
       setNumOfReviews(trail.TrailSummary.summary.counts.reviews._total);
     }
   }, [trail]);
-
-  useEffect(() => {
-    if (user) dispatch(loadLists(user.id));
-    console.log('loaded list');
-  }, [updates]);
 
   if (Object.keys(trail).length === 0) return null;
 
@@ -111,36 +90,7 @@ export default function TrailDetail() {
             </Typography>
           </Box>
 
-          <Box className={classes.actionBox}>
-            <Button
-              disabled={userIsLoggedIn ? false : true}
-              onClick={userIsLoggedIn ? openListMenu : null}
-              className={userIsLoggedIn ? classes.actionButton : classes.actionButton__disabled}>
-              <i class='far fa-bookmark fa-lg' style={{ color: userIsLoggedIn ? '#ffffff' : '#757575' }}></i>
-            </Button>
-            <Menu
-              open={Boolean(anchorEl)}
-              anchorEl={anchorEl}
-              onClose={closeListMenu}
-              classes={{ paper: classes.custom }}>
-              {userIsLoggedIn
-                ? lists.lists.map(list => (
-                    <MenuItem onClick={handleSaveToList(user.id, trail.id, list.id)} style={{ padding: 5, margin: 0 }}>
-                      <Typography
-                        variant='body2'
-                        style={{ fontFamily: 'Roboto', fontWeight: 'bold', fontSize: '0.8rem' }}>
-                        {list.name}
-                      </Typography>
-                    </MenuItem>
-                  ))
-                : null}
-            </Menu>
-            <Typography
-              variant='body2'
-              className={userIsLoggedIn ? classes.actionLabel : classes.actionLabel__disabled}>
-              Save
-            </Typography>
-          </Box>
+          <SaveButton />
 
           <Box className={classes.actionBox}>
             <Button className={classes.actionButton}>
