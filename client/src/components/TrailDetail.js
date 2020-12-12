@@ -18,6 +18,7 @@ import Header from './TrailDetail/Header';
 import Photos from './TrailDetail/Photos';
 import ReviewSummary from './TrailDetail/ReviewSummary';
 import WeatherContainer from './TrailDetail/Weather';
+import Reviews from './TrailDetail/Reviews';
 
 export default function TrailDetail() {
   const trail = useSelector(state => state.trail);
@@ -84,73 +85,7 @@ export default function TrailDetail() {
           <WeatherContainer lat={trail.lat} lng={trail.lng} />
           <Divider />
 
-          <Box className={classes.reviewsBox}>
-            <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Typography variant='h6' className={classes.photosTitle}>
-                Reviews
-              </Typography>
-              <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
-                <Button
-                  style={{
-                    maxWidth: 30,
-                    minWidth: 30,
-                    maxHeight: 30,
-                    minHeight: 30,
-                    borderRadius: '50%',
-                    border: '1px solid #eeeeee',
-                    marginRight: 5,
-                  }}>
-                  <i class='fas fa-search' style={{ color: '#1D72E7' }}></i>
-                </Button>
-
-                <Button
-                  style={{
-                    maxHeight: 30,
-                    minHeight: 30,
-                    borderRadius: 10,
-                    border: '1px solid #eeeeee',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                  }}>
-                  <i class='fas fa-sort' style={{ color: '#1D72E7' }}></i>
-                  <Typography variant='caption' style={{ fontFamily: 'Roboto', fontWeight: 'bold' }}>
-                    Sort
-                  </Typography>
-                </Button>
-              </Box>
-            </Box>
-
-            <Box>
-              {trailConditionsArray.map(chip => (
-                <Chip
-                  clickable
-                  style={{
-                    border: '1px solid #eeeeee',
-                    backgroundColor: chip[1] ? '#ffffff' : '#E7F0FE',
-                    color: chip[1] ? '#212121' : '#1D72E7',
-                    fontSize: '0.5rem',
-                    margin: 2,
-                  }}
-                  label={
-                    <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                      <Typography style={{ marginRight: 2 }}>{chip[1] ? chip[0].toLowerCase() : chip[0]}</Typography>
-                      <Typography style={{ marginLeft: 2, color: '#bdbdbd' }}>{chip[1] ? chip[1] : ''}</Typography>
-                    </Box>
-                  }
-                />
-              ))}
-            </Box>
-
-            <Box>
-              {trail.Reviews.map(review => (
-                <Box>
-                  <ReviewCard review={review} />
-                  <Divider />
-                </Box>
-              ))}
-            </Box>
-          </Box>
+          <Reviews trail={trail} />
         </Box>
       </Paper>
     </Box>
