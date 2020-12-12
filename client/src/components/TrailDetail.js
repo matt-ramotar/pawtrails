@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Box, Divider, Paper } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
+
 import { useStyles } from './TrailDetailStyle';
 import calcAvgRating from '../helpers/calcAvgRating';
 import SaveButton from './TrailDetail/Buttons/SaveButton';
