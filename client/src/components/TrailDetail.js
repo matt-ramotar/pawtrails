@@ -16,6 +16,7 @@ import NearbyButton from './TrailDetail/Buttons/NearbyButton';
 import ReviewButton from './TrailDetail/Buttons/ReviewButton';
 import WeatherContainer from './Weather';
 import Header from './TrailDetail/Header';
+import Photos from './TrailDetail/Photos';
 
 export default function TrailDetail() {
   const trail = useSelector(state => state.trail);
@@ -72,27 +73,10 @@ export default function TrailDetail() {
             </Box>
           </Box>
           <Divider />
-          <Box className={classes.photosBox}>
-            <Typography variant='h6' className={classes.photosTitle}>
-              Photos
-            </Typography>
-            <Box className={classes.photos}>
-              {trail.Photos.map(photo => (
-                <img src={photo.url} className={classes.photo} />
-              ))}
-            </Box>
-            <Button className={classes.addPhotoButton} variant='outlined' elevation={0}>
-              <Box className={classes.addPhotoBox}>
-                <Typography variant='caption' className={classes.addPhotoText}>
-                  <span style={{ margin: 5 }}>
-                    <i class='fas fa-camera fa-2x' style={{ color: '#1D72E7' }}></i>
-                  </span>
-                  Add a Photo
-                </Typography>
-              </Box>
-            </Button>
-          </Box>
+
+          <Photos trail={trail} />
           <Divider />
+
           <Box className={classes.reviewSummaryBox}>
             <Typography variant='h6' className={classes.photosTitle}>
               Review summary
