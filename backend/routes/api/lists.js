@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const router = require('express').Router();
 
-const { List, User, TrailList } = require('../../db/models');
+const { List, User, Trail, TrailList } = require('../../db/models');
 
 // lists/favorites
 // get favorite list
@@ -26,20 +26,28 @@ router.post(
     console.log(trailId, userId, req.params.id);
     const list = await List.findByPk(req.params.id);
     const trailAddedToList = await TrailList.create({ trailId, listId: req.params.id });
-    return res.json(list);
+    const user = await User.findByPk(userId, {
+      include: [{ model: List, include: [{ model: Trail }] }],
+    });
+    res.json(user.Lists);
   })
 );
 
 router.delete(
   '/:listId/:trailId',
   asyncHandler(async (req, res, next) => {
+    const { userId } = req.body;
+
     await TrailList.destroy({
       where: {
         trailId: req.params.trailId,
         listId: req.params.listId,
       },
     });
-    return res.json({ destroyed: true });
+    const user = await User.findByPk(userId, {
+      include: [{ model: List, include: [{ model: Trail }] }],
+    });
+    res.json(user.Lists);
   })
 );
 

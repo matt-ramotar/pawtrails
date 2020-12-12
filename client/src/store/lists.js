@@ -25,15 +25,22 @@ export const addToList = (userId, trailId, listId) => async dispatch => {
   });
 
   if (res.ok) {
-    const list = await res.json();
-    console.log(list);
+    const lists = await res.json();
+    dispatch(setLists(lists));
+    dispatch(setListLookup(createListLookup(lists)));
   }
 };
 
 export const removeFromList = (userId, trailId, listId) => async dispatch => {
-  const res = await fetch(`/api/lists/${listId}/${trailId}`, { method: 'delete' });
+  const res = await fetch(`/api/lists/${listId}/${trailId}`, {
+    method: 'delete',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ userId }),
+  });
   if (res.ok) {
-    console.log(await res.json());
+    const lists = await res.json();
+    dispatch(setLists(lists));
+    dispatch(setListLookup(createListLookup(lists)));
   }
 };
 
