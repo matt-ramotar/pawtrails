@@ -37,17 +37,30 @@ export default function SaveButton() {
     closeListMenu();
   };
 
-  return (
-    <Box className={classes.root}>
-      {userIsLoggedIn ? (
-        <Button onClick={openListMenu} className={classes.button}>
-          <i class='far fa-bookmark fa-lg' style={{ color: '#ffffff' }}></i>
-        </Button>
-      ) : (
-        <Button disabled className={classes.button__disabled}>
+  const handleCreateNewList = userId => {
+    console.log(userId);
+  };
+
+  if (!userIsLoggedIn) {
+    return (
+      <Box className={classes.root}>
+        <Button disabled className={classes['button--disabled']}>
           <i class='far fa-bookmark fa-lg' style={{ color: '#757575' }}></i>
         </Button>
-      )}
+        <Typography variant='body2' className={classes['label--disabled']}>
+          Save
+        </Typography>
+      </Box>
+    );
+  }
+
+  const listsToDisplay = [...lists.lists, { name: 'Create New List' }];
+
+  return (
+    <Box className={classes.root}>
+      <Button onClick={openListMenu} className={classes.button}>
+        <i class='far fa-bookmark fa-lg' style={{ color: '#ffffff' }}></i>
+      </Button>
 
       <ThemeProvider theme={theme}>
         <Menu
@@ -57,19 +70,23 @@ export default function SaveButton() {
           classes={{ paper: classes.menu, root: classes.menu }}
           anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
           transformOrigin={{ horizontal: 'center' }}>
-          {userIsLoggedIn
-            ? lists.lists.map(list => (
-                <MenuItem onClick={handleSaveToList(user.id, trail.id, list.id)} style={{ padding: 5, margin: 0 }}>
-                  <Typography variant='body2' style={{ fontFamily: 'Roboto', fontWeight: 'bold', fontSize: '0.8rem' }}>
-                    {`❤️ ${list.name}`}
-                  </Typography>
-                </MenuItem>
-              ))
-            : null}
+          {listsToDisplay.map(list => (
+            <MenuItem
+              onClick={
+                list.name === 'Create New List'
+                  ? handleCreateNewList(user.id)
+                  : handleSaveToList(user.id, trail.id, list.id)
+              }
+              style={{ padding: 5, margin: 0 }}>
+              <Typography variant='body2' style={{ fontFamily: 'Roboto', fontWeight: 'bold', fontSize: '0.8rem' }}>
+                {list.name === 'Create New List' ? `➕ ${list.name}` : `${list.icon} ${list.name}`}
+              </Typography>
+            </MenuItem>
+          ))}
         </Menu>
       </ThemeProvider>
 
-      <Typography variant='body2' className={userIsLoggedIn ? classes.label : classes.label__disabled}>
+      <Typography variant='body2' className={classes.label}>
         Save
       </Typography>
     </Box>
