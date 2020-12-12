@@ -2,19 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Box, Divider, Paper } from '@material-ui/core';
 
-import { useStyles } from './TrailDetailStyle';
-import calcAvgRating from '../helpers/calcAvgRating';
-import SaveButton from './TrailDetail/Buttons/SaveButton';
-import ShareButton from './TrailDetail/Buttons/ShareButton';
-import DirectionsButton from './TrailDetail/Buttons/DirectionsButton';
-import NearbyButton from './TrailDetail/Buttons/NearbyButton';
-import ReviewButton from './TrailDetail/Buttons/ReviewButton';
-import Header from './TrailDetail/Header';
-import Description from './TrailDetail/Description';
-import Photos from './TrailDetail/Photos';
-import ReviewSummary from './TrailDetail/ReviewSummary';
-import WeatherContainer from './TrailDetail/Weather';
-import Reviews from './TrailDetail/Reviews';
+import { useStyles } from './TrailDetail.styles';
+import calcAvgRating from '../../helpers/calcAvgRating';
+import SaveButton from './Buttons/SaveButton';
+import ShareButton from './Buttons/ShareButton';
+import DirectionsButton from './Buttons/DirectionsButton';
+import NearbyButton from './Buttons/NearbyButton';
+import ReviewButton from './Buttons/ReviewButton';
+import Header from './Header';
+import Description from './Description';
+import Photos from './Photos';
+import ReviewSummary from './ReviewSummary';
+import WeatherContainer from './Weather';
+import Reviews from './Reviews';
 
 export default function TrailDetail() {
   const classes = useStyles();
