@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import { Box, Button, Menu, Modal, Typography } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { makeStyles } from '@material-ui/styles';
 import ReviewForm from '../../../forms/ReviewForm';
-import { useStyles } from '../../TrailDetailStyle';
+import { useStyles } from './WriteReviewButton.styles';
 import { setReviewForm } from '../../../store/views';
 
 export default function WriteReviewButton() {
