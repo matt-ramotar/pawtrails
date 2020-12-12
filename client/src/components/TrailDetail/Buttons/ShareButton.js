@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Box, Button, Popover, Typography } from '@material-ui/core';
-import fb from './fb.svg';
-import twitter from './twitter.svg';
+import fb from '../../../images/fb.svg';
+import twitter from '../../../images/twitter.svg';
 
 import { useStyles } from './ShareButton.styles.jsx';
 import { FacebookShareButton, RedditShareButton, TwitterShareButton, RedditIcon } from 'react-share';
@@ -11,8 +11,6 @@ export default function ShareButton() {
   const classes = useStyles();
 
   const trail = useSelector(state => state.trail);
-
-  const userIsLoggedIn = useSelector(state => state.auth.isLoggedIn);
 
   const [popoverIsOpen, setPopoverIsOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -59,7 +57,7 @@ export default function ShareButton() {
 
           <Box>
             <RedditShareButton url={`https://matt-ramotar-pawtrails.herokuapp.com`}>
-              <RedditIcon size={44} round={true} bgStyle={{ fill: '#F94503' }} />
+              <RedditIcon size={44} round={true} bgStyle={{ fill: '#F94503' }} title={trail.name} />
             </RedditShareButton>
           </Box>
         </Box>
