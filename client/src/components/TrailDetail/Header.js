@@ -10,7 +10,7 @@ export default function Header({ trail, avgRating, numOfReviews }) {
   const userIsLoggedIn = useSelector(state => state.auth.isLoggedIn);
   const lists = useSelector(state => state.lists);
 
-  if (userIsLoggedIn && !lists) return null;
+  if (userIsLoggedIn && !lists.lists) return null;
 
   return (
     <Box className={classes.root}>
