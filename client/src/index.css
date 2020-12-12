@@ -13,7 +13,7 @@ code {
     monospace;
 }
 
-#map-box, #filters-box, #search-box, #detail-box, #bottom-nav {
+#map-box, #filters-box, #search-box, #trail-detail, #bottom-nav {
   -moz-transform: scale(0.8, 0.8);
   zoom: 0.8;
   zoom: 80%;
