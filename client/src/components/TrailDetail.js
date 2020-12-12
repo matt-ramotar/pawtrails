@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Box, Button, Card, Chip, Divider, Menu, MenuItem, Paper, Typography } from '@material-ui/core';
+import { Box, Button, Chip, Divider, Paper, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
-import { loadTrailReviews } from '../store/reviews';
 import { useStyles } from './TrailDetailStyle';
 import RatingsChart from '../charts/RatingsChart';
 import WriteReviewButton from './WriteReviewButton';
@@ -10,14 +9,16 @@ import ReviewCard from './ReviewCard';
 import calcAvgRating from '../helpers/calcAvgRating';
 import Rating from '@material-ui/lab/Rating';
 import { setReviewForm } from '../store/views';
-import { loadLists, addToList, removeFromList } from '../store/lists';
 import SaveButton from './TrailDetail/Buttons/SaveButton';
 import ShareButton from './TrailDetail/Buttons/ShareButton';
+import DirectionsButton from './TrailDetail/Buttons/DirectionsButton';
+import NearbyButton from './TrailDetail/Buttons/NearbyButton';
+import ReviewButton from './TrailDetail/Buttons/ReviewButton';
+import WeatherContainer from './Weather';
+import Header from './TrailDetail/Header';
+
 export default function TrailDetail() {
   const trail = useSelector(state => state.trail);
-  const user = useSelector(state => state.auth.user);
-  const lists = useSelector(state => state.lists);
-  const userIsLoggedIn = useSelector(state => state.auth.isLoggedIn);
 
   const dispatch = useDispatch();
 
@@ -47,69 +48,13 @@ export default function TrailDetail() {
   return (
     <Box id='detail-box'>
       <Paper style={{ width: '80%', maxHeight: '100%', marginLeft: '2.5%', marginTop: 50 }}>
-        <Box className={classes.headerBox}>
-          <Box
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              padding: 5,
-              alignItems: 'flex-start',
-            }}>
-            <Typography variant='h5' className={classes.headerTitle}>
-              <span style={{ fontSize: '2rem', fontFamily: 'Roboto' }}>📍</span>
-              {trail.name}
-            </Typography>
-            <Button>
-              <Typography variant='h5' className={classes.headerTitle}>
-                <span style={{ fontSize: '1.5rem', fontFamily: 'Roboto', marginLeft: 10 }}>
-                  {userIsLoggedIn ? (lists.lookup[lists.lists[0].id][trail.cityId][trail.id] ? `❤️` : `🤍`) : null}
-                </span>
-              </Typography>
-            </Button>
-          </Box>
-          <Box className={classes.headerRatingBox}>
-            <Typography variant='caption'>{avgRating}</Typography>
-            <Box className={classes.stars}>
-              <Rating value={avgRating} readOnly size='small' />
-            </Box>
-            <Typography variant='caption'>{`(${numOfReviews})`}</Typography>
-          </Box>
-          <Typography variant='caption' className={classes.headerDescription}>
-            Dog-friendly trail
-          </Typography>
-        </Box>
+        <Header trail={trail} avgRating={avgRating} numOfReviews={numOfReviews} />
         <Divider />
-        <Box className={classes.actionsBox}>
-          <Box className={classes.actionBox}>
-            <Button className={classes.actionButton}>
-              <i class='fas fa-directions fa-lg' style={{ color: '#ffffff' }}></i>
-            </Button>
-            <Typography variant='body2' className={classes.actionLabel}>
-              Directions
-            </Typography>
-          </Box>
-
+        <Box className={classes.actions__box}>
+          <DirectionsButton />
           <SaveButton />
-
-          <Box className={classes.actionBox}>
-            <Button className={classes.actionButton}>
-              <i class='fas fa-map-signs fa-lg' style={{ color: '#ffffff' }}></i>
-            </Button>
-            <Typography variant='body2' className={classes.actionLabel}>
-              Nearby
-            </Typography>
-          </Box>
-
-          <Box className={classes.actionBox}>
-            <Button onClick={openReviewModal} className={classes.actionButton}>
-              <i class='fas fa-pen fa-lg' style={{ color: '#ffffff' }}></i>
-            </Button>
-            <Typography variant='body2' className={classes.actionLabel}>
-              Review
-            </Typography>
-          </Box>
-
+          <NearbyButton />
+          <ReviewButton />
           <ShareButton />
         </Box>
         <Divider />
@@ -147,7 +92,6 @@ export default function TrailDetail() {
               </Box>
             </Button>
           </Box>
-
           <Divider />
           <Box className={classes.reviewSummaryBox}>
             <Typography variant='h6' className={classes.photosTitle}>
@@ -171,6 +115,8 @@ export default function TrailDetail() {
             </Box>
             <WriteReviewButton />
           </Box>
+          <Divider />
+          <WeatherContainer lat={trail.lat} lng={trail.lng} />
           <Divider />
           <Box className={classes.reviewsBox}>
             <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
