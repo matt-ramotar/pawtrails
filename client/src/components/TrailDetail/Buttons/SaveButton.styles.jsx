@@ -16,7 +16,7 @@ export const useStyles = makeStyles(theme => ({
     borderRadius: '50%',
   },
 
-  button__disabled: {
+  'button--disabled': {
     backgroundColor: '#414141',
     minWidth: 40,
     minHeight: 40,
@@ -31,14 +31,14 @@ export const useStyles = makeStyles(theme => ({
     fontWeight: 'bold',
   },
 
-  label__disabled: {
+  'label--disabled': {
     color: '#414141',
     fontFamily: 'Roboto',
     fontWeight: 'bold',
   },
   menu: {
-    width: 110,
+    width: 130,
     marginTop: -80,
-    marginLeft: 35,
+    marginLeft: 40,
   },
 }));
