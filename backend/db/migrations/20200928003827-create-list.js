@@ -15,6 +15,9 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: 'Users' },
       },
+      icon: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
