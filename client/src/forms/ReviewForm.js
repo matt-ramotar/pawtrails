@@ -14,7 +14,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import { useStyles } from './ReviewFormStyle';
+import { useStyles } from './ReviewForm.styles';
 import Rating from '@material-ui/lab/Rating';
 import { createReview } from '../store/reviews';
 import { setReviewForm } from '../store/views';
