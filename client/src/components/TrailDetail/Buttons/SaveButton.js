@@ -7,6 +7,7 @@ import { CssBaseline } from '@material-ui/core';
 import { useStyles } from './SaveButton.styles.jsx';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import ListForm from '../../../forms/ListForm';
+import { createList } from '../../../store/lists';
 
 import Picker from 'emoji-picker-react';
 
@@ -60,7 +61,10 @@ export default function SaveButton() {
 
   const handleCreateNewList = userId => () => {
     console.log('need to create new list with name', name, 'icon', icon);
+    dispatch(createList({ userId, name, icon }));
     setUpdates(updates + 1);
+    setName(null);
+    setIcon(null);
     closePopover();
   };
 
