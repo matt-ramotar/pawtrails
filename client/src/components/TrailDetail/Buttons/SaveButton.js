@@ -46,7 +46,7 @@ export default function SaveButton() {
 
   const onEmojiClick = (event, emojiObject) => {
     setIcon(emojiObject.emoji);
-    handleClose();
+    closeEmojiPopover();
   };
 
   const handleSaveToList = (userId, trailId, listId) => () => {
@@ -211,7 +211,7 @@ export default function SaveButton() {
                 horizontal: 'right',
               }}
               transformOrigin={{
-                vertical: 'top',
+                vertical: 'bottom',
                 horizontal: 'left',
               }}>
               <Picker onEmojiClick={onEmojiClick} />
