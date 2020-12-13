@@ -8,13 +8,18 @@ const ADD_TO_LIST = 'lists/ADD_TO_LIST';
 export const setLists = lists => ({ type: SET_LISTS, lists });
 export const setListLookup = lookup => ({ type: SET_LIST_LOOKUP, lookup });
 
-export const createList = ({ userId, listName }) => async dispatch => {
-  const response = await fetch('/api/lists', {
+export const createList = ({ userId, name, icon }) => async dispatch => {
+  const res = await fetch('/api/lists', {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ userId, listName }),
+    body: JSON.stringify({ userId, name, icon }),
   });
-  console.log(response);
+
+  if (res.ok) {
+    const lists = await res.json();
+    dispatch(setLists(lists));
+    dispatch(setListLookup(createListLookup(lists)));
+  }
 };
 
 export const addToList = (userId, trailId, listId) => async dispatch => {
