@@ -41,4 +41,14 @@ export const useStyles = makeStyles(theme => ({
     marginTop: -80,
     marginLeft: 40,
   },
+  input__text: {
+    fontFamily: 'Roboto',
+    fontWeight: 'bold',
+    verticalAlign: 'bottom',
+  },
+  'input__text--emoji': {
+    fontFamily: 'Roboto',
+    fontWeight: 'bold',
+    fontSize: '1.25rem',
+  },
 }));

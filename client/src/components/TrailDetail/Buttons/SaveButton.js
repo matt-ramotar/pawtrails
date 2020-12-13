@@ -142,14 +142,14 @@ export default function SaveButton() {
                 alignItems: 'center',
               }}>
               <TextField
-                InputProps={{ disableUnderline: true }}
+                InputProps={{ disableUnderline: true, classes: { input: classes['input__text--emoji'] } }}
                 placeholder='💪'
                 value={icon}
                 onChange={e => setIcon(e.target.value)}
                 style={{ width: 25, margin: 5 }}></TextField>
 
               <TextField
-                InputProps={{ disableUnderline: true, fontWeight: 'bold' }}
+                InputProps={{ disableUnderline: true, classes: { input: classes.input__text } }}
                 placeholder='Completed'
                 value={name}
                 onChange={e => setName(e.target.value)}
