@@ -10,12 +10,14 @@ const { List, User, Trail, TrailList } = require('../../db/models');
 router.post(
   '/',
   asyncHandler(async (req, res, next) => {
-    const { userId, listName } = req.body;
+    const { userId, name, icon } = req.body;
 
-    // get userTrail where userId trailId and listId name attribute equals 'My favorites'
-    const list = await List.create({ name: listName, userId });
+    const list = await List.create({ name, icon, userId });
 
-    return res.json(list);
+    const user = await User.findByPk(userId, {
+      include: [{ model: List, include: [{ model: Trail }] }],
+    });
+    res.json(user.Lists);
   })
 );
 
