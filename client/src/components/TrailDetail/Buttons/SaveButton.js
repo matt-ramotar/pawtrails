@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Box, Button, Menu, MenuItem, Typography } from '@material-ui/core';
+import { Box, Button, Menu, MenuItem, Modal, Paper, Popover, TextField, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { addToList, removeFromList } from '../../../store/lists';
 import { CssBaseline } from '@material-ui/core';
 import { useStyles } from './SaveButton.styles.jsx';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import ListForm from '../../../forms/ListForm';
+
+import Picker from 'emoji-picker-react';
 
 const theme = createMuiTheme({
   palette: {
@@ -18,8 +21,18 @@ export default function SaveButton() {
   const user = useSelector(state => state.auth.user);
   const lists = useSelector(state => state.lists);
 
+  const [icon, setIcon] = useState(null);
+  const [name, setName] = useState(null);
+
   const userIsLoggedIn = useSelector(state => state.auth.isLoggedIn);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [popoverAnchorEl, setPopoverAnchorEl] = useState(null);
+  const [updates, setUpdates] = useState(0);
+
+  const [emojiAnchorEl, setEmojiAnchorEl] = useState(null);
+
+  const openEmojiPopover = e => setEmojiAnchorEl(e.currentTarget);
+  const closeEmojiPopover = () => setEmojiAnchorEl(null);
 
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -27,6 +40,14 @@ export default function SaveButton() {
   const openListMenu = e => setAnchorEl(e.currentTarget);
 
   const closeListMenu = () => setAnchorEl(null);
+
+  const openPopover = e => setPopoverAnchorEl(e.currentTarget);
+  const closePopover = () => setPopoverAnchorEl(null);
+
+  const onEmojiClick = (event, emojiObject) => {
+    setIcon(emojiObject.emoji);
+    handleClose();
+  };
 
   const handleSaveToList = (userId, trailId, listId) => () => {
     if (lists.lookup[listId][trail.cityId][trailId]) {
@@ -37,8 +58,14 @@ export default function SaveButton() {
     closeListMenu();
   };
 
-  const handleCreateNewList = userId => {
-    console.log(userId);
+  const handleCreateNewList = userId => () => {
+    console.log('need to create new list with name', name, 'icon', icon);
+    setUpdates(updates + 1);
+    closePopover();
+  };
+
+  const handleClose = () => {
+    setUpdates(updates + 1);
   };
 
   if (!userIsLoggedIn) {
@@ -72,11 +99,7 @@ export default function SaveButton() {
           transformOrigin={{ horizontal: 'center' }}>
           {listsToDisplay.map(list => (
             <MenuItem
-              onClick={
-                list.name === 'Create New List'
-                  ? handleCreateNewList(user.id)
-                  : handleSaveToList(user.id, trail.id, list.id)
-              }
+              onClick={list.name === 'Create New List' ? openPopover : handleSaveToList(user.id, trail.id, list.id)}
               style={{ padding: 5, margin: 0 }}>
               <Typography variant='body2' style={{ fontFamily: 'Roboto', fontWeight: 'bold', fontSize: '0.8rem' }}>
                 {list.name === 'Create New List' ? `➕ ${list.name}` : `${list.icon} ${list.name}`}
@@ -84,6 +107,110 @@ export default function SaveButton() {
             </MenuItem>
           ))}
         </Menu>
+      </ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <Popover
+          open={Boolean(popoverAnchorEl)}
+          anchorEl={popoverAnchorEl}
+          onClose={closePopover}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+          }}>
+          <Box
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              fontFamily: 'Roboto',
+              color: '#212121',
+            }}>
+            <Paper className={{ width: '100%' }}>
+              <Box
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}>
+                <TextField
+                  InputProps={{ disableUnderline: true }}
+                  placeholder='💪'
+                  value={icon}
+                  onChange={e => setIcon(e.target.value)}
+                  style={{ width: 50 }}></TextField>
+
+                <TextField
+                  InputProps={{ disableUnderline: true, fontWeight: 'bold' }}
+                  placeholder='Completed'
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                  style={{ width: 100 }}></TextField>
+                <Box
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                  }}>
+                  <Button
+                    onClick={openEmojiPopover}
+                    style={{
+                      minWidth: 25,
+                      minHeight: 25,
+                      maxHeight: 25,
+                      maxWidth: 25,
+                      borderRadius: '50%',
+                    }}>
+                    <span style={{ fontSize: '1.25rem' }}>😀</span>
+                  </Button>
+                </Box>
+                <Box
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <Button
+                    disabled={name && icon ? false : true}
+                    onClick={handleCreateNewList(user.id)}
+                    style={{
+                      backgroundColor: name && icon ? '#1D72E7' : '#eeeeee',
+                      color: name ? '#ffffff' : '#bdbdbd',
+
+                      minWidth: 25,
+                      minHeight: 25,
+                      maxHeight: 25,
+                      maxWidth: 25,
+                      borderRadius: '50%',
+                    }}>
+                    <Typography>➕</Typography>
+                  </Button>
+                </Box>
+              </Box>
+
+              <Popover
+                open={Boolean(emojiAnchorEl)}
+                anchorEl={emojiAnchorEl}
+                onClose={closeEmojiPopover}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}>
+                <Picker onEmojiClick={onEmojiClick} />
+              </Popover>
+            </Paper>
+          </Box>
+        </Popover>
       </ThemeProvider>
 
       <Typography variant='body2' className={classes.label}>
