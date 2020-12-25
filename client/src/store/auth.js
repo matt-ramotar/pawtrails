@@ -96,7 +96,7 @@ function loadUser() {
 export default function authReducer(state = initialState, action) {
   switch (action.type) {
     case SET_ACCOUNT_BOOLEAN:
-      return { isLoggedIn: false, hasAccount: action.boolean };
+      return { user: {}, isLoggedIn: false, hasAccount: action.boolean };
     case SET_USER:
       return action.user;
     case REMOVE_USER:
