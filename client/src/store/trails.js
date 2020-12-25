@@ -1,10 +1,10 @@
-import { setCity } from './cities';
-
 const LOAD_ALL_TRAILS = 'trails/LOAD_ALL_TRAILS';
 const LOAD_QUERIED_TRAILS = 'trails/LOAD_QUERIED_TRAILS';
 
 const LOAD_TRAIL = 'trails/LOAD_TRAIL';
 const SET_WEATHER = '/weather/SET_WEATHER';
+
+const SET_MATCHES = 'trails/SET_MATCHES';
 
 export const loadAllTrails = trails => ({
   type: LOAD_ALL_TRAILS,
@@ -21,6 +21,8 @@ export const loadTrail = trail => ({
   type: LOAD_TRAIL,
   trail,
 });
+
+export const setMatches = matches => ({ type: SET_MATCHES, matches });
 
 const setWeather = (weather, week) => {
   return {
@@ -106,6 +108,9 @@ export default function trailsReducer(state = {}, action) {
           daily: action.week,
         },
       };
+
+    case SET_MATCHES:
+      return { ...state, matches: action.match };
 
     default:
       return state;
